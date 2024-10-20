@@ -4,3 +4,6 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+demand = "1.2.4"
+clap = "4.5.20"
+colored = "2.1.0"
