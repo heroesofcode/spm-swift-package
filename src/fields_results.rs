@@ -37,8 +37,8 @@ impl FieldsResults {
 	}
 
 	fn multi_select_input() -> Vec<&'static str> {
-		let multi_select = MultiSelect::new("Toppings")
-			.description("Select your files")
+		let multi_select = MultiSelect::new("Add files")
+			.description("Do you want to add some of these files?")
 			.filterable(true)
 			.option(DemandOption::new("Changelog"))
 			.option(DemandOption::new("Readme"));
