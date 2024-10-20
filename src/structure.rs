@@ -73,8 +73,6 @@ impl Structure {
 			fs::File::create(format!("{}/{}", project_name, name_file))
             .expect("Error creating file");
 
-		file
-			.write_all(content.as_bytes())
-			.expect("Error writing to file");
+		file.write_all(content.as_bytes()).expect("Error writing to file");
 	}
 }
