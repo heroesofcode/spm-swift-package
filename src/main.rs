@@ -1,14 +1,16 @@
 use demand::{Input, MultiSelect, DemandOption};
 
+mod spm;
+mod content;
+
+use spm::Spm;
+
 fn main() {
     println!("SPM Swift Package\n");
 
     let notempty_minlen = |s: &str| {
         if s.is_empty() {
             return Err("Name cannot be empty");
-        }
-        if s.len() < 8 {
-            return Err("Name must be at least 8 characters");
         }
         Ok(())
     };
@@ -18,9 +20,9 @@ fn main() {
         .prompt("Library: ")
         .validation(notempty_minlen);
 
-    let i = t.run().expect("error running input");
+    let project_name = t.run().expect("error running input");
 
-    println!("The name is {}", i);
+    println!("The name is {}", project_name);
     print!("\n");
 
     let ms = MultiSelect::new("Toppings")
@@ -40,4 +42,6 @@ fn main() {
         .collect();
 
     println!("Toppings selecionados: {:?}", selected);
+
+    Spm::create_spm(&project_name);
 }
