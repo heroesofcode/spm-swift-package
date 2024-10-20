@@ -6,6 +6,7 @@ use crate::content::*;
 pub struct Structure;
 
 impl Structure {
+
 	pub fn create_project(project_name: &str) {
 		let path = format!("{}/Sources/{}", project_name, project_name);
 		fs::create_dir_all(&path).expect("Error creating project");
@@ -22,7 +23,7 @@ impl Structure {
 			.write_all(content.as_bytes())
 			.expect("Error creating file");
 
-		println!("✅ Library {} created successfully", project_name);
+		println!("\n✅ Library {} created successfully", project_name);
 	}
 
 	pub fn create_test_folder(project_name: &str) {

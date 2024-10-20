@@ -1,6 +1,7 @@
 pub struct Content;
 
 impl Content {
+    
     pub fn project_swift_content() -> String {
         let content = 
 r#"// The Swift Programming Language
