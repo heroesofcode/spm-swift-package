@@ -2,6 +2,7 @@ use demand::{Input, MultiSelect, DemandOption};
 
 mod spm;
 mod content;
+mod structure;
 
 use spm::Spm;
 
@@ -10,7 +11,7 @@ fn main() {
 
     let notempty_minlen = |s: &str| {
         if s.is_empty() {
-            return Err("Name cannot be empty");
+            return Err("Library name cannot be empty");
         }
         Ok(())
     };
@@ -27,11 +28,9 @@ fn main() {
 
     let ms = MultiSelect::new("Toppings")
         .description("Select your files")
-        .min(1)
         .filterable(true)
-        .option(DemandOption::new("CHANGELOG"))
-        .option(DemandOption::new("Swift Package Index"))
-        .option(DemandOption::new("SwiftLint with mise"));
+        .option(DemandOption::new("Changelog"))
+        .option(DemandOption::new("Readme"));
     
     let result = ms.run().expect("error running multi select");
 
@@ -41,7 +40,7 @@ fn main() {
         .copied() 
         .collect();
 
-    println!("Toppings selecionados: {:?}", selected);
+    print!("\n");
 
-    Spm::create_spm(&project_name);
+    Spm::create_spm(&project_name, selected);
 }
