@@ -1,19 +1,18 @@
 pub struct Content;
 
 impl Content {
-    
     pub fn project_swift_content() -> String {
-        let content = 
-r#"// The Swift Programming Language
+        let content =
+            r#"// The Swift Programming Language
 // https://docs.swift.org/swift-book/
 "#;
 
-        return content.to_string()
+        return content.to_string();
     }
 
     pub fn test_content(project_name: &str) -> String {
         let content = format!(
-r#"import XCTest
+            r#"import XCTest
 @testable import {}
 
 final class {}Tests: XCTestCase {{
@@ -27,12 +26,12 @@ final class {}Tests: XCTestCase {{
 }}
 "#, project_name, project_name);
 
-        return content
+        return content;
     }
 
     pub fn package_swift_content(project_name: &str) -> String {
         let content = format!(
-r#"// swift-tools-version: 6.0
+            r#"// swift-tools-version: 6.0
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -58,12 +57,12 @@ let package = Package(
 )
 "#, project_name, project_name, project_name, project_name, project_name, project_name);
 
-        return content
+        return content;
     }
 
     pub fn changelog_content() -> String {
-        let content = 
-r#"# CHANGELOG
+        let content =
+            r#"# CHANGELOG
 
 ## Version 1.0.0
 **2024-01-18**
@@ -71,12 +70,11 @@ r#"# CHANGELOG
 - First release
 "#;
 
-        return content.to_string()
+        return content.to_string();
     }
 
     pub fn readme_content(project_name: &str) -> String {
         let content = format!("{}", project_name);
-        return content
+        return content;
     }
-
 }
