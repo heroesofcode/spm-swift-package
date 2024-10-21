@@ -28,7 +28,7 @@ brew install heroesofcode/taps/spm-swift-package
 spm-swift-package
 ```
 
-<img src="https://github.com/heroesofcode/spm-swift-package/blob/feature/add-file-and-create-readme/assets/example.gif?raw=true">
+<img src="https://github.com/heroesofcode/spm-swift-package/blob/main/assets/example.gif?raw=true">
 
 ## Contributing
 
