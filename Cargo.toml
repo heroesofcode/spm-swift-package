@@ -9,9 +9,6 @@ readme = "README.md"
 repository = "https://github.com/heroesofcode/spm-swift-package"
 exclude = [".github/**"]
 
-[package.metadata]
-msrv = "1.74.1"
-
 [dependencies]
 demand = "1.2.4"
 clap = "4.5.20"
