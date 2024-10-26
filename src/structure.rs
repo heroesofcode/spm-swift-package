@@ -62,7 +62,7 @@ impl Structure {
     }
 
     fn base_root_project(project_name: &str, name_file: &str, content: String) {
-        let path = format!("{}", project_name);
+        let path = project_name.to_string();
         fs::create_dir_all(&path).expect("Error creating test folder");
 
         let mut file =

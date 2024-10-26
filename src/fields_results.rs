@@ -32,8 +32,7 @@ impl FieldsResults {
             .prompt("Library: ")
             .validation(validation_empty);
 
-        let project_name = input.run().expect("error running input");
-        return project_name;
+        input.run().expect("error running input")
     }
 
     fn multi_select_input() -> Vec<&'static str> {
@@ -51,14 +50,14 @@ impl FieldsResults {
             .copied()
             .collect();
 
-        return selected;
+        selected
     }
 
     fn loading() {
         Spinner::new("\nBuilding the Package...")
             .style(&SpinnerStyle::line())
             .run(|_| {
-                sleep(Duration::from_secs(3));
+                sleep(Duration::from_secs(10));
             })
             .expect("error running spinner");
     }
