@@ -20,7 +20,7 @@ impl FieldsResults {
     }
 
     fn project_name_input() -> String {
-        let notempty_minlen = |s: &str| {
+        let validation_empty = |s: &str| {
             if s.is_empty() {
                 return Err("Library name cannot be empty");
             }
@@ -30,7 +30,7 @@ impl FieldsResults {
         let input = Input::new("Library name")
             .placeholder("Enter the library name")
             .prompt("Library: ")
-            .validation(notempty_minlen);
+            .validation(validation_empty);
 
         let project_name = input.run().expect("error running input");
         return project_name;
