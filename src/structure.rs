@@ -18,9 +18,7 @@ impl Structure {
         ))
             .expect("Error writing to file");
 
-        file
-            .write_all(content.as_bytes())
-            .expect("Error creating file");
+        file.write_all(content.as_bytes()).expect("Error creating file");
 
         println!("\n✅ Library {} created successfully", project_name);
     }
@@ -37,9 +35,7 @@ impl Structure {
         ))
             .expect("Error creating file");
 
-        file
-            .write_all(content.as_bytes())
-            .expect("Error writing to file");
+        file.write_all(content.as_bytes()).expect("Error writing to file");
 
         println!("✅ Test created successfully");
     }
