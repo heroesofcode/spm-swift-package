@@ -7,7 +7,7 @@ impl Content {
 // https://docs.swift.org/swift-book/
 "#;
 
-        return content.to_string();
+        content.to_string()
     }
 
     pub fn test_content(project_name: &str) -> String {
@@ -26,7 +26,7 @@ final class {}Tests: XCTestCase {{
 }}
 "#, project_name, project_name);
 
-        return content;
+        content
     }
 
     pub fn package_swift_content(project_name: &str) -> String {
@@ -57,7 +57,7 @@ let package = Package(
 )
 "#, project_name, project_name, project_name, project_name, project_name, project_name);
 
-        return content;
+        content
     }
 
     pub fn changelog_content() -> String {
@@ -70,11 +70,10 @@ let package = Package(
 - First release
 "#;
 
-        return content.to_string();
+        content.to_string()
     }
 
     pub fn readme_content(project_name: &str) -> String {
-        let content = format!("{}", project_name);
-        return content;
+        project_name.to_string()
     }
 }

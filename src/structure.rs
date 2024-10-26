@@ -18,9 +18,7 @@ impl Structure {
         ))
             .expect("Error writing to file");
 
-        file
-            .write_all(content.as_bytes())
-            .expect("Error creating file");
+        file.write_all(content.as_bytes()).expect("Error creating file");
 
         println!("\n✅ Library {} created successfully", project_name);
     }
@@ -37,9 +35,7 @@ impl Structure {
         ))
             .expect("Error creating file");
 
-        file
-            .write_all(content.as_bytes())
-            .expect("Error writing to file");
+        file.write_all(content.as_bytes()).expect("Error writing to file");
 
         println!("✅ Test created successfully");
     }
@@ -66,7 +62,7 @@ impl Structure {
     }
 
     fn base_root_project(project_name: &str, name_file: &str, content: String) {
-        let path = format!("{}", project_name);
+        let path = project_name.to_string();
         fs::create_dir_all(&path).expect("Error creating test folder");
 
         let mut file =
