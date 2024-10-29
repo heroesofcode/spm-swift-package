@@ -15,12 +15,9 @@ impl Structure {
         let mut file = fs::File::create(format!(
             "{}/Sources/{}/{}.swift",
             project_name, project_name, project_name
-        ))
-            .expect("Error writing to file");
+        )).expect("Error writing to file");
 
         file.write_all(content.as_bytes()).expect("Error creating file");
-
-        println!("\n✅ Library {} created successfully", project_name);
     }
 
     pub fn create_test_folder(project_name: &str) {
@@ -32,33 +29,29 @@ impl Structure {
         let mut file = fs::File::create(format!(
             "{}/Tests/{}Tests/{}Tests.swift",
             project_name, project_name, project_name
-        ))
-            .expect("Error creating file");
+        )).expect("Error creating file");
 
         file.write_all(content.as_bytes()).expect("Error writing to file");
-
-        println!("✅ Test created successfully");
     }
 
     pub fn create_package_swift(project_name: &str) {
         let content = Content::package_swift_content(project_name);
         Self::base_root_project(project_name, "Package.swift", content);
-
-        println!("✅ Package.swift created successfully");
     }
 
     pub fn create_changelog(project_name: &str) {
         let content = Content::changelog_content();
         Self::base_root_project(project_name, "CHANGELOG.md", content);
-
-        println!("✅ Changelog created successfully");
     }
 
     pub fn create_readme(project_name: &str) {
         let content = Content::readme_content(project_name);
         Self::base_root_project(project_name, "README.md", content);
+    }
 
-        println!("✅ Readme created successfully");
+    pub fn create_spi(project_name: &str) {
+        let content = Content::spi_content(project_name);
+        Self::base_root_project(project_name, ".spi.yml", content);
     }
 
     fn base_root_project(project_name: &str, name_file: &str, content: String) {

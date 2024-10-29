@@ -5,7 +5,7 @@ mod structure;
 mod header;
 
 use fields_results::FieldsResults;
-use crate::header::Header;
+use header::Header;
 
 fn main() {
     Header::show_header();
