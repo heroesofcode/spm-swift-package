@@ -28,20 +28,7 @@ brew install heroesofcode/taps/spm-swift-package
 spm-swift-package
 ```
 
-- Enter the package name
-<img src="https://github.com/heroesofcode/spm-swift-package/blob/main/assets/example1.png?raw=true">
-
-- Select which files you want to add to your Package
-<img src="https://github.com/heroesofcode/spm-swift-package/blob/main/assets/example2.png?raw=true">
-
-- After filling everything in it will start generating the Package
-<img src="https://github.com/heroesofcode/spm-swift-package/blob/main/assets/example3.png?raw=true">
-
-- If everything went well, it will show the status that it was created successfully.
-<img src="https://github.com/heroesofcode/spm-swift-package/blob/main/assets/example4.png?raw=true">
-
-- It will automatically open your SPM that was generated in Xcode
-<img src="https://github.com/heroesofcode/spm-swift-package/blob/main/assets/example5.png?raw=true">
+<img src="https://github.com/heroesofcode/spm-swift-package/blob/main/assets/example.gif?raw=true">
 
 And from here you can continue working on your SPM project 🚀 🙂 👨‍💻 👩‍💻
 

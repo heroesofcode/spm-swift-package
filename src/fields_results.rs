@@ -13,9 +13,7 @@ impl FieldsResults {
         let selected = Self::multi_select_input();
 
         Self::loading();
-
         Spm::create_spm(&project_name, selected);
-
         Self::command_open_xcode(project_name);
     }
 
@@ -40,6 +38,7 @@ impl FieldsResults {
             .description("Do you want to add some of these files?")
             .filterable(true)
             .option(DemandOption::new("Changelog"))
+            .option(DemandOption::new("Swift Package Index"))
             .option(DemandOption::new("Readme"));
 
         let result = multi_select.run().expect("error running multi select");
@@ -54,10 +53,10 @@ impl FieldsResults {
     }
 
     fn loading() {
-        Spinner::new("\nBuilding the Package...")
+        Spinner::new("Building the Package...")
             .style(&SpinnerStyle::line())
             .run(|_| {
-                sleep(Duration::from_secs(10));
+                sleep(Duration::from_secs(5));
             })
             .expect("error running spinner");
     }

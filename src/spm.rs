@@ -15,5 +15,9 @@ impl Spm {
         if selected.contains(&"Readme") {
             Structure::create_readme(project_name);
         }
+
+        if selected.contains(&"Swift Package Index") {
+            Structure::create_spi(project_name);
+        }
     }
 }

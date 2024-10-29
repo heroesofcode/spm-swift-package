@@ -74,6 +74,23 @@ let package = Package(
     }
 
     pub fn readme_content(project_name: &str) -> String {
-        project_name.to_string()
+        let content = format!(
+            r#"# {}
+"#, project_name);
+
+        content
     }
+
+    pub fn spi_content(project_name: &str) -> String {
+        let content = format!(
+            r#"version: 1
+builder:
+  configs:
+    - documentation_targets: [{}]
+      scheme: {}
+"#, project_name, project_name);
+
+        content
+    }
+
 }
