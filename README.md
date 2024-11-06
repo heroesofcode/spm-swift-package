@@ -31,6 +31,7 @@ spm-swift-package
 <img src="https://github.com/heroesofcode/spm-swift-package/blob/main/assets/example.gif?raw=true">
 
 After generating the Package, it will automatically open in Xcode
+
 <img src="https://github.com/heroesofcode/spm-swift-package/blob/main/assets/xcode.png?raw=true">
 
 And from here you can continue working on your SPM project 🚀 🙂 👨‍💻 👩‍💻
