@@ -4,7 +4,7 @@
 **2024-11-05**
 
 - Update header and adjust readme by @joaolfp - #7
-- Add option to Swift Package Index and adjust documentation by @joaoflp - #6
+- Add option to Swift Package Index and adjust documentation by @joaolfp - #6
 - Add mise and fix lint by @joaolfp - #4
 
 ## Version 0.1.0
