@@ -5,15 +5,20 @@ pub struct Header;
 
 impl Header {
 
-    pub fn show_header() {
+    pub fn show_header() -> String {
         Self::check_version();
 
         let header = "SPM Swift Package";
+        let orange = Color::TrueColor { r: 240, g: 81, b: 56 };
 
-        let orange = Color::TrueColor {r: 240, g: 81, b: 56};
-        println!("\n{}", header.color(orange));
-        println!("🚀You can create your Swift Package via the command line 🔨");
-        println!("v0.2.0\n");
+        let header = format!(
+            "\n{}\n\
+             🚀 You can create your Swift Package via the command line 🔨\n\
+             v0.2.0\n",
+            header.color(orange)
+        );
+
+        header
     }
 
     fn check_version() {
