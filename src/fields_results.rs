@@ -63,10 +63,12 @@ impl FieldsResults {
 
     fn command_open_xcode(project_name: String) {
         let command = format!("cd {} && open Package.swift", project_name);
-        Command::new("sh")
+        let mut child = Command::new("sh")
             .arg("-c")
-            .arg(command)
+            .arg(&command)
             .spawn()
             .expect("Failed to open Xcode");
-    }
+        
+        child.wait().expect("Failed to wait on child");
+    }    
 }
