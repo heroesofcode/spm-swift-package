@@ -1,5 +1,4 @@
 use insta::assert_snapshot;
-use colored;
 use spm_swift_package::Header;
 
 #[test]
