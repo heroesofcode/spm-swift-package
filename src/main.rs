@@ -1,11 +1,4 @@
-mod content;
-mod fields_results;
-mod spm;
-mod structure;
-mod header;
-
-use fields_results::FieldsResults;
-use header::Header;
+use spm_swift_package::{Header, FieldsResults};
 
 fn main() {
     Header::show_header();
