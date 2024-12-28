@@ -7,6 +7,7 @@
 - update mise by @joaolfp - #16
 
 🐛 Bug Fixes
+- control c input library by @joaolfp - #18
 - lint warning by @joaolfp - #17
 
 🧪 Testing
