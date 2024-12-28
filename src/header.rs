@@ -23,7 +23,7 @@ impl Header {
 
     fn check_version() {
         let _app = Command::new("spm-swift-package")
-            .version("0.2.0")
+            .version("0.3.0")
             .ignore_errors(true)
             .get_matches();
     }
