@@ -1,5 +1,21 @@
 # CHANGELOG
 
+## Version 0.3.0
+**2024-12-28**
+
+🚀 Features
+- update mise by @joaolfp - #16
+
+🐛 Bug Fixes
+- lint warning by @joaolfp - #17
+
+🧪 Testing
+- add unit tests by @joaolfp - #15
+
+📦️ Dependency Updates
+- update Rust crate demand to v1.6.0 by @renovatebot - #14
+- update Rust crate clap to v4.5.23 by @renovatebot - #10
+
 ## Version 0.2.0
 **2024-11-05**
 
