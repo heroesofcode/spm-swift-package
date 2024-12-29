@@ -7,7 +7,7 @@ use crate::spm::*;
 pub struct FieldsResults;
 
 impl FieldsResults {
-    pub fn result() {
+    pub async fn result() {
         let project_name = match Self::project_name_input() {
             Ok(value) => value,
             Err(_) => {
@@ -18,7 +18,7 @@ impl FieldsResults {
         let selected = Self::multi_select_input();
 
         Self::loading();
-        Spm::create_spm(&project_name, selected);
+        Spm::create_spm(&project_name, selected).await;
         Self::command_open_xcode(project_name);
     }
 
@@ -53,7 +53,8 @@ impl FieldsResults {
             .filterable(true)
             .option(DemandOption::new("Changelog"))
             .option(DemandOption::new("Swift Package Index"))
-            .option(DemandOption::new("Readme"));
+            .option(DemandOption::new("Readme"))
+            .option(DemandOption::new("SwiftLint"));
 
         let result = multi_select.run().expect("error running multi select");
 

@@ -54,6 +54,11 @@ impl Structure {
         Self::base_root_project(project_name, ".spi.yml", content);
     }
 
+    pub fn create_swiftlint(project_name: &str) {
+        let content = Content::swiftlint_content();
+        Self::base_root_project(project_name, ".swiftlint.yml", content);
+    }
+
     fn base_root_project(project_name: &str, name_file: &str, content: String) {
         let path = project_name.to_string();
         fs::create_dir_all(&path).expect("Error creating test folder");

@@ -16,6 +16,9 @@ msrv = "1.74.1"
 demand = "1.6.0"
 clap = "4.5.23"
 colored = "2.2.0"
+reqwest = { version = "0.12.11", features = ["json"] }
+serde = { version = "1.0.217", features = ["derive"] }
+tokio = { version = "1.42.0", features = ["full"] }
 
 [dev-dependencies]
 insta = "1.41.1"
