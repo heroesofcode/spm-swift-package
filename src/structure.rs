@@ -59,6 +59,11 @@ impl Structure {
         Self::base_root_project(project_name, ".swiftlint.yml", content);
     }
 
+    pub fn create_mise(project_name: &str, tag: &str) {
+        let content = Content::mise_content(tag);
+        Self::base_root_project(project_name, "mise.toml", content);
+    }
+
     fn base_root_project(project_name: &str, name_file: &str, content: String) {
         let path = project_name.to_string();
         fs::create_dir_all(&path).expect("Error creating test folder");

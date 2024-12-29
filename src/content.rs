@@ -124,5 +124,13 @@ excluded:
         content.to_string()
     }
 
+    pub fn mise_content(tag: &str) -> String {
+        let content = format!(
+            r#"[tools]
+swiftlint = "{}"
+"#, tag);
+
+        content
+    }
 
 }

@@ -21,9 +21,9 @@ impl Spm {
             Structure::create_spi(project_name);
         }
 
-        if selected.contains(&"SwiftLint") {
+        if selected.contains(&"SwiftLint with mise") {
             let tag = Network::get_swiftlint_tag().await;
-            println!("Tag: {}", tag);
+            Structure::create_mise(project_name, &tag);
             Structure::create_swiftlint(project_name);
         }
     }
