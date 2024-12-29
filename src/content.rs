@@ -93,4 +93,44 @@ builder:
         content
     }
 
+    pub fn swiftlint_content() -> String {
+        let content =
+            r#"disabled_rules:
+  - line_length
+  - force_try
+  - identifier_name
+  - trailing_whitespace
+  - force_cast
+  - colon
+  - implicit_getter
+  - void_return
+  - unused_enumerated
+  - function_parameter_count
+  - file_length
+  
+vertical_whitespace:
+    severity: error
+
+opt_in_rules:
+  - empty_count
+  - comma
+
+excluded:
+  - Pods
+  - Carthage
+  - Fastlane
+"#;
+
+        content.to_string()
+    }
+
+    pub fn mise_content(tag: &str) -> String {
+        let content = format!(
+            r#"[tools]
+swiftlint = "{}"
+"#, tag);
+
+        content
+    }
+
 }
