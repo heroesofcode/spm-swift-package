@@ -10,7 +10,6 @@ struct SwiftLintResponse {
 pub struct Network;
 
 impl Network {
-
     pub async fn get_swiftlint_tag() -> String {
         let url = "https://api.github.com/repos/realm/SwiftLint/releases/latest";
 

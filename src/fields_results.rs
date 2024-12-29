@@ -54,7 +54,7 @@ impl FieldsResults {
             .option(DemandOption::new("Changelog"))
             .option(DemandOption::new("Swift Package Index"))
             .option(DemandOption::new("Readme"))
-            .option(DemandOption::new("SwiftLint"));
+            .option(DemandOption::new("SwiftLint with mise"));
 
         let result = multi_select.run().expect("error running multi select");
 
