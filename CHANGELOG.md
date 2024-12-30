@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## Version 0.4.0
+**2024-12-30**
+
+🚀 Features
+- option choose platform by @joaolfp - #22
+- add option swiftlint with mise by @joaolfp - #19
+
+📚 Documentation
+- remove msrv badge by @joaolfp - #21
+
 ## Version 0.3.0
 **2024-12-28**
 
