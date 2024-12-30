@@ -27,7 +27,7 @@ final class {}Tests: XCTestCase {{
         )
     }
 
-    pub fn package_swift_content(project_name: &str) -> String {
+    pub fn package_swift_content(project_name: &str, platform: &str, version: &str) -> String {
         format!(
             r#"// swift-tools-version: 6.0
 // The swift-tools-version declares the minimum version of Swift required to build this package.
@@ -36,6 +36,9 @@ import PackageDescription
 
 let package = Package(
     name: "{}",
+    platforms: [
+        .{}(.v{})
+    ],
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
@@ -54,8 +57,8 @@ let package = Package(
     ]
 )
 "#,
-            project_name, project_name, project_name,
-            project_name, project_name, project_name
+            project_name, platform, version, project_name, 
+            project_name, project_name, project_name, project_name
         )
     }
 
