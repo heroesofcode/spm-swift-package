@@ -59,7 +59,6 @@ let package = Package(
         )
     }
 
-    /// Retorna conteúdo de exemplo de CHANGELOG.
     pub fn changelog_content() -> String {
         r#"# CHANGELOG
 
