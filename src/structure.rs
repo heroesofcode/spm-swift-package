@@ -34,8 +34,8 @@ impl Structure {
         file.write_all(content.as_bytes()).expect("Error writing to file");
     }
 
-    pub fn create_package_swift(project_name: &str) {
-        let content = Content::package_swift_content(project_name);
+    pub fn create_package_swift(project_name: &str, platform: &str, version: &str) {
+        let content = Content::package_swift_content(project_name, platform, version);
         Self::base_root_project(project_name, "Package.swift", content);
     }
 

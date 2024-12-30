@@ -15,10 +15,11 @@ impl FieldsResults {
             }
         };
 
-        let selected = Self::multi_select_input();
+        let file_selected = Self::multi_select_files();
+        let platform_selected = Self::multi_select_platform();
 
         Self::loading();
-        Spm::create_spm(&project_name, selected).await;
+        Spm::create_spm(&project_name, file_selected, platform_selected).await;
         Self::command_open_xcode(project_name);
     }
 
@@ -47,7 +48,7 @@ impl FieldsResults {
         }
     }
 
-    fn multi_select_input() -> Vec<&'static str> {
+    fn multi_select_files() -> Vec<&'static str> {
         let multi_select = MultiSelect::new("Add files")
             .description("Do you want to add some of these files?")
             .filterable(true)
@@ -55,6 +56,28 @@ impl FieldsResults {
             .option(DemandOption::new("Swift Package Index"))
             .option(DemandOption::new("Readme"))
             .option(DemandOption::new("SwiftLint with mise"));
+
+        let result = multi_select.run().expect("error running multi select");
+
+        let selected: Vec<&str> = result
+            .iter()
+            .filter(|opt| !opt.is_empty())
+            .copied()
+            .collect();
+
+        selected
+    }
+
+    fn multi_select_platform() -> Vec<&'static str> {
+        let multi_select = MultiSelect::new("Choose platform")
+            .description("Which platform do you want to choose?")
+            .max(1)
+            .filterable(true)
+            .option(DemandOption::new("iOS"))
+            .option(DemandOption::new("macOS"))
+            .option(DemandOption::new("tvOS"))
+            .option(DemandOption::new("watchOS"))
+            .option(DemandOption::new("visionOS"));
 
         let result = multi_select.run().expect("error running multi select");
 
