@@ -14,7 +14,7 @@ impl Header {
         let header = format!(
             "\n{}\n\
              🚀 You can create your Swift Package via the command line 🔨\n\
-             v0.2.0\n",
+             v0.4.0\n",
             header.color(orange)
         );
 
