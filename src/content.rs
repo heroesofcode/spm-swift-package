@@ -2,16 +2,14 @@ pub struct Content;
 
 impl Content {
     pub fn project_swift_content() -> String {
-        let content =
-            r#"// The Swift Programming Language
+        r#"// The Swift Programming Language
 // https://docs.swift.org/swift-book/
-"#;
-
-        content.to_string()
+"#
+        .to_string()
     }
 
     pub fn test_content(project_name: &str) -> String {
-        let content = format!(
+        format!(
             r#"import XCTest
 @testable import {}
 
@@ -24,13 +22,13 @@ final class {}Tests: XCTestCase {{
         // https://developer.apple.com/documentation/xctest/defining_test_cases_and_test_methods
     }}
 }}
-"#, project_name, project_name);
-
-        content
+"#,
+            project_name, project_name
+        )
     }
 
     pub fn package_swift_content(project_name: &str) -> String {
-        let content = format!(
+        format!(
             r#"// swift-tools-version: 6.0
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
@@ -55,47 +53,46 @@ let package = Package(
         ),
     ]
 )
-"#, project_name, project_name, project_name, project_name, project_name, project_name);
-
-        content
+"#,
+            project_name, project_name, project_name,
+            project_name, project_name, project_name
+        )
     }
 
+    /// Retorna conteúdo de exemplo de CHANGELOG.
     pub fn changelog_content() -> String {
-        let content =
-            r#"# CHANGELOG
+        r#"# CHANGELOG
 
 ## Version 1.0.0
 **2024-01-18**
 
 - First release
-"#;
-
-        content.to_string()
+"#
+        .to_string()
     }
 
     pub fn readme_content(project_name: &str) -> String {
-        let content = format!(
+        format!(
             r#"# {}
-"#, project_name);
-
-        content
+"#,
+            project_name
+        )
     }
 
     pub fn spi_content(project_name: &str) -> String {
-        let content = format!(
+        format!(
             r#"version: 1
 builder:
   configs:
     - documentation_targets: [{}]
       scheme: {}
-"#, project_name, project_name);
-
-        content
+"#,
+            project_name, project_name
+        )
     }
 
     pub fn swiftlint_content() -> String {
-        let content =
-            r#"disabled_rules:
+        r#"disabled_rules:
   - line_length
   - force_try
   - identifier_name
@@ -119,18 +116,16 @@ excluded:
   - Pods
   - Carthage
   - Fastlane
-"#;
-
-        content.to_string()
+"#
+        .to_string()
     }
 
     pub fn mise_content(tag: &str) -> String {
-        let content = format!(
+        format!(
             r#"[tools]
 swiftlint = "{}"
-"#, tag);
-
-        content
+"#,
+            tag
+        )
     }
-
 }
