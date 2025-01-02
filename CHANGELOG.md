@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## Version 0.4.1
+**2025-01-02**
+
+🐛 Bug Fixes
+- control c is generating an interrupt error in multi select by @joaolfp - #26
+
+📚 Documentation
+- update example gif by @joaolfp - #23
+
+📦️ Dependency Updates
+- update Rust crate reqwest to v0.12.12 by @renovatebot - #25
+
 ## Version 0.4.0
 **2024-12-30**
 
