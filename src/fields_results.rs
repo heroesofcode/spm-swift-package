@@ -15,8 +15,19 @@ impl FieldsResults {
             }
         };
 
-        let file_selected = Self::multi_select_files();
-        let platform_selected = Self::multi_select_platform();
+        let file_selected = match  Self::multi_select_files() {
+            Ok(value) => value,
+            Err(_) => {
+                exit(0);
+            }
+        };
+
+        let platform_selected = match Self::multi_select_platform() {
+            Ok(value) => value,
+            Err(_) => {
+                exit(0);
+            }
+        };
 
         Self::loading();
         Spm::create_spm(&project_name, file_selected, platform_selected).await;
@@ -48,7 +59,7 @@ impl FieldsResults {
         }
     }
 
-    fn multi_select_files() -> Vec<&'static str> {
+    fn multi_select_files() -> Result<Vec<&'static str>, String> {
         let multi_select = MultiSelect::new("Add files")
             .description("Do you want to add some of these files?")
             .filterable(true)
@@ -57,7 +68,16 @@ impl FieldsResults {
             .option(DemandOption::new("Readme"))
             .option(DemandOption::new("SwiftLint with mise"));
 
-        let result = multi_select.run().expect("error running multi select");
+        let result = match multi_select.run() {
+            Ok(value) => value,
+            Err(error) => {
+                if error.to_string().contains("Interrupted") {
+                    exit(0)
+                } else {
+                    exit(0)
+                }
+            }
+        };
 
         let selected: Vec<&str> = result
             .iter()
@@ -65,10 +85,10 @@ impl FieldsResults {
             .copied()
             .collect();
 
-        selected
+        Ok(selected)
     }
 
-    fn multi_select_platform() -> Vec<&'static str> {
+    fn multi_select_platform() -> Result<Vec<&'static str>, String> {
         let multi_select = MultiSelect::new("Choose platform")
             .description("Which platform do you want to choose?")
             .max(1)
@@ -79,7 +99,16 @@ impl FieldsResults {
             .option(DemandOption::new("watchOS"))
             .option(DemandOption::new("visionOS"));
 
-        let result = multi_select.run().expect("error running multi select");
+        let result = match multi_select.run() {
+            Ok(value) => value,
+            Err(error) => {
+                if error.to_string().contains("Interrupted") {
+                    exit(0)
+                } else {
+                    exit(0)
+                }
+            }
+        };
 
         let selected: Vec<&str> = result
             .iter()
@@ -87,7 +116,7 @@ impl FieldsResults {
             .copied()
             .collect();
 
-        selected
+        Ok(selected)
     }
 
     fn loading() {
