@@ -1,10 +1,12 @@
-## spm-swift-package
+# spm-swift-package
 
 [![CI](https://github.com/heroesofcode/spm-swift-package/actions/workflows/CI.yml/badge.svg)](https://github.com/heroesofcode/spm-swift-package/actions/workflows/CI.yml)
 [![Crates.io](https://img.shields.io/crates/v/spm-swift-package)](https://crates.io/crates/spm-swift-package)
 [![License](https://img.shields.io/github/license/heroesofcode/spm-swift-package.svg)](https://github.com/heroesofcode/spm-swift-package/blob/main/LICENSE)
 
 Command Line Tools for macOS to create project in Swift Package Manager with desirable files.
+
+## Installing
 
 ### Cargo
 Installing from [crates.io](https://crates.io/) (requires Rust/Cargo):
