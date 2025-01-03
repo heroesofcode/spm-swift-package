@@ -8,37 +8,21 @@ pub struct FieldsResults;
 
 impl FieldsResults {
     pub async fn result() {
-        let project_name = match Self::project_name_input() {
-            Ok(value) => value,
-            Err(_) => {
-                exit(0);
-            }
-        };
-
-        let file_selected = match  Self::multi_select_files() {
-            Ok(value) => value,
-            Err(_) => {
-                exit(0);
-            }
-        };
-
-        let platform_selected = match Self::multi_select_platform() {
-            Ok(value) => value,
-            Err(_) => {
-                exit(0);
-            }
-        };
+        let project_name = Self::project_name_input();
+        let file_selected = Self::multiselect_files();
+        let platform_selected = Self::multiselect_platform();
 
         Self::loading();
         Spm::create_spm(&project_name, file_selected, platform_selected).await;
         Self::command_open_xcode(project_name);
     }
 
-    fn project_name_input() -> Result<String, String> {
+    fn project_name_input() -> String {
         let validation_empty = |s: &str| {
             if s.is_empty() {
                 return Err("Library name cannot be empty");
             }
+
             Ok(())
         };
 
@@ -48,19 +32,20 @@ impl FieldsResults {
             .validation(validation_empty);
 
         match input.run() {
-            Ok(library) => Ok(library),
-            Err(error) => {
-                if error.to_string().contains("Interrupted") {
+            Ok(value) => value,
+            Err(e) => {
+                if e.kind() == std::io::ErrorKind::Interrupted {
+                    println!("{}", e);
                     exit(0)
                 } else {
-                    exit(0)
+                    panic!("Error: {}", e);
+                    }
                 }
             }
-        }
     }
 
-    fn multi_select_files() -> Result<Vec<&'static str>, String> {
-        let multi_select = MultiSelect::new("Add files")
+    fn multiselect_files() -> Vec<&'static str> {
+        let multiselect = MultiSelect::new("Add files")
             .description("Do you want to add some of these files?")
             .filterable(true)
             .option(DemandOption::new("Changelog"))
@@ -68,16 +53,17 @@ impl FieldsResults {
             .option(DemandOption::new("Readme"))
             .option(DemandOption::new("SwiftLint with mise"));
 
-        let result = match multi_select.run() {
-            Ok(value) => value,
-            Err(error) => {
-                if error.to_string().contains("Interrupted") {
-                    exit(0)
-                } else {
-                    exit(0)
+        let result = match multiselect.run() {
+            Ok(toppings) => toppings,
+            Err(e) => {
+                if e.kind() == std::io::ErrorKind::Interrupted {
+                    println!("{}", e);
+                        exit(0)
+                    } else {
+                        panic!("Error: {}", e);
+                    }
                 }
-            }
-        };
+            };
 
         let selected: Vec<&str> = result
             .iter()
@@ -85,11 +71,11 @@ impl FieldsResults {
             .copied()
             .collect();
 
-        Ok(selected)
+        selected
     }
 
-    fn multi_select_platform() -> Result<Vec<&'static str>, String> {
-        let multi_select = MultiSelect::new("Choose platform")
+    fn multiselect_platform() -> Vec<&'static str> {
+        let multiselect = MultiSelect::new("Choose platform")
             .description("Which platform do you want to choose?")
             .max(1)
             .filterable(true)
@@ -99,13 +85,14 @@ impl FieldsResults {
             .option(DemandOption::new("watchOS"))
             .option(DemandOption::new("visionOS"));
 
-        let result = match multi_select.run() {
-            Ok(value) => value,
-            Err(error) => {
-                if error.to_string().contains("Interrupted") {
+        let result = match multiselect.run() {
+            Ok(toppings) => toppings,
+            Err(e) => {
+                if e.kind() == std::io::ErrorKind::Interrupted {
+                    println!("{}", e);
                     exit(0)
                 } else {
-                    exit(0)
+                    panic!("Error: {}", e);
                 }
             }
         };
@@ -116,7 +103,7 @@ impl FieldsResults {
             .copied()
             .collect();
 
-        Ok(selected)
+        selected
     }
 
     fn loading() {
