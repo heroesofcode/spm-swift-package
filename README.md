@@ -8,14 +8,14 @@ Command Line Tools for macOS to create project in Swift Package Manager with des
 
 ## Installing
 
-### Cargo
+#### Cargo
 Installing from [crates.io](https://crates.io/) (requires Rust/Cargo):
 
 ```shell
 cargo install spm-swift-package
 ```
 
-### Homebrew
+#### Homebrew
 You can install with [Homebrew](https://brew.sh/):
 
 ```shell
