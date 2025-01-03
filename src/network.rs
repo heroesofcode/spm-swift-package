@@ -26,7 +26,7 @@ impl Network {
                 .await
                 .expect("You may be offline or another error has occurred.");
 
-            return result.tag_name;
+            result.tag_name
         } else {
             exit(1);
         }
