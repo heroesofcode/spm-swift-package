@@ -5,8 +5,11 @@
   "packageRules": [
     {
       "packagePatterns": ["*"],
-      "groupName": "all dependencies",
+      "groupName": null,
       "automerge": false
     }
-  ]
+  ],
+  "commitMessagePrefix": "deps: ",
+  "commitMessageAction": "update",
+  "prTitle": "deps: update {{depName}} to v{{newVersion}}"
 }
