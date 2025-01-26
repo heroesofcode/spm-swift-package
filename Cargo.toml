@@ -1,6 +1,6 @@
 [package]
 name = "spm-swift-package"
-version = "0.4.1"
+version = "0.4.2"
 edition = "2021"
 authors = ["João Lucas <joaolucasfp2001@gmail.com>"]
 license = "MIT"
