@@ -1,6 +1,13 @@
-use demand::{DemandOption, Input, MultiSelect, Spinner, SpinnerStyle};
+use demand::{
+    DemandOption, 
+    Input, 
+    MultiSelect, 
+    Spinner, 
+    SpinnerStyle
+};
 use std::process::{exit, Command};
 use std::{thread::sleep, time::Duration};
+use colored::Colorize;
 
 use crate::spm::*;
 
@@ -45,66 +52,79 @@ impl FieldsResults {
     }
 
     fn multiselect_files() -> Vec<&'static str> {
-        let multiselect = MultiSelect::new("Add files")
-            .description("Do you want to add some of these files?")
-            .filterable(true)
-            .option(DemandOption::new("Changelog"))
-            .option(DemandOption::new("Swift Package Index"))
-            .option(DemandOption::new("Readme"))
-            .option(DemandOption::new("SwiftLint with mise"));
-
-        let result = match multiselect.run() {
-            Ok(toppings) => toppings,
-            Err(e) => {
-                if e.kind() == std::io::ErrorKind::Interrupted {
-                    println!("{}", e);
-                        exit(0)
+        loop {
+            let multiselect = MultiSelect::new("Add files")
+                .description("Do you want to add some of these files?")
+                .filterable(true)
+                .option(DemandOption::new("Changelog"))
+                .option(DemandOption::new("Swift Package Index"))
+                .option(DemandOption::new("Readme"))
+                .option(DemandOption::new("SwiftLint with mise"));
+    
+            let result = match multiselect.run() {
+                Ok(selection) => selection,
+                Err(e) => {
+                    if e.kind() == std::io::ErrorKind::Interrupted {
+                        println!("Operation interrupted.");
+                        exit(0);
                     } else {
                         panic!("Error: {}", e);
                     }
                 }
             };
-
-        let selected: Vec<&str> = result
-            .iter()
-            .filter(|opt| !opt.is_empty())
-            .copied()
-            .collect();
-
-        selected
-    }
+    
+            let selected: Vec<&str> = result
+                .iter()
+                .filter(|opt| !opt.is_empty())
+                .copied()
+                .collect();
+    
+            if selected.is_empty() {
+                println!("{}", "You need to choose in order to follow".yellow());
+                continue;
+            }
+    
+            return selected;
+        }
+    }    
 
     fn multiselect_platform() -> Vec<&'static str> {
-        let multiselect = MultiSelect::new("Choose platform")
-            .description("Which platform do you want to choose?")
-            .max(1)
-            .filterable(true)
-            .option(DemandOption::new("iOS"))
-            .option(DemandOption::new("macOS"))
-            .option(DemandOption::new("tvOS"))
-            .option(DemandOption::new("watchOS"))
-            .option(DemandOption::new("visionOS"));
-
-        let result = match multiselect.run() {
-            Ok(toppings) => toppings,
-            Err(e) => {
-                if e.kind() == std::io::ErrorKind::Interrupted {
-                    println!("{}", e);
-                    exit(0)
-                } else {
-                    panic!("Error: {}", e);
+        loop {
+            let multiselect = MultiSelect::new("Choose platform")
+                .description("Which platform do you want to choose?")
+                .filterable(true)
+                .option(DemandOption::new("iOS"))
+                .option(DemandOption::new("macOS"))
+                .option(DemandOption::new("tvOS"))
+                .option(DemandOption::new("watchOS"))
+                .option(DemandOption::new("visionOS"));
+    
+            let result = match multiselect.run() {
+                Ok(selection) => selection,
+                Err(e) => {
+                    if e.kind() == std::io::ErrorKind::Interrupted {
+                        println!("Operation interrupted.");
+                        exit(0);
+                    } else {
+                        panic!("Error: {}", e);
+                    }
                 }
+            };
+    
+            let selected: Vec<&str> = result
+                .iter()
+                .filter(|opt| !opt.is_empty())
+                .copied()
+                .collect();
+    
+            if selected.is_empty() {
+                println!("{}", "You need to choose in order to follow".yellow());
+                continue;
             }
-        };
-
-        let selected: Vec<&str> = result
-            .iter()
-            .filter(|opt| !opt.is_empty())
-            .copied()
-            .collect();
-
-        selected
-    }
+    
+            return selected;
+        }
+    }    
 
     fn loading() {
         Spinner::new("Building the Package...")
