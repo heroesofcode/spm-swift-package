@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## Version 0.4.2
+**2025-01-26**
+
+🐛 Bug Fixes
+- when user doesn't select any of the options in multiple selection by @joaolfp - #40
+
+📦️ Dependency Updates
+- update Rust crate insta to v1.42.1 by @renovatebot - #38
+- update Rust crate demand to v1.6.2 by @renovatebot - #37
+- update Rust crate clap to v4.5.27 by @renovatebot - #36
+
 ## Version 0.4.1
 **2025-01-02**
 
