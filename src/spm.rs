@@ -1,5 +1,6 @@
 use crate::structure::*;
 use crate::network::*;
+use std::collections::HashMap;
 
 pub struct Spm;
 
@@ -27,18 +28,20 @@ impl Spm {
             Structure::create_swiftlint(project_name);
         }
     }
-
     fn validation_platform(project_name: &str, platform: Vec<&str>) {
-        if platform.contains(&"iOS") {
-            Structure::create_package_swift(project_name, "iOS", "18");
-        } else if platform.contains(&"macOS") {
-            Structure::create_package_swift(project_name, "macOS", "15");
-        } else if platform.contains(&"watchOS") {
-            Structure::create_package_swift(project_name, "watchOS", "11");
-        } else if platform.contains(&"tvOS") {
-            Structure::create_package_swift(project_name, "tvOS", "18");
-        } else if platform.contains(&"visionOS") {
-            Structure::create_package_swift(project_name, "visionOS", "2");
+        let platforms = HashMap::from([
+            ("iOS", "18"),
+            ("macOS", "15"),
+            ("watchOS", "11"),
+            ("tvOS", "18"),
+            ("visionOS", "2"),
+        ]);
+
+        for (key, version) in platforms {
+            if platform.contains(&key) {
+                Structure::create_package_swift(project_name, key, version);
+            }
         }
     }
+
 }
