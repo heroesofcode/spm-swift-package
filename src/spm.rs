@@ -23,9 +23,15 @@ impl Spm {
         }
 
         if selected.contains(&"SwiftLint with mise") {
-            let tag = Network::get_swiftlint_tag().await;
-            Structure::create_mise(project_name, &tag);
-            Structure::create_swiftlint(project_name);
+            let network = Network::new();
+
+            match network.get_swiftlint_tag().await {
+                Ok(tag) => {
+                    Structure::create_mise(project_name, &tag);
+                    Structure::create_swiftlint(project_name);
+                },
+                Err(error) => eprintln!("Error {}", error)
+            }
         }
     }
     fn validation_platform(project_name: &str, platform: Vec<&str>) {
