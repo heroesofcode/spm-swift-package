@@ -4,7 +4,7 @@ use std::error::Error;
 
 #[derive(Debug, Serialize, Deserialize)]
 struct SwiftLintResponse {
-    tag_name: String,
+    tag_name: String
 }
 
 pub struct Network {
