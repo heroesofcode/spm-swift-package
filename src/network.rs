@@ -1,34 +1,45 @@
-use std::process::exit;
 use reqwest;
 use serde::{Deserialize, Serialize};
+use std::error::Error;
 
 #[derive(Debug, Serialize, Deserialize)]
 struct SwiftLintResponse {
     tag_name: String
 }
 
-pub struct Network;
+pub struct Network {
+    client: reqwest::Client,
+}
+
+impl Default for Network {
+    fn default() -> Self {
+        Self::new()
+    }
+}
 
 impl Network {
-    pub async fn get_swiftlint_tag() -> String {
-        let url = "https://api.github.com/repos/realm/SwiftLint/releases/latest";
+    pub fn new() -> Self {
+        Network {
+            client: reqwest::Client::new(),
+        }
+    }
 
-        let response = reqwest::Client::new()
-            .get(url)
-            .header(reqwest::header::USER_AGENT, "spmswiftpackage")
+    pub async fn get_swiftlint_tag(&self) -> Result<String, Box<dyn Error>> {
+        const URL: &str = "https://api.github.com/repos/realm/SwiftLint/releases/latest";
+        const USER_AGENT: &str = "spmswiftpackage";
+
+        let response = self
+            .client
+            .get(URL)
+            .header(reqwest::header::USER_AGENT, USER_AGENT)
             .send()
-            .await
-            .expect("You may be offline or another error has occurred.");
+            .await?;
 
         if response.status().is_success() {
-            let result: SwiftLintResponse = response
-                .json()
-                .await
-                .expect("You may be offline or another error has occurred.");
-
-            result.tag_name
+            let result: SwiftLintResponse = response.json().await?;
+            Ok(result.tag_name)
         } else {
-            exit(1);
+            Err(format!("Failed to fetch SwiftLint tag: HTTP status {}", response.status()).into())
         }
     }
 }
