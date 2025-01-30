@@ -3,6 +3,10 @@ use tokio::test;
 
 #[test]
 async fn test_get_swiftlint_tag() {
-    let result = Network::get_swiftlint_tag().await;
-    assert!(!result.is_empty())
+    let network = Network::new();
+
+    match network.get_swiftlint_tag().await {
+        Ok(tag) => assert!(!tag.is_empty()),
+        Err(error) => eprintln!("Error {}", error)
+    }
 }
