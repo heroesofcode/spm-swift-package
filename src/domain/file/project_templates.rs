@@ -1,6 +1,6 @@
-pub struct Content;
+pub struct ProjectTemplates;
 
-impl Content {
+impl ProjectTemplates {
     pub fn project_swift_content() -> String {
         r#"// The Swift Programming Language
 // https://docs.swift.org/swift-book/

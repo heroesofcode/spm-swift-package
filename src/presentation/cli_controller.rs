@@ -9,20 +9,23 @@ use std::process::{exit, Command};
 use std::{thread::sleep, time::Duration};
 use colored::Colorize;
 
-use crate::domain::spm::*;
+use crate::domain::usecase::usecase::*;
 
-pub struct FieldsResults;
+pub struct CliController;
 
-impl FieldsResults {
-    pub async fn result() {
+impl CliController {
+
+    pub async fn execute_flow() {
         let project_name = Self::project_name_input();
         let file_selected = Self::multiselect_files();
         let platform_selected = Self::multiselect_platform();
 
         Self::loading();
-        Spm::create_spm(&project_name, file_selected, platform_selected).await;
+        SpmUseCase::execute(&project_name, file_selected, platform_selected).await;
         Self::command_open_xcode(project_name);
     }
+
+    // Internal functions
 
     fn project_name_input() -> String {
         let validation_empty = |s: &str| {

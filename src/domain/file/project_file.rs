@@ -1,16 +1,16 @@
 use std::fs;
 use std::io::Write;
 
-use crate::domain::content::*;
+use crate::domain::file::project_templates::*;
 
-pub struct Structure;
+pub struct ProjectFile;
 
-impl Structure {
+impl ProjectFile {
     pub fn create_project(project_name: &str) {
         let path = format!("{}/Sources/{}", project_name, project_name);
         fs::create_dir_all(&path).expect("Error creating project");
 
-        let content = Content::project_swift_content();
+        let content = ProjectTemplates::project_swift_content();
 
         let mut file = fs::File::create(format!(
             "{}/Sources/{}/{}.swift",
@@ -24,7 +24,7 @@ impl Structure {
         let path = format!("{}/Tests/{}Tests", project_name, project_name);
         fs::create_dir_all(&path).expect("Error creating test folder");
 
-        let content = Content::test_content(project_name);
+        let content = ProjectTemplates::test_content(project_name);
 
         let mut file = fs::File::create(format!(
             "{}/Tests/{}Tests/{}Tests.swift",
@@ -35,32 +35,32 @@ impl Structure {
     }
 
     pub fn create_package_swift(project_name: &str, platform: &str, version: &str) {
-        let content = Content::package_swift_content(project_name, platform, version);
+        let content = ProjectTemplates::package_swift_content(project_name, platform, version);
         Self::base_root_project(project_name, "Package.swift", content);
     }
 
     pub fn create_changelog(project_name: &str) {
-        let content = Content::changelog_content();
+        let content = ProjectTemplates::changelog_content();
         Self::base_root_project(project_name, "CHANGELOG.md", content);
     }
 
     pub fn create_readme(project_name: &str) {
-        let content = Content::readme_content(project_name);
+        let content = ProjectTemplates::readme_content(project_name);
         Self::base_root_project(project_name, "README.md", content);
     }
 
     pub fn create_spi(project_name: &str) {
-        let content = Content::spi_content(project_name);
+        let content = ProjectTemplates::spi_content(project_name);
         Self::base_root_project(project_name, ".spi.yml", content);
     }
 
     pub fn create_swiftlint(project_name: &str) {
-        let content = Content::swiftlint_content();
+        let content = ProjectTemplates::swiftlint_content();
         Self::base_root_project(project_name, ".swiftlint.yml", content);
     }
 
     pub fn create_mise(project_name: &str, tag: &str) {
-        let content = Content::mise_content(tag);
+        let content = ProjectTemplates::mise_content(tag);
         Self::base_root_project(project_name, "mise.toml", content);
     }
 

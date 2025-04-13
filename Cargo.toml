@@ -16,6 +16,8 @@ msrv = "1.74.1"
 demand = "1.6.2"
 clap = "4.5.27"
 colored = "3.0.0"
+httpmock = "0.7.0"
+async-trait = "0.1.88"
 reqwest = { version = "0.12.12", features = ["json"] }
 serde = { version = "1.0.217", features = ["derive"] }
 tokio = { version = "1.43.0", features = ["full"] }
