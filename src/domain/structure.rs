@@ -1,7 +1,7 @@
 use std::fs;
 use std::io::Write;
 
-use crate::content::*;
+use crate::domain::content::*;
 
 pub struct Structure;
 

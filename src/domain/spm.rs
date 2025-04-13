@@ -1,5 +1,5 @@
-use crate::structure::*;
-use crate::network::*;
+use crate::domain::structure::*;
+use crate::infrastructure::network::*;
 use std::collections::HashMap;
 
 pub struct Spm;

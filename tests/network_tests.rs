@@ -1,4 +1,4 @@
-use spm_swift_package::Network;
+use spm_swift_package::infrastructure::network::Network;
 use tokio::test;
 
 #[test]
