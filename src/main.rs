@@ -1,4 +1,5 @@
-use spm_swift_package::{Header, FieldsResults};
+use spm_swift_package::presentation::header::Header;
+use spm_swift_package::presentation::fields_results::FieldsResults;
 
 #[tokio::main]
 async fn main() {

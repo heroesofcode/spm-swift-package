@@ -1,5 +1,5 @@
 use insta::assert_snapshot;
-use spm_swift_package::Header;
+use spm_swift_package::presentation::header::Header;
 
 #[test]
 fn test_show_header_snapshot() {

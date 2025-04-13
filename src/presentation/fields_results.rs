@@ -9,7 +9,7 @@ use std::process::{exit, Command};
 use std::{thread::sleep, time::Duration};
 use colored::Colorize;
 
-use crate::spm::*;
+use crate::domain::spm::*;
 
 pub struct FieldsResults;
 
