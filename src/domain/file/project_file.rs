@@ -1,7 +1,7 @@
 use std::fs;
 use std::io::Write;
 
-use crate::domain::project_templates::*;
+use crate::domain::file::project_templates::*;
 
 pub struct ProjectFile;
 

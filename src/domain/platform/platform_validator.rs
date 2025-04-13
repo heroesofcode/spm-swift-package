@@ -1,4 +1,4 @@
-use crate::domain::project_file::*;
+use crate::domain::file::project_file::*;
 use std::collections::HashMap;
 
 pub struct PlatformValidator;

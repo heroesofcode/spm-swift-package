@@ -9,7 +9,7 @@ use std::process::{exit, Command};
 use std::{thread::sleep, time::Duration};
 use colored::Colorize;
 
-use crate::domain::usecase::*;
+use crate::domain::usecase::usecase::*;
 
 pub struct CliController;
 
@@ -26,7 +26,7 @@ impl CliController {
     }
 
     // Internal functions
-    
+
     fn project_name_input() -> String {
         let validation_empty = |s: &str| {
             if s.is_empty() {
