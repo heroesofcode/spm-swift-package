@@ -1,5 +1,5 @@
 use std::path::Path;
-use spm_swift_package::Structure;
+use spm_swift_package::domain::structure::Structure;
 
 #[test]
 fn test_structure_create() {
