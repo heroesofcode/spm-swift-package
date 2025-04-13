@@ -5,7 +5,7 @@ pub struct Header;
 
 impl Header {
 
-    pub fn show_header() -> String {
+    pub fn show() -> String {
         Self::check_version();
 
         let header = "SPM Swift Package";
