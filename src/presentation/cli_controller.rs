@@ -41,17 +41,14 @@ impl CliController {
             .prompt("Library: ")
             .validation(validation_empty);
 
-        match input.run() {
-            Ok(value) => value,
-            Err(e) => {
-                if e.kind() == std::io::ErrorKind::Interrupted {
-                    println!("{}", e);
-                    exit(0)
-                } else {
-                    panic!("Error: {}", e);
-                    }
-                }
+        input.run().unwrap_or_else(|e| {
+            if e.kind() == std::io::ErrorKind::Interrupted {
+                println!("{}", e);
+                exit(0)
+            } else {
+                panic!("Error: {}", e);
             }
+        })
     }
 
     fn multiselect_files() -> Vec<&'static str> {
