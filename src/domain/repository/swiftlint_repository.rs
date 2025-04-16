@@ -1,15 +1,10 @@
 use crate::infrastructure::network_client::NetworkClient;
-use serde::Deserialize;
+use crate::data::swiftlint_dto::SwiftLintDto;
 use async_trait::async_trait;
 
 #[async_trait]
 pub trait SwiftLintRepository {
     async fn get_latest_tag(&self) -> Result<String, Box<dyn std::error::Error + Send + Sync>>;
-}
-
-#[derive(Deserialize)]
-struct SwiftLintResponse {
-    tag_name: String,
 }
 
 pub struct SwiftLintRepositoryImpl {
@@ -30,7 +25,7 @@ impl SwiftLintRepository for SwiftLintRepositoryImpl {
         let url = "https://api.github.com/repos/realm/SwiftLint/releases/latest";
         let user_agent = "spmswiftpackage";
 
-        let response: SwiftLintResponse = self.client.get_json(url, user_agent).await?;
+        let response: SwiftLintDto = self.client.get_json(url, user_agent).await?;
         Ok(response.tag_name)
     }
 }
