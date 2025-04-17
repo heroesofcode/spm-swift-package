@@ -6,9 +6,9 @@ impl SpmUseCase {
 
     pub async fn execute(
         project_name: &str, 
-        selected: Vec<&str>, 
+        selected_file: Vec<&str>,
         platform: Vec<&str>
     ) {
-        SpmBuilder::builder(&project_name, selected, platform).await;
+        SpmBuilder::builder(&project_name, selected_file, platform).await;
     }
 }

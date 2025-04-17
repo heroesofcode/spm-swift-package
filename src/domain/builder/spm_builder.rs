@@ -7,26 +7,32 @@ pub struct SpmBuilder;
 impl SpmBuilder {
     pub async fn builder(
         project_name: &str, 
-        selected: Vec<&str>, 
+        selected_file: Vec<&str>,
         platform: Vec<&str>
     ) {
         ProjectFile::create_project(project_name);
         ProjectFile::create_test_folder(project_name);
         PlatformValidator::generate_platform(project_name, platform);
-        
-        if selected.contains(&"Changelog") {
+        Self::validate_selected_file(project_name, selected_file).await;
+    }
+
+    async fn validate_selected_file(
+        project_name: &str,
+        selected_file: Vec<&str>
+    ) {
+        if selected_file.contains(&"Changelog") {
             ProjectFile::create_changelog(project_name);
         }
 
-        if selected.contains(&"Readme") {
+        if selected_file.contains(&"Readme") {
             ProjectFile::create_readme(project_name);
         }
 
-        if selected.contains(&"Swift Package Index") {
+        if selected_file.contains(&"Swift Package Index") {
             ProjectFile::create_spi(project_name);
         }
 
-        if selected.contains(&"SwiftLint with mise") {
+        if selected_file.contains(&"SwiftLint with mise") {
             let repository = SwiftLintRepositoryImpl::new();
 
             match repository.get_latest_tag().await {
