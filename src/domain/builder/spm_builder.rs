@@ -13,7 +13,13 @@ impl SpmBuilder {
         ProjectFile::create_project(project_name);
         ProjectFile::create_test_folder(project_name);
         PlatformValidator::generate_platform(project_name, platform);
-        
+        Self::validate_selected_file(project_name, selected_file).await;
+    }
+
+    async fn validate_selected_file(
+        project_name: &str,
+        selected_file: Vec<&str>
+    ) {
         if selected_file.contains(&"Changelog") {
             ProjectFile::create_changelog(project_name);
         }
