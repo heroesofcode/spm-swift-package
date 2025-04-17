@@ -1,5 +1,41 @@
 # CHANGELOG
 
+## Version 0.5.0
+**2025-04-16**
+
+🚀 Features
+- create the data folder for dto by @joaolfp - #68
+- migrate to clean architecture by @joaolfp - #67
+- migrate project to layered architecture by @joaolfp - #66
+- add rust-toolchain.toml by @joaolfp - #65
+
+🚜 Refactor
+- rename parameters and organization code by @joaolfp - #69
+- network improvement by @joaolfp - #41
+
+📦️ Dependency Updates
+- update Rust crate clap to v4.5.36 by @renovatebot - #64
+- update openssl from 0.10.70 to 0.10.72 by @dependabot - #63
+- update Rust crate clap to v4.5.35 by @renovatebot - #61
+- update Rust crate clap to v4.5.34 by @renovatebot - #60
+- update Rust crate reqwest to v0.12.15 by @renovatebot - #59
+- update Rust crate demand to v1.6.5 by @renovatebot - #58
+- update Rust crate tokio to v1.44.1 by @renovatebot - #57
+- update Rust crate reqwest to v0.12.14 by @renovatebot - #56
+- update Rust crate reqwest to v0.12.13 by @renovatebot - #55
+- update Rust crate clap to v4.5.32 by @renovatebot #54
+- update Rust crate serde to v1.0.219 by @renovatebot - #53
+- bump ring from 0.17.8 to 0.17.13 by @dependabot - #52
+- update Rust crate tokio to v1.44.0 by @renovatebot - #51
+- update update Rust crate insta to v1.42.2 by @renovatebot - #50
+- update Rust crate demand to v1.6.4 by @renovatebot - #49
+- update update Rust crate serde to v1.0.218 by @renovatebot - #47
+- update Rust crate demand to v1.6.3 by @renovatebot - #46 
+- update Rust crate clap to v4.5.30 by @renovatebot - #45
+- update Rust crate clap to v4.5.29 by @renovatebot - #44
+- bump openssl from 0.10.68 to 0.10.70 by @dependabot - #43
+- update Rust crate clap to v4.5.28 by @renovatebot - #42
+
 ## Version 0.4.2
 **2025-01-26**
 
