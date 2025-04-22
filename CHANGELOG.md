@@ -1,5 +1,18 @@
 # CHANGELOG
 
+## Version 0.5.1
+**2025-04-22**
+
+🐛 Bug Fixes
+- clear screen input by @joaolfp - #73
+
+🚜 Refactor
+- refactor: adjust variable name and project by @joaolfp - #72
+- removing some files by @joaolfp - #70
+
+📦️ Dependency Updates
+- update Rust crate clap to v4.5.37 by @renovatebot - #71
+
 ## Version 0.5.0
 **2025-04-16**
 
