@@ -34,8 +34,13 @@ impl ProjectFile {
         file.write_all(content.as_bytes()).expect("Error writing to file");
     }
 
-    pub fn create_package_swift(project_name: &str, platform: &str, version: &str) {
-        let content = ProjectTemplates::package_swift_content(project_name, platform, version);
+    pub fn create_package(project_name: &str, platform: &str, version: &str) {
+        let content = ProjectTemplates::package_swift_content(
+            project_name, 
+            platform, 
+            version
+        );
+        
         Self::base_root_project(project_name, "Package.swift", content);
     }
 
