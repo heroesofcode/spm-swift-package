@@ -10,7 +10,7 @@ repository = "https://github.com/heroesofcode/spm-swift-package"
 exclude = [".github/**"]
 
 [dependencies]
-demand = "1.6.5"
+demand = { git = "https://github.com/joaolfp/demand.git", branch = "fix/weight-input" }
 clap = "4.5.37"
 colored = "3.0.0"
 httpmock = "0.7.0"
