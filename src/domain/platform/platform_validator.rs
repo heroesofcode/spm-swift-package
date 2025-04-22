@@ -16,7 +16,7 @@ impl PlatformValidator {
 
         for (key, version) in platforms {
             if platform.contains(&key) {
-                ProjectFile::create_package_swift(project_name, key, version);
+                ProjectFile::create_package(project_name, key, version);
             }
         }
     }
