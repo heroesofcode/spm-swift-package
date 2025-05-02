@@ -481,14 +481,13 @@ checksum = "43da5946c66ffcc7745f48db692ffbb10a83bfe0afd96235c5c2a4fb23994929"
 
 [[package]]
 name = "demand"
-version = "1.6.5"
+version = "1.7.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7abeb34924c8d59be6428a07f63a0bf5f9d5c15ccb6fd9ef4f4e8cd7f422abfe"
+checksum = "081fee97d4d3dfb2baf0333ccf376b5cae24448afe5c5652861bb987853d685c"
 dependencies = [
  "console",
  "fuzzy-matcher",
  "itertools 0.14.0",
- "once_cell",
  "signal-hook",
  "termcolor",
 ]
