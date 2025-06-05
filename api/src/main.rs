@@ -1,4 +1,4 @@
-use axum::{routing::get, Json, Router};
+use axum::{Json, Router, routing::get};
 use reqwest::Client;
 use serde::{Deserialize, Serialize};
 use std::net::SocketAddr;
@@ -7,8 +7,8 @@ use utoipa::{OpenApi, ToSchema};
 use utoipa_swagger_ui::SwaggerUi;
 
 #[derive(Deserialize, Serialize, ToSchema)]
-pub struct SwiftLintRelease {
-	pub tag_name: String,
+struct SwiftLintRelease { 
+	tag_name: String,
 }
 
 #[utoipa::path(
@@ -56,10 +56,7 @@ async fn main() {
 		.route("/get_tag", get(get_tag))
 		.merge(
 			SwaggerUi::new("/swagger-ui")
-				.url(
-					"/api-doc/openapi.json", 
-					 ApiDoc::openapi()
-				)
+				.url("/api-doc/openapi.json", ApiDoc::openapi())
 		);
 
 	let address = SocketAddr::from(([127, 0, 0, 1], 3000));
