@@ -29,7 +29,7 @@ final class {}Tests: XCTestCase {{
 
     pub fn package_swift_content(project_name: &str, platform: &str, version: &str) -> String {
         format!(
-            r#"// swift-tools-version: 6.0
+            r#"// swift-tools-version: 6.1
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
