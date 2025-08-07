@@ -51,16 +51,20 @@ impl CliController {
         })
     }
 
-    fn multiselect_files() -> Vec<&'static str> {
+    fn multiselect_options(
+        prompt: &str,
+        description: &str,
+        options: &[&'static str],
+    ) -> Vec<&'static str> {
         loop {
-            let multiselect = MultiSelect::new("Add files")
-                .description("Do you want to add some of these files?")
-                .filterable(true)
-                .option(DemandOption::new("Changelog"))
-                .option(DemandOption::new("Swift Package Index"))
-                .option(DemandOption::new("Readme"))
-                .option(DemandOption::new("SwiftLint with mise"));
-    
+            let mut multiselect = MultiSelect::new(prompt)
+                .description(description)
+                .filterable(true);
+
+            for &option in options {
+                multiselect = multiselect.option(DemandOption::new(option));
+            }
+
             let result = match multiselect.run() {
                 Ok(selection) => selection,
                 Err(e) => {
@@ -72,59 +76,37 @@ impl CliController {
                     }
                 }
             };
-    
+
             let selected: Vec<&str> = result
                 .iter()
                 .filter(|opt| !opt.is_empty())
                 .copied()
                 .collect();
-    
+
             if selected.is_empty() {
                 println!("{}", "You need to choose in order to follow".yellow());
                 continue;
             }
-    
+
             return selected;
         }
-    }    
+    }
+
+    fn multiselect_files() -> Vec<&'static str> {
+        Self::multiselect_options(
+            "Add files",
+            "Do you want to add some of these files?",
+            &["Changelog", "Swift Package Index", "Readme", "SwiftLint with mise"]
+        )
+    }
 
     fn multiselect_platform() -> Vec<&'static str> {
-        loop {
-            let multiselect = MultiSelect::new("Choose platform")
-                .description("Which platform do you want to choose?")
-                .filterable(true)
-                .option(DemandOption::new("iOS"))
-                .option(DemandOption::new("macOS"))
-                .option(DemandOption::new("tvOS"))
-                .option(DemandOption::new("watchOS"))
-                .option(DemandOption::new("visionOS"));
-    
-            let result = match multiselect.run() {
-                Ok(selection) => selection,
-                Err(e) => {
-                    if e.kind() == std::io::ErrorKind::Interrupted {
-                        println!("Operation interrupted.");
-                        exit(0);
-                    } else {
-                        panic!("Error: {}", e);
-                    }
-                }
-            };
-    
-            let selected: Vec<&str> = result
-                .iter()
-                .filter(|opt| !opt.is_empty())
-                .copied()
-                .collect();
-    
-            if selected.is_empty() {
-                println!("{}", "You need to choose in order to follow".yellow());
-                continue;
-            }
-    
-            return selected;
-        }
-    }    
+        Self::multiselect_options(
+            "Choose platform",
+            "Which platform do you want to choose?",
+            &["iOS", "macOS", "tvOS", "watchOS", "visionOS"]
+        )
+    }
 
     fn loading() {
         Spinner::new("Building the Package...")
