@@ -1,5 +1,18 @@
 # CHANGELOG
 
+## Version 0.6.0
+**2025-08-15**
+
+🚜 Refactor
+- refactor: update swift tools version to 6.1 by @joaolfp - #130
+
+📦️ Dependency Updates
+- update Rust crate async-trait to v0.1.89 by @renovatebot - #139
+- update Rust crate clap to v4.5.45 by @renovatebot - #138
+- update Rust crate reqwest to v0.12.23 by @renovatebot - #137
+- update Rust to v1.89.0 by @renovatebot - #134
+- update Rust crate tokio to v1.47.1 by @renovatebot - #132
+
 ## Version 0.5.1
 **2025-04-22**
 
