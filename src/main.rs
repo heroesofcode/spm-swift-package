@@ -6,5 +6,5 @@ async fn main() {
     let header = Header::show();
     println!("{}", header);
 
-    CliController::execute_flow().await;
+    let _ = CliController::execute_flow().await;
 }

@@ -9,27 +9,27 @@ impl SpmBuilder {
         project_name: &str, 
         selected_file: Vec<&str>,
         platform: Vec<&str>
-    ) {
-        ProjectFile::create_project(project_name);
-        ProjectFile::create_test_folder(project_name);
+    ) -> Result<(), String> {
+        ProjectFile::create_project(project_name)?;
+        ProjectFile::create_test_folder(project_name)?;
         PlatformValidator::generate_platform(project_name, platform);
-        Self::validate_selected_file(project_name, selected_file).await;
+        Self::validate_selected_file(project_name, selected_file).await
     }
 
     async fn validate_selected_file(
         project_name: &str,
         selected_file: Vec<&str>
-    ) {
+    ) -> Result<(), String> {
         if selected_file.contains(&"Changelog") {
-            ProjectFile::create_changelog(project_name);
+            ProjectFile::create_changelog(project_name)?;
         }
 
         if selected_file.contains(&"Readme") {
-            ProjectFile::create_readme(project_name);
+            ProjectFile::create_readme(project_name)?;
         }
 
         if selected_file.contains(&"Swift Package Index") {
-            ProjectFile::create_spi(project_name);
+            ProjectFile::create_spi(project_name)?;
         }
 
         if selected_file.contains(&"SwiftLint with mise") {
@@ -37,11 +37,12 @@ impl SpmBuilder {
 
             match repository.get_latest_tag().await {
                 Ok(tag) => {
-                    ProjectFile::create_mise(project_name, &tag);
-                    ProjectFile::create_swiftlint(project_name);
+                    ProjectFile::create_mise(project_name, &tag)?;
+                    ProjectFile::create_swiftlint(project_name)?;
                 },
-                Err(error) => eprintln!("Error {}", error)
+                Err(error) => return Err(format!("Error fetching SwiftLint tag: {}", error)),
             }
         }
+        Ok(())
     }
 }

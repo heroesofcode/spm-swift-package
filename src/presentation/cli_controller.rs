@@ -5,8 +5,7 @@ use demand::{
     Spinner, 
     SpinnerStyle
 };
-use std::process::{exit, Command};
-use std::{thread::sleep, time::Duration};
+use std::process::{Command};
 use colored::Colorize;
 
 use crate::domain::usecase::usecase::*;
@@ -15,25 +14,26 @@ pub struct CliController;
 
 impl CliController {
 
-    pub async fn execute_flow() {
-        let project_name = Self::project_name_input();
-        let file_selected = Self::multiselect_files();
-        let platform_selected = Self::multiselect_platform();
+    pub async fn execute_flow() -> Result<(), String> {
+        let project_name = Self::project_name_input()?;
+        let file_selected = Self::multiselect_files()?;
+        let platform_selected = Self::multiselect_platform()?;
 
-        Self::loading();
-        SpmUseCase::execute(&project_name, file_selected, platform_selected).await;
-        Self::command_open_xcode(project_name);
+        Self::loading().await?;
+        SpmUseCase::execute(&project_name, file_selected, platform_selected).await?;
+        Self::command_open_xcode(&project_name)?;
+        Ok(())
     }
 
     // Internal functions
 
-    fn project_name_input() -> String {
+    fn project_name_input() -> Result<String, String> {
         let validation_empty = |s: &str| {
             if s.is_empty() {
-                return Err("Library name cannot be empty");
+                Err("Library name cannot be empty")
+            } else {
+                Ok(())
             }
-
-            Ok(())
         };
 
         let input = Input::new("Library name")
@@ -41,12 +41,11 @@ impl CliController {
             .prompt("Library: ")
             .validation(validation_empty);
 
-        input.run().unwrap_or_else(|e| {
+        input.run().map_err(|e| {
             if e.kind() == std::io::ErrorKind::Interrupted {
-                println!("{}", e);
-                exit(0)
+                "Operation interrupted by user.".to_string()
             } else {
-                panic!("Error: {}", e);
+                format!("Error getting library name: {}", e)
             }
         })
     }
@@ -55,7 +54,7 @@ impl CliController {
         prompt: &str,
         description: &str,
         options: &[&'static str],
-    ) -> Vec<&'static str> {
+    ) -> Result<Vec<&'static str>, String> {
         loop {
             let mut multiselect = MultiSelect::new(prompt)
                 .description(description)
@@ -69,10 +68,9 @@ impl CliController {
                 Ok(selection) => selection,
                 Err(e) => {
                     if e.kind() == std::io::ErrorKind::Interrupted {
-                        println!("Operation interrupted.");
-                        exit(0);
+                        return Err("Operation interrupted by user.".to_string());
                     } else {
-                        panic!("Error: {}", e);
+                        return Err(format!("Error selecting options: {}", e));
                     }
                 }
             };
@@ -84,15 +82,15 @@ impl CliController {
                 .collect();
 
             if selected.is_empty() {
-                println!("{}", "You need to choose in order to follow".yellow());
+                println!("{}", "You need to choose at least one option to continue".yellow());
                 continue;
             }
 
-            return selected;
+            return Ok(selected);
         }
     }
 
-    fn multiselect_files() -> Vec<&'static str> {
+    fn multiselect_files() -> Result<Vec<&'static str>, String> {
         Self::multiselect_options(
             "Add files",
             "Do you want to add some of these files?",
@@ -100,7 +98,7 @@ impl CliController {
         )
     }
 
-    fn multiselect_platform() -> Vec<&'static str> {
+    fn multiselect_platform() -> Result<Vec<&'static str>, String> {
         Self::multiselect_options(
             "Choose platform",
             "Which platform do you want to choose?",
@@ -108,23 +106,24 @@ impl CliController {
         )
     }
 
-    fn loading() {
+    async fn loading() -> Result<(), String> {
         Spinner::new("Building the Package...")
             .style(&SpinnerStyle::line())
             .run(|_| {
-                sleep(Duration::from_secs(5));
+                std::thread::sleep(std::time::Duration::from_secs(5));
             })
-            .expect("error running spinner");
+            .map_err(|_| "Error running spinner".to_string())
     }
 
-    fn command_open_xcode(project_name: String) {
+    fn command_open_xcode(project_name: &str) -> Result<(), String> {
         let command = format!("cd {} && open Package.swift", project_name);
         let mut child = Command::new("sh")
             .arg("-c")
             .arg(&command)
             .spawn()
-            .expect("Failed to open Xcode");
-        
-        child.wait().expect("Failed to wait on child");
-    }    
+            .map_err(|e| format!("Failed to open Xcode: {}", e))?;
+
+        child.wait().map_err(|e| format!("Failed to wait for Xcode: {}", e))?;
+        Ok(())
+    }
 }

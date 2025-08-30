@@ -5,7 +5,7 @@ use spm_swift_package::domain::file::project_file::ProjectFile;
 fn test_structure_create() {
     let project_name = "my_test_project";
     let _ = std::fs::remove_dir_all(project_name);
-    ProjectFile::create_project(project_name);
+    ProjectFile::create_project(project_name).unwrap();
 
     let swift_file = format!(
         "{}/Sources/{}/{}.swift",
@@ -16,7 +16,7 @@ fn test_structure_create() {
         ".swift file not created"
     );
 
-    ProjectFile::create_test_folder(project_name);
+    ProjectFile::create_test_folder(project_name).unwrap();
 
     let test_file = format!(
         "{}/Tests/{}Tests/{}Tests.swift",
@@ -27,10 +27,10 @@ fn test_structure_create() {
         "Test file not created"
     );
 
-    ProjectFile::create_package(project_name, "macOS", "15");
+    ProjectFile::create_package(project_name, "macOS", "15").unwrap();
     assert!(Path::new(&format!("{}/Package.swift", project_name)).exists());
 
-    ProjectFile::create_changelog(project_name);
+    ProjectFile::create_changelog(project_name).unwrap();
     assert!(Path::new(&format!("{}/CHANGELOG.md", project_name)).exists());
 
     let _ = std::fs::remove_dir_all(project_name);
