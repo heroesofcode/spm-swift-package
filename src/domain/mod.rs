@@ -1,5 +1,5 @@
 pub mod builder;
 pub mod file;
 pub mod platform;
-pub mod usecase;
 pub mod repository;
+pub mod usecase;
