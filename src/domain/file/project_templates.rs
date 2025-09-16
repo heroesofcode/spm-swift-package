@@ -1,16 +1,16 @@
 pub struct ProjectTemplates;
 
 impl ProjectTemplates {
-    pub fn project_swift_content() -> String {
-        r#"// The Swift Programming Language
+	pub fn project_swift_content() -> String {
+		r#"// The Swift Programming Language
 // https://docs.swift.org/swift-book/
 "#
-        .to_string()
-    }
+		.to_string()
+	}
 
-    pub fn test_content(project_name: &str) -> String {
-        format!(
-            r#"import XCTest
+	pub fn test_content(project_name: &str) -> String {
+		format!(
+			r#"import XCTest
 @testable import {}
 
 final class {}Tests: XCTestCase {{
@@ -23,18 +23,13 @@ final class {}Tests: XCTestCase {{
     }}
 }}
 "#,
-            project_name,
-            project_name,
-        )
-    }
+			project_name, project_name,
+		)
+	}
 
-    pub fn package_swift_content(
-        project_name: &str,
-        platform: &str,
-        version: &str,
-    ) -> String {
-        format!(
-            r#"// swift-tools-version: 6.1
+	pub fn package_swift_content(project_name: &str, platform: &str, version: &str) -> String {
+		format!(
+			r#"// swift-tools-version: 6.2
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -62,51 +57,50 @@ let package = Package(
     ]
 )
 "#,
-            project_name,
-            platform,
-            version,
-            project_name,
-            project_name,
-            project_name,
-            project_name,
-            project_name,
-        )
-    }
+			project_name,
+			platform,
+			version,
+			project_name,
+			project_name,
+			project_name,
+			project_name,
+			project_name,
+		)
+	}
 
-    pub fn changelog_content() -> String {
-        r#"# CHANGELOG
+	pub fn changelog_content() -> String {
+		r#"# CHANGELOG
 
 ## Version 1.0.0
 **2024-01-18**
 
 - First release
 "#
-        .to_string()
-    }
+		.to_string()
+	}
 
-    pub fn readme_content(project_name: &str) -> String {
-        format!(
-            r#"# {}
+	pub fn readme_content(project_name: &str) -> String {
+		format!(
+			r#"# {}
 "#,
-            project_name
-        )
-    }
+			project_name
+		)
+	}
 
-    pub fn spi_content(project_name: &str) -> String {
-        format!(
-            r#"version: 1
+	pub fn spi_content(project_name: &str) -> String {
+		format!(
+			r#"version: 1
 builder:
   configs:
     - documentation_targets: [{}]
       scheme: {}
 "#,
-            project_name,
-            project_name
-        )
-    }
+			project_name, project_name
+		)
+	}
 
-    pub fn swiftlint_content() -> String {
-        r#"disabled_rules:
+	pub fn swiftlint_content() -> String {
+		r#"disabled_rules:
   - line_length
   - force_try
   - identifier_name
@@ -131,15 +125,15 @@ excluded:
   - Carthage
   - Fastlane
 "#
-        .to_string()
-    }
+		.to_string()
+	}
 
-    pub fn mise_content(tag: &str) -> String {
-        format!(
-            r#"[tools]
+	pub fn mise_content(tag: &str) -> String {
+		format!(
+			r#"[tools]
 swiftlint = "{}"
 "#,
-            tag
-        )
-    }
+			tag
+		)
+	}
 }
