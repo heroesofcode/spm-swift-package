@@ -6,11 +6,11 @@ pub struct PlatformValidator;
 impl PlatformValidator {
 	pub fn generate_platform(project_name: &str, platform: Vec<&str>) {
 		let platforms = HashMap::from([
-			("iOS", "18"),
-			("macOS", "15"),
-			("watchOS", "11"),
-			("tvOS", "18"),
-			("visionOS", "2"),
+			("iOS", "26"),
+			("macOS", "26"),
+			("watchOS", "26"),
+			("tvOS", "26"),
+			("visionOS", "26"),
 		]);
 
 		for (key, version) in platforms {
