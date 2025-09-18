@@ -17,7 +17,7 @@ impl Header {
 		let header = format!(
 			"\n{}\n\
              🚀 You can create your Swift Package via the command line 🔨\n\
-             v0.5.1\n",
+             v0.7.0\n",
 			header.color(orange)
 		);
 
@@ -26,7 +26,7 @@ impl Header {
 
 	fn check_version() {
 		let _app = Command::new("spm-swift-package")
-			.version("0.6.0")
+			.version("0.7.0")
 			.ignore_errors(true)
 			.get_matches();
 	}

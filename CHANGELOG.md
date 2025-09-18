@@ -1,5 +1,18 @@
 # CHANGELOG
 
+## Version 0.7.0
+**2025-09-17**
+
+- refactor: update platform versions to Xcode 26 by @joaolfp - #151
+- feat: xcode 26.0 support by @joaolfp - #149
+- chore(deps): migrate renovate config by @renovatebot - #144
+- chore(deps): update Rust crate insta to v1.43.2 by @renovatebot - #143
+- chore(deps): update Rust crate serde to v1.0.225 by @renovatebot - #150
+- chore(deps): update Rust crate clap to v4.5.47 by @renovatebot - #142
+- chore(deps): update jdx/mise-action action to v3 by @renovatebot - #140
+
+This release introduces support for Xcode 26.0. If you are not ready to migrate to Xcode 26 yet, I recommend that you either stay on your current version or avoid installing this release of `spm-swift-package`.
+
 ## Version 0.6.0
 **2025-08-15**
 
