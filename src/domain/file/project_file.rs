@@ -32,8 +32,8 @@ impl ProjectFile {
 		Ok(())
 	}
 
-	pub fn create_package(project_name: &str, platform: &str, version: &str) -> Result<(), String> {
-		let content = ProjectTemplates::package_swift_content(project_name, platform, version);
+	pub fn create_package(project_name: &str, platform: &str, version: &str, is_plugin: bool) -> Result<(), String> {
+		let content = ProjectTemplates::package_swift_content(project_name, platform, version, is_plugin);
 		Self::base_root_project(project_name, "Package.swift", content)
 	}
 
@@ -55,11 +55,6 @@ impl ProjectFile {
 	pub fn create_swiftlint(project_name: &str) -> Result<(), String> {
 		let content = ProjectTemplates::swiftlint_content();
 		Self::base_root_project(project_name, ".swiftlint.yml", content)
-	}
-
-	pub fn create_mise(project_name: &str, tag: &str) -> Result<(), String> {
-		let content = ProjectTemplates::mise_content(tag);
-		Self::base_root_project(project_name, "mise.toml", content)
 	}
 
 	fn base_root_project(project_name: &str, name_file: &str, content: String) -> Result<(), String> {

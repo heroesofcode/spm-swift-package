@@ -21,7 +21,7 @@ fn test_structure_create() {
 	);
 	assert!(Path::new(&test_file).exists(), "Test file not created");
 
-	ProjectFile::create_package(project_name, "macOS", "15").unwrap();
+	ProjectFile::create_package(project_name, "macOS", "15", false).unwrap();
 	assert!(Path::new(&format!("{}/Package.swift", project_name)).exists());
 
 	ProjectFile::create_changelog(project_name).unwrap();
