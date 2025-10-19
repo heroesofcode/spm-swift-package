@@ -6,6 +6,12 @@
 
 Command Line Tools for macOS to create project in Swift Package Manager with desirable files.
 
+- ✅ Supports iOS, macOS, tvOS, watchOS, and visionOS
+- ✅ Can generate files such as Changelog, Swift Package Index, and SwiftLint
+- ✅ SwiftLint automatically generates a swiftlint.yml file using the [SwiftLintPlugin](https://github.com/lukepistrol/SwiftLintPlugin)
+- ✅ Xcode 26.0 compatibility
+- ❌ Not compatible with earlier Xcode versions
+
 ## Installing
 
 #### Cargo
