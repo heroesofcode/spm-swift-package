@@ -27,9 +27,61 @@ final class {}Tests: XCTestCase {{
 		)
 	}
 
-	pub fn package_swift_content(project_name: &str, platform: &str, version: &str) -> String {
-		format!(
-			r#"// swift-tools-version: 6.2
+	pub fn package_swift_content(
+    project_name: &str,
+    platform: &str,
+    version: &str,
+    is_plugin: bool,
+) -> String {
+    if is_plugin {
+        format!(
+            r#"// swift-tools-version: 6.2
+// The swift-tools-version declares the minimum version of Swift required to build this package.
+
+import PackageDescription
+
+let package = Package(
+    name: "{}",
+    platforms: [
+        .{}(.v{})
+    ],
+    products: [
+        // Products define the executables and libraries a package produces, making them visible to other packages.
+        .library(
+            name: "{}",
+            targets: ["{}"]),
+    ],
+    dependencies: [
+        .package(url: "https://github.com/lukepistrol/SwiftLintPlugin", exact: "0.61.0")
+    ],
+    targets: [
+        // Targets are the basic building blocks of a package, defining a module or a test suite.
+        // Targets can depend on other targets in this package and products from dependencies.
+        .target(
+            name: "{}",
+            plugins: [
+                .plugin(name: "SwiftLint", package: "SwiftLintPlugin")
+            ]
+        ),
+        .testTarget(
+            name: "{}Tests",
+            dependencies: ["{}"]
+        ),
+    ]
+)
+"#,
+            project_name,
+            platform,
+            version,
+            project_name,
+            project_name,
+            project_name,
+            project_name,
+            project_name,
+        )
+    } else {
+        format!(
+            r#"// swift-tools-version: 6.2
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -49,7 +101,8 @@ let package = Package(
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "{}"),
+            name: "{}"
+        ),
         .testTarget(
             name: "{}Tests",
             dependencies: ["{}"]
@@ -57,16 +110,17 @@ let package = Package(
     ]
 )
 "#,
-			project_name,
-			platform,
-			version,
-			project_name,
-			project_name,
-			project_name,
-			project_name,
-			project_name,
-		)
-	}
+            project_name,
+            platform,
+            version,
+            project_name,
+            project_name,
+            project_name,
+            project_name,
+            project_name,
+        )
+    }
+}
 
 	pub fn changelog_content() -> String {
 		r#"# CHANGELOG
@@ -101,17 +155,7 @@ builder:
 
 	pub fn swiftlint_content() -> String {
 		r#"disabled_rules:
-  - line_length
-  - force_try
-  - identifier_name
   - trailing_whitespace
-  - force_cast
-  - colon
-  - implicit_getter
-  - void_return
-  - unused_enumerated
-  - function_parameter_count
-  - file_length
   
 vertical_whitespace:
     severity: error
@@ -127,13 +171,5 @@ excluded:
 "#
 		.to_string()
 	}
-
-	pub fn mise_content(tag: &str) -> String {
-		format!(
-			r#"[tools]
-swiftlint = "{}"
-"#,
-			tag
-		)
-	}
+	
 }

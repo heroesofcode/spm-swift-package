@@ -1,8 +1,5 @@
 use crate::domain::file::project_file::*;
 use crate::domain::platform::platform_validator::*;
-use crate::domain::repository::swiftlint_repository::{
-	SwiftLintRepository, SwiftLintRepositoryImpl,
-};
 
 pub struct SpmBuilder;
 
@@ -14,7 +11,14 @@ impl SpmBuilder {
 	) -> Result<(), String> {
 		ProjectFile::create_project(project_name)?;
 		ProjectFile::create_test_folder(project_name)?;
-		PlatformValidator::generate_platform(project_name, platform);
+
+		if selected_file.contains(&"SwiftLint") {
+			PlatformValidator::generate_platform(project_name, platform, true);
+			ProjectFile::create_swiftlint(project_name)?;
+		} else {
+			PlatformValidator::generate_platform(project_name, platform, false);
+		}
+
 		Self::validate_selected_file(project_name, selected_file).await
 	}
 
@@ -34,17 +38,6 @@ impl SpmBuilder {
 			ProjectFile::create_spi(project_name)?;
 		}
 
-		if selected_file.contains(&"SwiftLint with mise") {
-			let repository = SwiftLintRepositoryImpl::new();
-
-			match repository.get_latest_tag().await {
-				Ok(tag) => {
-					ProjectFile::create_mise(project_name, &tag)?;
-					ProjectFile::create_swiftlint(project_name)?;
-				}
-				Err(error) => return Err(format!("Error fetching SwiftLint tag: {}", error)),
-			}
-		}
 		Ok(())
 	}
 }

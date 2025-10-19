@@ -94,7 +94,7 @@ impl CliController {
 				"Changelog",
 				"Swift Package Index",
 				"Readme",
-				"SwiftLint with mise",
+				"SwiftLint",
 			],
 		)
 	}
