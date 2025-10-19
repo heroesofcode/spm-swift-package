@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## Version 0.8.0
+**2025-10-19**
+
+- refactor: change SwiftLint mise to Plugin by @joaolfp (#164)
+- chore(deps): update Rust crate clap to v4.5.49 by @renovatebot (#160)
+- chore(deps): update Rust crate httpmock to v0.8.2 by @renovatebot (#163)
+- chore(deps): update Rust crate tokio to v1.48.0 by @renovatebot (#162)
+- chore(deps): update Rust crate serde to v1.0.228 by @renovatebot (#159)
+- chore(deps): update rust to v1.90.0 to v1.90.0 by @renovatebot (#152)
+
 ## Version 0.7.0
 **2025-09-17**
 

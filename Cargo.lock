@@ -1458,7 +1458,7 @@ dependencies = [
 
 [[package]]
 name = "spm-swift-package"
-version = "0.7.0"
+version = "0.8.0"
 dependencies = [
  "async-trait",
  "clap",
