@@ -1,10 +1,33 @@
-# spm-swift-package
+<p align="center">
+  <img src="./assets/icon.webp" width="300" />
+  <br>
 
-[![CI](https://github.com/heroesofcode/spm-swift-package/actions/workflows/CI.yml/badge.svg)](https://github.com/heroesofcode/spm-swift-package/actions/workflows/CI.yml)
-[![Crates.io](https://img.shields.io/crates/v/spm-swift-package)](https://crates.io/crates/spm-swift-package)
-[![License](https://img.shields.io/github/license/heroesofcode/spm-swift-package.svg)](https://github.com/heroesofcode/spm-swift-package/blob/main/LICENSE)
+  <a href="https://github.com/heroesofcode/spm-swift-package/releases">
+    <img src="https://img.shields.io/github/v/release/heroesofcode/spm-swift-package?style=flat&labelColor=1C2C2E&color=C96329&logo=GitHub&logoColor=white" />
+  </a>
+  <a href="https://crates.io/crates/spm-swift-package">
+    <img src="https://img.shields.io/crates/v/spm-swift-package?style=flat&labelColor=1C2C2E&color=C96329&logo=Rust&logoColor=white" />
+  </a>
+  
+  <br>
 
-Command Line Tools for macOS to create project in Swift Package Manager with desirable files.
+  <a href="https://github.com/heroesofcode/spm-swift-package/actions/workflows/CI.yml">
+    <img src="https://img.shields.io/github/actions/workflow/status/heroesofcode/spm-swift-package/CI.yml?style=flat&labelColor=1C2C2E&label=CI&color=BEC5C9&logo=GitHub%20Actions&logoColor=BEC5C9" />
+  </a>
+  <a href="https://github.com/heroesofcode/spm-swift-package/actions/workflows/Release.yml">
+    <img src="https://img.shields.io/github/actions/workflow/status/heroesofcode/spm-swift-package/Release.yml?style=flat&labelColor=1C2C2E&color=BEC5C9&label=deploy&logo=GitHub%20Actions&logoColor=BEC5C9" />
+  </a>
+  <a href="https://github.com/heroesofcode/spm-swift-package/blob/main/LICENSE">
+    <img src="https://img.shields.io/badge/license-MIT-BEC5C9?style=flat&labelColor=1C2C2E&logoColor=BEC5C9" />
+  </a>
+</p>
+
+<p align="center">
+  <strong>Command Line Tools for macOS to create Swift Package Manager projects with desirable files.</strong>
+</p>
+
+
+## Features
 
 - ✅ Supports iOS, macOS, tvOS, watchOS, and visionOS
 - ✅ Can generate files such as Changelog, Swift Package Index, and SwiftLint
