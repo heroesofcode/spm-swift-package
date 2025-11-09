@@ -13,10 +13,6 @@ exclude = [".github/**", ".api/*"]
 demand = "1.7.2"
 clap = "4.5.49"
 colored = "3.0.0"
-httpmock = "0.8.2"
-async-trait = "0.1.89"
-reqwest = { version = "0.12.24", features = ["json"] }
-serde = { version = "1.0.228", features = ["derive"] }
 tokio = { version = "1.48.0", features = ["full"] }
 
 [dev-dependencies]

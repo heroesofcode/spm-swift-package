@@ -4,30 +4,26 @@ use colored::{Color, Colorize};
 pub struct Header;
 
 impl Header {
-	pub fn show() -> String {
-		Self::check_version();
+    const VERSION: &'static str = "0.8.0";
 
-		let header = "SPM Swift Package";
-		let orange = Color::TrueColor {
-			r: 240,
-			g: 81,
-			b: 56,
-		};
+    pub fn show() -> String {
+        Self::check_version();
 
-		let header = format!(
-			"\n{}\n\
+        let orange = Color::TrueColor { r: 240, g: 81, b: 56 };
+
+        format!(
+            "\n{}\n\
              🚀 You can create your Swift Package via the command line 🔨\n\
-             v0.8.0\n",
-			header.color(orange)
-		);
+             v{}\n",
+            "SPM Swift Package".color(orange),
+            Self::VERSION
+        )
+    }
 
-		header
-	}
-
-	fn check_version() {
-		let _app = Command::new("spm-swift-package")
-			.version("0.7.0")
-			.ignore_errors(true)
-			.get_matches();
-	}
+    fn check_version() {
+        let _ = Command::new("spm-swift-package")
+            .version(Self::VERSION)
+            .ignore_errors(true)
+            .get_matches();
+    }
 }
