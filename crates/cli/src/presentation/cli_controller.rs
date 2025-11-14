@@ -2,7 +2,7 @@ use colored::Colorize;
 use demand::{DemandOption, Input, MultiSelect, Spinner, SpinnerStyle};
 use std::process::Command;
 
-use crate::domain::usecase::usecase::*;
+use spm_core::domain::usecase::usecase::*;
 
 pub struct CliController;
 
