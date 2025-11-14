@@ -13,7 +13,12 @@ impl CliController {
 		let platform_selected = Self::multiselect_platform()?;
 
 		Self::loading().await?;
-		SpmUseCase::execute(&project_name, file_selected, platform_selected).await?;
+		SpmUseCase::execute(
+			&project_name, 
+			file_selected, 
+			platform_selected
+		).await?;
+		
 		Self::command_open_xcode(&project_name)?;
 		Ok(())
 	}
