@@ -346,13 +346,25 @@ dependencies = [
  "colored",
  "demand",
  "insta",
- "spm_core",
+ "spm_core 0.8.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "tokio",
 ]
 
 [[package]]
 name = "spm_core"
 version = "0.8.0"
+dependencies = [
+ "clap",
+ "colored",
+ "demand",
+ "tokio",
+]
+
+[[package]]
+name = "spm_core"
+version = "0.8.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a6ca6395d4f77daf86fb32aeb3f1d8116fada42eb83fd6f892f1d6d8ebd169c0"
 dependencies = [
  "clap",
  "colored",
