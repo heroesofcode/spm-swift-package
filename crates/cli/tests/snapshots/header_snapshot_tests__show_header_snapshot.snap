@@ -1,5 +1,5 @@
 ---
-source: tests/header_snapshot_tests.rs
+source: crates/cli/tests/header_snapshot_tests.rs
 expression: header
 snapshot_kind: text
 ---

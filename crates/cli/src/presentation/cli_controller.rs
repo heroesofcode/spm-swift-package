@@ -2,7 +2,7 @@ use colored::Colorize;
 use demand::{DemandOption, Input, MultiSelect, Spinner, SpinnerStyle};
 use std::process::Command;
 
-use crate::domain::usecase::usecase::*;
+use spm_core::domain::usecase::usecase::*;
 
 pub struct CliController;
 
@@ -13,7 +13,12 @@ impl CliController {
 		let platform_selected = Self::multiselect_platform()?;
 
 		Self::loading().await?;
-		SpmUseCase::execute(&project_name, file_selected, platform_selected).await?;
+		SpmUseCase::execute(
+			&project_name, 
+			file_selected, 
+			platform_selected
+		).await?;
+		
 		Self::command_open_xcode(&project_name)?;
 		Ok(())
 	}

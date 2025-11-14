@@ -1,4 +1,4 @@
-use spm_swift_package::domain::file::project_file::ProjectFile;
+use spm_core::domain::file::project_file::ProjectFile;
 use std::path::Path;
 
 #[test]

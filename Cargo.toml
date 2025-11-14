@@ -1,19 +1,27 @@
-[package]
-name = "spm-swift-package"
+[workspace]
+members = [
+    "crates/spm_core",
+    "crates/cli",
+]
+resolver = "2"
+
+[workspace.package]
 version = "0.8.0"
 edition = "2024"
-authors = ["João Lucas <joaolucasfp2001@gmail.com>"]
 license = "MIT"
+authors = ["João Lucas <joaolucasfp2001@gmail.com>"]
 description = "Command Line Tools for macOS to create project in Swift Package Manager with desirable files."
 readme = "README.md"
 repository = "https://github.com/heroesofcode/spm-swift-package"
-exclude = [".github/**", ".api/*"]
 
-[dependencies]
+[workspace.dependencies]
 demand = "1.7.2"
 clap = "4.5.49"
 colored = "3.0.0"
 tokio = { version = "1.48.0", features = ["full"] }
+insta = "1.43.2"    # dev-dependency
 
-[dev-dependencies]
-insta = "1.43.2"
+[profile.release]
+strip = true
+lto = true
+codegen-units = 1
