@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## Version 0.8.1
+**2025-11-14**
+
+- fix: selector platform #173 by @joaolfp (#174)
+- chore(deps): update rust to v1.91.1 by @renovatebot (#171)
+- chore(deps): update Rust crate clap to v4.5.51 by @renovatebot (#166)
+
 ## Version 0.8.0
 **2025-10-19**
 

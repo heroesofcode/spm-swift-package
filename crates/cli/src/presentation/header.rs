@@ -4,7 +4,7 @@ use colored::{Color, Colorize};
 pub struct Header;
 
 impl Header {
-    const VERSION: &'static str = "0.8.0";
+    const VERSION: &'static str = "0.8.1";
 
     pub fn show() -> String {
         Self::check_version();
