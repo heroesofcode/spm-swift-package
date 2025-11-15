@@ -1,5 +1,12 @@
 use colored::Colorize;
-use demand::{DemandOption, Input, MultiSelect, Spinner, SpinnerStyle};
+use demand::{
+	DemandOption, 
+	Input, 
+	MultiSelect, 
+	Select, 
+	Spinner, 
+	SpinnerStyle
+};
 use std::process::Command;
 
 use spm_core::domain::usecase::usecase::*;
@@ -10,13 +17,13 @@ impl CliController {
 	pub async fn execute_flow() -> Result<(), String> {
 		let project_name = Self::project_name_input()?;
 		let file_selected = Self::multiselect_files()?;
-		let platform_selected = Self::multiselect_platform()?;
+		let platform_selected = Self::select_platform()?;
 
 		Self::loading().await?;
 		SpmUseCase::execute(
 			&project_name, 
 			file_selected, 
-			platform_selected
+			vec![platform_selected]
 		).await?;
 		
 		Self::command_open_xcode(&project_name)?;
@@ -104,12 +111,22 @@ impl CliController {
 		)
 	}
 
-	fn multiselect_platform() -> Result<Vec<&'static str>, String> {
-		Self::multiselect_options(
-			"Choose platform",
-			"Which platform do you want to choose?",
-			&["iOS", "macOS", "tvOS", "watchOS", "visionOS"],
-		)
+	fn select_platform() -> Result<&'static str, String> {
+		let mut select = Select::new("Choose platform")
+			.description("Which platform do you want to choose?")
+			.filterable(true);
+
+		for option in ["iOS", "macOS", "tvOS", "watchOS", "visionOS"].iter() {
+			select = select.option(DemandOption::new(*option));
+		}
+
+		select.run().map_err(|e| {
+			if e.kind() == std::io::ErrorKind::Interrupted {
+				"Operation interrupted by user.".to_string()
+			} else {
+				format!("Error selecting platform: {}", e)
+			}
+		})
 	}
 
 	async fn loading() -> Result<(), String> {
