@@ -1,5 +1,12 @@
 use colored::Colorize;
-use demand::{DemandOption, Input, MultiSelect, Select, Spinner, SpinnerStyle};
+use demand::{
+	DemandOption, 
+	Input, 
+	MultiSelect, 
+	Select, 
+	Spinner, 
+	SpinnerStyle
+};
 use std::process::Command;
 
 use spm_core::domain::usecase::usecase::*;
@@ -108,7 +115,7 @@ impl CliController {
 		let mut select = Select::new("Choose platform")
 			.description("Which platform do you want to choose?")
 			.filterable(true);
-		
+
 		for option in ["iOS", "macOS", "tvOS", "watchOS", "visionOS"].iter() {
 			select = select.option(DemandOption::new(*option));
 		}
