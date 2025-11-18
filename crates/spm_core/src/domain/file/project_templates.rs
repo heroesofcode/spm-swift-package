@@ -52,7 +52,7 @@ let package = Package(
             targets: ["{}"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/lukepistrol/SwiftLintPlugin", exact: "0.61.0")
+        .package(url: "https://github.com/lukepistrol/SwiftLintPlugin", exact: "0.62.2")
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
