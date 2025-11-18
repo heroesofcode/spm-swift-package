@@ -7,7 +7,7 @@ run = "cargo build --release"
 [tasks.build]
 run = "cargo build"
 
-[tasks.compile]
+[tasks.cli]
 run = "cargo run"
 
 [tasks.test]
