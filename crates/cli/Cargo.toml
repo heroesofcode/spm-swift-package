@@ -13,7 +13,7 @@ demand.workspace = true
 clap.workspace = true
 colored.workspace = true
 tokio.workspace = true
-spm_core = "0.2.0"
+spm_core = "0.8.0"
 
 [dev-dependencies]
 insta.workspace = true
