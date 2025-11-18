@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## Version 0.9.0
+**2025-11-17**
+
+- chore(deps): update Rust crate clap to v4.5.52 by @renovatebot (#175)
+- chore(deps): update SwiftLintPlugin to 0.62.2 (was 0.61.0) by @joaolfp (#176)
+
 ## Version 0.8.1
 **2025-11-14**
 
