@@ -16,6 +16,7 @@ demand = "1.7.2"
 clap = "4.5.49"
 colored = "3.0.0"
 xshell = "0.2.7"
+anyhow = "1.0.100"
 tokio = { version = "1.48.0", features = ["full"] }
 insta = "1.43.2"
 

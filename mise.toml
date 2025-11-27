@@ -10,6 +10,9 @@ run = "cargo build"
 [tasks.cli]
 run = "cargo run"
 
+[tasks.xtask]
+run = "cargo run -p xtask"
+
 [tasks.test]
 run = "cargo test"
 
