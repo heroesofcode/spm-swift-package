@@ -9,7 +9,7 @@ use demand::{
 };
 use std::process::Command;
 
-use spm_core::domain::usecase::usecase::*;
+use crate::domain::usecase::usecase::*;
 
 pub struct CliController;
 
