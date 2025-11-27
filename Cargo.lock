@@ -346,29 +346,6 @@ dependencies = [
  "colored",
  "demand",
  "insta",
- "spm_core 0.9.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "tokio",
-]
-
-[[package]]
-name = "spm_core"
-version = "0.9.0"
-dependencies = [
- "clap",
- "colored",
- "demand",
- "tokio",
-]
-
-[[package]]
-name = "spm_core"
-version = "0.9.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "450c7be7281c302c87953cd603d9c8d3bf65f477069562b332d95b9246bf786b"
-dependencies = [
- "clap",
- "colored",
- "demand",
  "tokio",
 ]
 
@@ -629,3 +606,7 @@ name = "windows_x86_64_msvc"
 version = "0.53.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d6bbff5f0aada427a1e5a6da5f1f98158182f26556f345ac9e04d36d0ebed650"
+
+[[package]]
+name = "xtask"
+version = "0.0.0"

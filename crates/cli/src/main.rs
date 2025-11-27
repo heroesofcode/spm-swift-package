@@ -1,4 +1,5 @@
 mod presentation;
+mod domain;
 
 use presentation::cli_controller::CliController;
 use presentation::header::Header;
