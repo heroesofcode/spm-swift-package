@@ -14,6 +14,7 @@ fn header() {
 	println!("2️⃣  Run all testes");
 	println!("3️⃣  Publish package");
 	println!("4️⃣  Running cargo publish (dry-run)");
+	println!("5️⃣  Preparing tar.gz to homebrew");
 	println!();
 }
 
@@ -49,9 +50,14 @@ fn input_option_validation(shell: Shell) -> anyhow::Result<()> {
 			cmd!(shell, "cargo publish").run()?;
 		}
 		"4" => {
-			println!("📦 Running cargo publish (dry-run)...");
+			println!("📦 Running cargo publish (dry-run)");
 			println!();
 			cmd!(shell, "cargo publish --dry-run").run()?;
+		}
+		"5" => {
+			println!("📦 Preparing tar.gz to homebrew");
+			println!();
+			cmd!(shell, "releasor --file-name spm-swift-package").run()?;
 		}
 		_ => {
 			println!("Invalid option");
