@@ -8,6 +8,6 @@ impl SpmUseCase {
 		selected_file: Vec<&str>,
 		platform: Vec<&str>,
 	) -> Result<(), String> {
-		SpmBuilder::builder(&project_name, selected_file, platform).await
+		SpmBuilder::builder(project_name, selected_file, platform).await
 	}
 }

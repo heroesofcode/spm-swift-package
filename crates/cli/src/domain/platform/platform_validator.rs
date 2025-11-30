@@ -4,11 +4,7 @@ use std::collections::HashMap;
 pub struct PlatformValidator;
 
 impl PlatformValidator {
-	pub fn generate_platform(
-		project_name: &str, 
-		platform: Vec<&str>, 
-		is_plugin: bool
-	) {
+	pub fn generate_platform(project_name: &str, platform: Vec<&str>, is_plugin: bool) {
 		let platforms = HashMap::from([
 			("iOS", "26"),
 			("macOS", "26"),

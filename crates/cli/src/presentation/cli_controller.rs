@@ -23,9 +23,9 @@ impl CliController {
 		SpmUseCase::execute(
 			&project_name, 
 			file_selected, 
-			vec![platform_selected]
+			vec![platform_selected],
 		).await?;
-		
+
 		Self::command_open_xcode(&project_name)?;
 		Ok(())
 	}
@@ -102,12 +102,7 @@ impl CliController {
 		Self::multiselect_options(
 			"Add files",
 			"Do you want to add some of these files?",
-			&[
-				"Changelog",
-				"Swift Package Index",
-				"Readme",
-				"SwiftLint",
-			],
+			&["Changelog", "Swift Package Index", "Readme", "SwiftLint"],
 		)
 	}
 

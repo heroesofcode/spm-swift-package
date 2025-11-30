@@ -1,5 +1,5 @@
-use xshell::{cmd, Shell};
 use demand::Input;
+use xshell::{Shell, cmd};
 
 fn main() -> anyhow::Result<()> {
 	header();
@@ -20,18 +20,18 @@ fn header() {
 
 fn input_option_validation(shell: Shell) -> anyhow::Result<()> {
 	let validation_input = |s: &str| {
-        if s.is_empty() {
-            return Err("Input cannot be empty");
-        }
+		if s.is_empty() {
+			return Err("Input cannot be empty");
+		}
 
-        Ok(())
-    };
+		Ok(())
+	};
 
-    let option_input = Input::new("Choose an option: ")
-        .prompt("Option: ")
-        .validation(validation_input);
+	let option_input = Input::new("Choose an option: ")
+		.prompt("Option: ")
+		.validation(validation_input);
 
-    let option = option_input.run().expect("error running input");
+	let option = option_input.run().expect("error running input");
 
 	match option.as_str() {
 		"1" => {
