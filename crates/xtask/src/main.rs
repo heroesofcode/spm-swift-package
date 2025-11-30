@@ -1,5 +1,7 @@
 use demand::Input;
 use xshell::{Shell, cmd};
+use std::io::ErrorKind;
+use std::process::exit;
 
 fn main() -> anyhow::Result<()> {
 	header();
@@ -27,11 +29,21 @@ fn input_option_validation(shell: Shell) -> anyhow::Result<()> {
 		Ok(())
 	};
 
-	let option_input = Input::new("Choose an option: ")
-		.prompt("Option: ")
-		.validation(validation_input);
-
-	let option = option_input.run().expect("error running input");
+	let option = loop {
+		let option_input = Input::new("Choose an option: ")
+			.prompt("Option: ")
+			.validation(validation_input);
+		match option_input.run() {
+			Ok(opt) => break opt,
+			Err(e) => {
+				if e.kind() == ErrorKind::Interrupted {
+					exit(0);
+				}
+				eprintln!("error running input: {e}");
+				return Err(e.into());
+			}
+		}
+	};
 
 	match option.as_str() {
 		"1" => {
