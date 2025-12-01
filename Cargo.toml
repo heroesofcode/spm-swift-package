@@ -13,7 +13,7 @@ repository = "https://github.com/heroesofcode/spm-swift-package"
 
 [workspace.dependencies]
 demand = "1.7.2"
-clap = "4.5.49"
+clap = { version = "4.5.53", features = ["derive"] }
 colored = "3.0.0"
 xshell = "0.2.7"
 anyhow = "1.0.100"
