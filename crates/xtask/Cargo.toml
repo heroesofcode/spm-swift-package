@@ -10,4 +10,4 @@ repository.workspace = true
 [dependencies]
 xshell.workspace = true
 anyhow.workspace = true
-demand.workspace = true
+clap.workspace = true

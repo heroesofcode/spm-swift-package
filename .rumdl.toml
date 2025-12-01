@@ -1,0 +1,6 @@
+[global]
+disable = ["MD024"]
+
+[MD013]
+code-block-line-length = 120
+line-length = 100

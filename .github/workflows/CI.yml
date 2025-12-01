@@ -11,14 +11,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v6
-
-    - name: Mise install
-      uses: jdx/mise-action@v3
-      with:
-        experimental: true
     
-    - name: Build
-      run: mise build
+    - name: Run build
+      run: cargo run -p xtask -- build
 
-    - name: Tests
-      run: mise test
+    - name: Run cli
+      run: cargo run -p xtask -- run
+
+    - name: Run all tests
+      run: cargo run -p xtask -- test

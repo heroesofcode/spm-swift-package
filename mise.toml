@@ -1,29 +1,43 @@
 [tasks.lint]
+description = "Run Clippy to lint all targets and features"
 run = "cargo clippy --all-targets --all-features"
 
 [tasks.release]
+description = "Build the project in release mode"
 run = "cargo build --release"
 
 [tasks.build]
+description = "Build the project in debug mode"
 run = "cargo build"
 
 [tasks.cli]
+description = "Run the main CLI (cargo run)"
 run = "cargo run"
 
 [tasks.xtask]
+description = "Run the xtask command"
 run = "cargo run -p xtask"
 
 [tasks.test]
+description = "Run all tests"
 run = "cargo test"
 
 [tasks.check]
+description = "Check the project without building artifacts"
 run = "cargo check"
 
 [tasks.doc]
+description = "Generate documentation without dependencies"
 run = "cargo doc --no-deps"
 
 [tasks.fmt]
+description = "Verify code formatting"
 run = "cargo fmt --all -- --check"
 
-[tasks.api]
-run = "cd api && cargo run"
+[tasks.publish]
+description = "Publish the crate to crates.io"
+run = "cargo publish"
+
+[tasks.releasor]
+description = "Generate .tar.gz release artifacts using releasor"
+run = "releasor --file-name spm-swift-package"

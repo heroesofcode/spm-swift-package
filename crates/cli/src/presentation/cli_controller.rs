@@ -9,7 +9,7 @@ use demand::{
 };
 use std::process::Command;
 
-use crate::domain::usecase::usecase::*;
+use crate::domain::builder::spm_builder::*;
 
 pub struct CliController;
 
@@ -20,10 +20,10 @@ impl CliController {
 		let platform_selected = Self::select_platform()?;
 
 		Self::loading().await?;
-		SpmUseCase::execute(
+		SpmBuilder::builder(
 			&project_name, 
 			file_selected, 
-			vec![platform_selected],
+			vec![platform_selected]
 		).await?;
 
 		Self::command_open_xcode(&project_name)?;
