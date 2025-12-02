@@ -23,12 +23,12 @@
 </p>
 
 ## Features
-
 - 🚀 **Multi-platform:** iOS • macOS • tvOS • watchOS • visionOS  
 - 🛠️ **Auto-generated files:** Changelog • Readme • Swift Package Index • SwiftLint  
 - ✅ **SwiftLint integration:** Generates `.swiftlint.yml` using the [SwiftLintPlugin](https://github.com/lukepistrol/SwiftLintPlugin)  
 - 🧰 **Modern toolchain:** Compatible with Xcode 26.0  
-- ⚠️ **No legacy support:** Does not work with older Xcode versions
+- ⚠️ **No legacy support:** Does not work with older Xcode versions  
+- 🖥️ **GUI support:** Optional graphical interface built with [Iced](https://github.com/iced-rs/iced), launched via `spm-swift-package ui`
 
 ## Installing
 
@@ -49,13 +49,28 @@ brew install heroesofcode/taps/spm-swift-package
 
 ## Usage
 
-Run the command to start creating your Swift Package Manager:
+#### Run cli
 
 ```sh
 spm-swift-package
 ```
 
 <img src="https://github.com/heroesofcode/spm-swift-package/blob/main/assets/example.gif?raw=true">
+
+#### Run UI
+
+```sh
+spm-swift-package ui
+```
+
+<img src="https://github.com/heroesofcode/spm-swift-package/blob/main/assets/gui.png?raw=true">
+
+<a href="https://github.com/iced-rs/iced">
+  <img src="https://gist.githubusercontent.com/hecrj/ad7ecd38f6e47ff3688a38c79fd108f0/raw/74384875ecbad02ae2a926425e9bcafd0695bade/color.svg" width="130px">
+</a>
+
+<br>
+<br>
 
 After generating the Package, it will automatically open in Xcode
 

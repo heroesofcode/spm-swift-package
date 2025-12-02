@@ -14,6 +14,10 @@ run = "cargo build"
 description = "Run the main CLI (cargo run)"
 run = "cargo run"
 
+[tasks.ui]
+description = "Start the GUI mode"
+run = "cargo run -- ui"
+
 [tasks.xtask]
 description = "Run the xtask command"
 run = "cargo run -p xtask"
