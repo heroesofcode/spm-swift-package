@@ -122,6 +122,11 @@ impl SpmView {
                 if self.watchos { platforms.push("watchOS"); }
                 if self.visionos { platforms.push("visionOS"); }
 
+                if files.is_empty() && platforms.is_empty() {
+                    files.push("Readme");
+                    platforms.push("iOS");
+                }
+
                 tokio::spawn(async move {
                     if let Ok(_) = SpmBuilder::builder(
                         &project_name, 
