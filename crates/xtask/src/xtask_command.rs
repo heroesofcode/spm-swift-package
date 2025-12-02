@@ -6,6 +6,7 @@ pub enum XtaskCommand {
     Run,
     Test,
     Build,
+    UI,
     Publish,
     PublishDryRun,
     PrepareHomebrew,
@@ -25,6 +26,9 @@ impl XtaskCommand {
             },
             XtaskCommand::Build => { 
                 cmd!(shell, "cargo build").run()?; 
+            },
+            XtaskCommand::UI => { 
+                cmd!(shell, "cargo run -- ui").run()?; 
             },
             XtaskCommand::Publish => { 
                 cmd!(shell, "cargo publish").run()?; 
