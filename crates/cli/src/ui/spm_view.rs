@@ -31,7 +31,7 @@ pub struct SpmView {
     watchos: bool,
     visionos: bool,
     input_content: String,
-    platform_error: bool, // <-- NEW: error state
+    platform_error: bool,
 }
 
 /// Entry point to launch the iced application for the SPM GUI
