@@ -15,8 +15,5 @@ jobs:
     - name: Run build
       run: cargo run -p xtask -- build
 
-    - name: Run cli
-      run: cargo run -p xtask -- run
-
     - name: Run all tests
       run: cargo run -p xtask -- test

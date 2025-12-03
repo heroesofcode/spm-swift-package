@@ -31,6 +31,7 @@ pub struct SpmView {
     watchos: bool,
     visionos: bool,
     input_content: String,
+    platform_error: bool,
 }
 
 /// Entry point to launch the iced application for the SPM GUI
@@ -54,6 +55,7 @@ impl SpmView {
                     self.tvos = false;
                     self.watchos = false;
                     self.visionos = false;
+                    self.platform_error = false;
                 } else {
                     self.ios = false;
                 }
@@ -65,6 +67,7 @@ impl SpmView {
                     self.tvos = false;
                     self.watchos = false;
                     self.visionos = false;
+                    self.platform_error = false;
                 } else {
                     self.macos = false;
                 }
@@ -76,6 +79,7 @@ impl SpmView {
                     self.tvos = true;
                     self.watchos = false;
                     self.visionos = false;
+                    self.platform_error = false;
                 } else {
                     self.tvos = false;
                 }
@@ -87,6 +91,7 @@ impl SpmView {
                     self.tvos = false;
                     self.watchos = true;
                     self.visionos = false;
+                    self.platform_error = false;
                 } else {
                     self.watchos = false;
                 }
@@ -98,12 +103,27 @@ impl SpmView {
                     self.tvos = false;
                     self.watchos = false;
                     self.visionos = true;
+                    self.platform_error = false;
                 } else {
                     self.visionos = false;
                 }
             }
             Message::InputChanged(s) => self.input_content = s,
             Message::GenerateSPM => {
+                let mut platforms = Vec::new();
+                if self.ios { platforms.push("iOS"); }
+                if self.macos { platforms.push("macOS"); }
+                if self.tvos { platforms.push("tvOS"); }
+                if self.watchos { platforms.push("watchOS"); }
+                if self.visionos { platforms.push("visionOS"); }
+
+                if platforms.is_empty() {
+                    self.platform_error = true;
+                    return;
+                } else {
+                    self.platform_error = false;
+                }
+
                 let mut project_name = self.input_content.clone();
                 if project_name.trim().is_empty() {
                     project_name = "Library".to_string();
@@ -114,18 +134,6 @@ impl SpmView {
                 if self.readme { files.push("Readme"); }
                 if self.swift_package_index { files.push("Swift Package Index"); }
                 if self.swiftlint { files.push("SwiftLint"); }
-
-                let mut platforms = Vec::new();
-                if self.ios { platforms.push("iOS"); }
-                if self.macos { platforms.push("macOS"); }
-                if self.tvos { platforms.push("tvOS"); }
-                if self.watchos { platforms.push("watchOS"); }
-                if self.visionos { platforms.push("visionOS"); }
-
-                if files.is_empty() && platforms.is_empty() {
-                    files.push("Readme");
-                    platforms.push("iOS");
-                }
 
                 tokio::spawn(async move {
                     if let Ok(_) = SpmBuilder::builder(
@@ -154,6 +162,7 @@ impl SpmView {
             self.files_checkboxes_view(),
             self.platforms_title_view(),
             self.platforms_checkboxes_view(),
+            self.error_platform_view(),
             self.generate_button_view(),
         ]
         .spacing(16)
@@ -251,6 +260,21 @@ impl SpmView {
         )
         .padding([8, 24])
         .into()
+    }
+
+    /// Returns the view for the error message when no platform is selected
+    fn error_platform_view(&self) -> AppElement<'_> {
+        if self.platform_error {
+            iced::widget::Container::new(
+                text("Please select at least one platform.")
+                    .color([1.0, 0.2, 0.2])
+                    .size(16),
+            )
+            .padding([0, 24])
+            .into()
+        } else {
+            iced::widget::Container::new("").into()
+        }
     }
 
     /// Builds a vector of checkbox rows for each selectable file
