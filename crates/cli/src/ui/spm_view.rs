@@ -55,6 +55,7 @@ impl SpmView {
                     self.tvos = false;
                     self.watchos = false;
                     self.visionos = false;
+                    self.platform_error = false;
                 } else {
                     self.ios = false;
                 }
@@ -66,6 +67,7 @@ impl SpmView {
                     self.tvos = false;
                     self.watchos = false;
                     self.visionos = false;
+                    self.platform_error = false;
                 } else {
                     self.macos = false;
                 }
@@ -77,6 +79,7 @@ impl SpmView {
                     self.tvos = true;
                     self.watchos = false;
                     self.visionos = false;
+                    self.platform_error = false;
                 } else {
                     self.tvos = false;
                 }
@@ -88,6 +91,7 @@ impl SpmView {
                     self.tvos = false;
                     self.watchos = true;
                     self.visionos = false;
+                    self.platform_error = false;
                 } else {
                     self.watchos = false;
                 }
@@ -99,6 +103,7 @@ impl SpmView {
                     self.tvos = false;
                     self.watchos = false;
                     self.visionos = true;
+                    self.platform_error = false;
                 } else {
                     self.visionos = false;
                 }
