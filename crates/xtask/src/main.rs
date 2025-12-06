@@ -5,8 +5,8 @@ use xtask_command::XtaskCommand;
 
 #[derive(Parser)]
 struct Args {
-    #[command(subcommand)]
-    command: Option<XtaskCommand>,
+	#[command(subcommand)]
+	command: Option<XtaskCommand>,
 }
 
 fn main() -> anyhow::Result<()> {
