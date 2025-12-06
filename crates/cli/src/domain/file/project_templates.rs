@@ -28,14 +28,14 @@ final class {}Tests: XCTestCase {{
 	}
 
 	pub fn package_swift_content(
-    project_name: &str,
-    platform: &str,
-    version: &str,
-    is_plugin: bool,
-) -> String {
-    if is_plugin {
-        format!(
-            r#"// swift-tools-version: 6.2
+		project_name: &str,
+		platform: &str,
+		version: &str,
+		is_plugin: bool,
+	) -> String {
+		if is_plugin {
+			format!(
+				r#"// swift-tools-version: 6.2
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -70,18 +70,18 @@ let package = Package(
     ]
 )
 "#,
-            project_name,
-            platform,
-            version,
-            project_name,
-            project_name,
-            project_name,
-            project_name,
-            project_name,
-        )
-    } else {
-        format!(
-            r#"// swift-tools-version: 6.2
+				project_name,
+				platform,
+				version,
+				project_name,
+				project_name,
+				project_name,
+				project_name,
+				project_name,
+			)
+		} else {
+			format!(
+				r#"// swift-tools-version: 6.2
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -110,17 +110,17 @@ let package = Package(
     ]
 )
 "#,
-            project_name,
-            platform,
-            version,
-            project_name,
-            project_name,
-            project_name,
-            project_name,
-            project_name,
-        )
-    }
-}
+				project_name,
+				platform,
+				version,
+				project_name,
+				project_name,
+				project_name,
+				project_name,
+				project_name,
+			)
+		}
+	}
 
 	pub fn changelog_content() -> String {
 		r#"# CHANGELOG
@@ -156,7 +156,7 @@ builder:
 	pub fn swiftlint_content() -> String {
 		r#"disabled_rules:
   - trailing_whitespace
-  
+
 vertical_whitespace:
     severity: error
 
@@ -171,5 +171,4 @@ excluded:
 "#
 		.to_string()
 	}
-	
 }

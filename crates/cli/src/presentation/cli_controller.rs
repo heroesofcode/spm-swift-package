@@ -1,12 +1,5 @@
 use colored::Colorize;
-use demand::{
-	DemandOption, 
-	Input, 
-	MultiSelect, 
-	Select, 
-	Spinner, 
-	SpinnerStyle
-};
+use demand::{DemandOption, Input, MultiSelect, Select, Spinner, SpinnerStyle};
 use std::process::Command;
 
 use crate::domain::builder::spm_builder::*;
@@ -20,11 +13,7 @@ impl CliController {
 		let platform_selected = Self::select_platform()?;
 
 		Self::loading().await?;
-		SpmBuilder::builder(
-			&project_name, 
-			file_selected, 
-			vec![platform_selected]
-		).await?;
+		SpmBuilder::builder(&project_name, file_selected, vec![platform_selected]).await?;
 
 		Self::command_open_xcode(&project_name)?;
 		Ok(())
