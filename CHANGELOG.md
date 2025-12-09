@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## Version 0.10.0
+**2025-12-09**
+
+- chore(deps): update iced to 0.14.0 by @joaolfp (#196)
+- feat: add rustdocs by @joaolfp (#195)
+- fix: fix lint and fmt warnings by @joaolfp (#194)
+- fix: fix bugbot cursor commenteds by @joaolfp (#193)
+- feat: add GUI support by @joaolfp (#192)
+- refactor: update input to args xtask and remove usecase by @joaolfp (#191)
+- fix: fix panic input xtask by @joaolfp (#190)
+- refactor: indent code and fix lint by @joaolfp (#189)
+- chore(deps): update Rust crate insta to v1.44.3 by @renovatebot (#188)
+- chore(deps): update Rust crate demand to v1.8.0 by @renovatebot (#187)
+
 ## Version 0.9.0
 **2025-11-17**
 
