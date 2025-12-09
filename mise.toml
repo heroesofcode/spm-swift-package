@@ -44,4 +44,4 @@ run = "cargo publish"
 
 [tasks.releasor]
 description = "Generate .tar.gz release artifacts using releasor"
-run = "releasor --file-name spm-swift-package"
+run = "releasor -f spm-swift-package"
