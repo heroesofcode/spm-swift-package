@@ -1,6 +1,10 @@
+/// Provides template generators for all project files
+/// Each method returns the content of a specific file as a String
 pub struct ProjectTemplates;
 
 impl ProjectTemplates {
+	/// Returns the default Swift source file template
+	/// Used to generate the main `{name}.swift` file inside Sources
 	pub fn project_swift_content() -> String {
 		r#"// The Swift Programming Language
 // https://docs.swift.org/swift-book/
@@ -8,6 +12,8 @@ impl ProjectTemplates {
 		.to_string()
 	}
 
+	/// Returns the default XCTest file template
+	/// Includes boilerplate test structure for `{project_name}Tests.swift`
 	pub fn test_content(project_name: &str) -> String {
 		format!(
 			r#"import XCTest
@@ -27,6 +33,13 @@ final class {}Tests: XCTestCase {{
 		)
 	}
 
+	/// Returns the Package.swift template
+	/// Supports two variants: plugin-enabled or standard package
+	///
+	/// * `project_name` - name of the Swift package
+	/// * `platform` - selected platform such as iOS or macOS
+	/// * `version` - minimum deployment version
+	/// * `is_plugin` - adds SwiftLint plugin configuration when true
 	pub fn package_swift_content(
 		project_name: &str,
 		platform: &str,
@@ -122,6 +135,8 @@ let package = Package(
 		}
 	}
 
+	/// Returns the default CHANGELOG.md template
+	/// Used when the Changelog option is selected
 	pub fn changelog_content() -> String {
 		r#"# CHANGELOG
 
@@ -133,6 +148,8 @@ let package = Package(
 		.to_string()
 	}
 
+	/// Returns the README.md template
+	/// Includes only the project title by default
 	pub fn readme_content(project_name: &str) -> String {
 		format!(
 			r#"# {}
@@ -141,6 +158,8 @@ let package = Package(
 		)
 	}
 
+	/// Returns the .spi.yml template for Swift Package Index configuration
+	/// Defines documentation targets and scheme attributes
 	pub fn spi_content(project_name: &str) -> String {
 		format!(
 			r#"version: 1
@@ -153,6 +172,8 @@ builder:
 		)
 	}
 
+	/// Returns a default SwiftLint configuration template
+	/// Includes baseline rules, opt-in rules, and excluded directories
 	pub fn swiftlint_content() -> String {
 		r#"disabled_rules:
   - trailing_whitespace

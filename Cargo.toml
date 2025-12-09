@@ -19,7 +19,7 @@ xshell = "0.2.7"
 anyhow = "1.0.100"
 tokio = { version = "1.48.0", features = ["full"] }
 insta = "1.43.2"
-iced = { git = "https://github.com/iced-rs/iced.git", branch = "master" }
+iced = "0.14.0"
 
 [profile.release]
 strip = true
