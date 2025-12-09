@@ -36,7 +36,7 @@ impl XtaskCommand {
 				cmd!(shell, "cargo publish --dry-run").run()?;
 			}
 			XtaskCommand::PrepareHomebrew => {
-				cmd!(shell, "releasor --file-name spm-swift-package").run()?;
+				cmd!(shell, "releasor -f spm-swift-package").run()?;
 			}
 		}
 
