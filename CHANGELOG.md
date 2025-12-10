@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## Version 0.10.1
+**2025-12-10**
+
+- fix: the UI header is not displayed in Light Mode by @joaolfp (#199)
+- refactor: taking version direct cargo by @joaolfp (#197)
+
 ## Version 0.10.0
 **2025-12-09**
 
