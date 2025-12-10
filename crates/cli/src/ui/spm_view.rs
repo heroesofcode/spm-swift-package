@@ -1,4 +1,5 @@
 use crate::domain::builder::spm_builder::*;
+use crate::utils::theme_colors::*;
 use iced::widget::{center_x, checkbox, column, text};
 use iced::{Color, Element};
 
@@ -185,12 +186,17 @@ impl SpmView {
 	/// Returns the header/title section view
 	fn header_view(&self) -> AppElement<'_> {
 		column![
-			center_x(text("SPM Swift Package").color(Color::WHITE).size(32)).height(20),
+			center_x(
+				text("SPM Swift Package")
+					.color(ThemeColors::ORANGE)
+					.size(32)
+			)
+			.height(20),
 			center_x(
 				text(
 					"Command Line Tools for macOS to create Swift Package Manager projects with desirable files."
 				)
-				.color(Color::WHITE)
+				.color(ThemeColors::GRAY)
 				.size(14)
 			)
 			.padding(16),
