@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./assets/icon.webp" width="300" />
+  <img src="https://raw.githubusercontent.com/heroesofcode/spm-swift-package/refs/heads/main/assets/icon.webp" width="300" />
   <br>
 
   <a href="https://github.com/heroesofcode/spm-swift-package/releases">
@@ -49,7 +49,7 @@ brew install heroesofcode/taps/spm-swift-package
 
 ## Usage
 
-#### Run cli
+#### Run CLI
 
 ```sh
 spm-swift-package

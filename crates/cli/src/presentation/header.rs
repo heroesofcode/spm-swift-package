@@ -1,5 +1,6 @@
+use crate::utils::theme_colors::*;
 use clap::Command;
-use colored::{Color, Colorize};
+use colored::Colorize;
 
 pub const VERSION: &str = env!("CARGO_PKG_VERSION");
 
@@ -9,17 +10,11 @@ impl Header {
 	pub fn show() -> String {
 		Self::check_version();
 
-		let orange = Color::TrueColor {
-			r: 240,
-			g: 81,
-			b: 56,
-		};
-
 		format!(
 			"\n{}\n\
              🚀 You can create your Swift Package via the command line 🔨\n\
              v{}\n",
-			"SPM Swift Package".color(orange),
+			"SPM Swift Package".color(ThemeColors::ORANGE_TERM),
 			VERSION
 		)
 	}

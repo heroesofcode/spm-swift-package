@@ -1,6 +1,7 @@
 mod domain;
 mod presentation;
 mod ui;
+mod utils;
 
 use clap::{Parser, Subcommand};
 use presentation::cli_controller::CliController;
