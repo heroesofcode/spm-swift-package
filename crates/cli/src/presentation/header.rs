@@ -1,11 +1,11 @@
 use clap::Command;
 use colored::{Color, Colorize};
 
+pub const VERSION: &str = env!("CARGO_PKG_VERSION");
+
 pub struct Header;
 
 impl Header {
-	const VERSION: &'static str = "0.10.0";
-
 	pub fn show() -> String {
 		Self::check_version();
 
@@ -20,13 +20,13 @@ impl Header {
              🚀 You can create your Swift Package via the command line 🔨\n\
              v{}\n",
 			"SPM Swift Package".color(orange),
-			Self::VERSION
+			VERSION
 		)
 	}
 
 	fn check_version() {
 		let _ = Command::new("spm-swift-package")
-			.version(Self::VERSION)
+			.version(VERSION)
 			.ignore_errors(true)
 			.get_matches();
 	}
