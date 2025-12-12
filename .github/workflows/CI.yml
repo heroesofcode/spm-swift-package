@@ -1,19 +1,17 @@
 name: CI
 on: [pull_request]
 
-env:
-  CARGO_TERM_COLOR: always
-
 jobs:
   build:
-
-    runs-on: ubuntu-latest
+    runs-on: macos-26
 
     steps:
-    - uses: actions/checkout@v6
-    
-    - name: Run build
-      run: cargo run -p xtask -- build
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
 
-    - name: Run all tests
-      run: cargo run -p xtask -- test
+      - uses: Swatinem/rust-cache@42c55942cfd355e94e6864616f4dbb3392bd2789
+
+      - name: Run build
+        run: cargo run -p xtask -- build
+
+      - name: Run all tests
+        run: cargo run -p xtask -- test
