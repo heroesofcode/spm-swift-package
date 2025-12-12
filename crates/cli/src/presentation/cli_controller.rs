@@ -2,7 +2,7 @@ use colored::Colorize;
 use demand::{DemandOption, Input, MultiSelect, Select, Spinner, SpinnerStyle};
 use std::process::Command;
 
-use crate::domain::builder::spm_builder::*;
+use crate::domain::spm_builder::*;
 
 /// Controls all CLI interactions and orchestrates the project creation flow
 pub struct CliController;

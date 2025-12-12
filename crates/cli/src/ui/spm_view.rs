@@ -1,4 +1,4 @@
-use crate::domain::builder::spm_builder::*;
+use crate::domain::spm_builder::*;
 use crate::utils::theme_colors::*;
 use iced::widget::{center_x, checkbox, column, text};
 use iced::{Color, Element};
