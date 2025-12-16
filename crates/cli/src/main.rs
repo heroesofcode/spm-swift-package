@@ -4,8 +4,7 @@ mod ui;
 mod utils;
 
 use clap::{Parser, Subcommand};
-use presentation::cli_controller::CliController;
-use presentation::header::Header;
+use presentation::{CliController, Header};
 
 /// Defines the CLI arguments accepted by the application
 /// Uses Clap to support a subcommand-based interface
