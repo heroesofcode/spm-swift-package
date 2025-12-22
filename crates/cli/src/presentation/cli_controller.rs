@@ -1,5 +1,5 @@
 use colored::Colorize;
-use demand::{DemandOption, Input, MultiSelect, Select, Spinner, SpinnerStyle};
+use demand::{Confirm, DemandOption, Input, MultiSelect, Select, Spinner, SpinnerStyle};
 use std::process::Command;
 
 use crate::domain::spm_builder::*;
@@ -16,8 +16,8 @@ impl CliController {
 
 		Self::loading().await?;
 		SpmBuilder::builder(&project_name, file_selected, vec![platform_selected]).await?;
+		Self::confirm_open_xcode(project_name)?;
 
-		Self::open_xcode(&project_name)?;
 		Ok(())
 	}
 
@@ -131,6 +131,28 @@ impl CliController {
 				std::thread::sleep(std::time::Duration::from_secs(5));
 			})
 			.map_err(|_| "Error running spinner".to_string())
+	}
+
+	/// Asks the user whether to open the generated package in Xcode
+	/// Opens Xcode if confirmed, otherwise returns without opening Xcode
+	fn confirm_open_xcode(project_name: String) -> Result<(), String> {
+		let is_yes = Confirm::new("Do you want to open the package in Xcode?")
+			.affirmative("Yes")
+			.negative("No")
+			.run()
+			.map_err(|e| {
+				if e.kind() == std::io::ErrorKind::Interrupted {
+					"Operation interrupted by user".to_string()
+				} else {
+					"Error running confirm".to_string()
+				}
+			})?;
+
+		if is_yes {
+			Self::open_xcode(&project_name)?;
+		}
+		
+		Ok(())
 	}
 
 	/// Opens the generated Package.swift in Xcode using a shell command
