@@ -17,7 +17,7 @@ impl CliController {
 		Self::loading().await?;
 		SpmBuilder::builder(&project_name, file_selected, vec![platform_selected]).await?;
 
-		Self::command_open_xcode(&project_name)?;
+		Self::open_xcode(&project_name)?;
 		Ok(())
 	}
 
@@ -135,17 +135,16 @@ impl CliController {
 
 	/// Opens the generated Package.swift in Xcode using a shell command
 	/// Changes directory into the created project before launching Xcode
-	fn command_open_xcode(project_name: &str) -> Result<(), String> {
+	fn open_xcode(project_name: &str) -> Result<(), String> {
 		let command = format!("cd {} && open Package.swift", project_name);
-		let mut child = Command::new("sh")
+
+		Command::new("sh")
 			.arg("-c")
 			.arg(&command)
 			.spawn()
-			.map_err(|e| format!("Failed to open Xcode: {}", e))?;
+			.and_then(|mut child| child.wait())
+			.map_err(|e| format!("Failed to launch Xcode: {e}"))?;
 
-		child
-			.wait()
-			.map_err(|e| format!("Failed to wait for Xcode: {}", e))?;
 		Ok(())
 	}
 }
