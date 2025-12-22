@@ -143,7 +143,7 @@ impl CliController {
 			.arg(&command)
 			.spawn()
 			.and_then(|mut child| child.wait())
-			.map_err(|e| format!("Failed to open Xcode: {e}"))?;
+			.map_err(|e| format!("Failed to launch Xcode: {e}"))?;
 
 		Ok(())
 	}
