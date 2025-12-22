@@ -134,7 +134,7 @@ impl CliController {
 	}
 
 	/// Asks the user whether to open the generated package in Xcode
-	/// Opens Xcode if confirmed, otherwise exits the process
+	/// Opens Xcode if confirmed, otherwise returns without opening Xcode
 	fn confirm_open_xcode(project_name: String) -> Result<(), String> {
 		let is_yes = Confirm::new("Do you want to open the package in Xcode?")
 			.affirmative("Yes")
