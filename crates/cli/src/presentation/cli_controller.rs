@@ -16,7 +16,7 @@ impl CliController {
 
 		Self::loading().await?;
 		SpmBuilder::builder(&project_name, file_selected, vec![platform_selected]).await?;
-		Self::confirm_button(project_name)?;
+		Self::confirm_open_xcode(project_name)?;
 
 		Ok(())
 	}
@@ -135,7 +135,7 @@ impl CliController {
 
 	/// Asks the user whether to open the generated package in Xcode
 	/// Opens Xcode if confirmed, otherwise exits the process
-	fn confirm_button(project_name: String) -> Result<(), String> {
+	fn confirm_open_xcode(project_name: String) -> Result<(), String> {
 		let is_yes = Confirm::new("Do you want to open the package in Xcode?")
 			.affirmative("Yes")
 			.negative("No")
@@ -150,10 +150,10 @@ impl CliController {
 
 		if is_yes {
 			Self::open_xcode(&project_name)?;
-			Ok(())
-		} else {
-			exit(1);
+			return Ok(());
 		}
+
+		exit(0);
 	}
 
 	/// Opens the generated Package.swift in Xcode using a shell command
