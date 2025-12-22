@@ -1,6 +1,6 @@
 use colored::Colorize;
 use demand::{Confirm, DemandOption, Input, MultiSelect, Select, Spinner, SpinnerStyle};
-use std::process::{Command, exit};
+use std::process::Command;
 
 use crate::domain::spm_builder::*;
 
@@ -150,10 +150,9 @@ impl CliController {
 
 		if is_yes {
 			Self::open_xcode(&project_name)?;
-			return Ok(());
 		}
-
-		exit(0);
+		
+		Ok(())
 	}
 
 	/// Opens the generated Package.swift in Xcode using a shell command
