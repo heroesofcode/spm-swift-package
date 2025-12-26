@@ -151,7 +151,7 @@ impl CliController {
 		if is_yes {
 			Self::open_xcode(&project_name)?;
 		}
-		
+
 		Ok(())
 	}
 
