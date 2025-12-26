@@ -1,15 +1,16 @@
 use std::{
+	borrow::Cow,
 	fs,
 	io::Write,
 	path::{Path, PathBuf},
 };
 
-use crate::domain::file::project_templates::*;
+use crate::domain::file::project_templates::ProjectTemplates;
 
 /// Convenience alias for results that return a String error
 type Result<T> = std::result::Result<T, String>;
 
-/// Converts a path into a displayable String
+/// Converts a path into a displayable String (for error messages)
 fn display<P: AsRef<Path>>(p: P) -> String {
 	p.as_ref().display().to_string()
 }
@@ -25,7 +26,7 @@ impl ProjectFile {
 
 		let content = ProjectTemplates::project_swift_content();
 		let file_path = module_dir.join(format!("{name}.swift", name = project_name));
-		Self::write_file(&file_path, &content)
+		Self::write_file(&file_path, content)
 	}
 
 	/// Creates the tests folder and the main test file
@@ -35,7 +36,7 @@ impl ProjectFile {
 
 		let content = ProjectTemplates::test_content(project_name);
 		let file_path = tests_dir.join(format!("{name}Tests.swift", name = project_name));
-		Self::write_file(&file_path, &content)
+		Self::write_file(&file_path, content)
 	}
 
 	/// Creates the Package.swift file with the configured template
@@ -74,8 +75,6 @@ impl ProjectFile {
 		Self::create_root_file(project_name, ".swiftlint.yml", content)
 	}
 
-	/// Private methods
-
 	/// Returns the path for the module Sources directory
 	fn module_dir(project_name: &str) -> PathBuf {
 		Path::new(project_name).join("Sources").join(project_name)
@@ -89,25 +88,26 @@ impl ProjectFile {
 	}
 
 	/// Creates a file in the project root with the given content
-	fn create_root_file(project_name: &str, filename: &str, content: String) -> Result<()> {
+	fn create_root_file<'a>(project_name: &str, filename: &str, content: Cow<'a, str>) -> Result<()> {
 		let root = Path::new(project_name);
 		Self::create_dir(root)?;
 		let file_path = root.join(filename);
-		Self::write_file(&file_path, &content)
+		Self::write_file(&file_path, content)
 	}
 
 	/// Creates a directory and all missing parent directories
 	fn create_dir<P: AsRef<Path>>(path: P) -> Result<()> {
 		fs::create_dir_all(&path)
-			.map_err(|e| format!("Error creating directory '{}': {}", display(path), e))
+			.map_err(|e| format!("Error creating directory '{}': {}", display(&path), e))
 	}
 
 	/// Writes content to a file, overwriting any existing content
-	fn write_file<P: AsRef<Path>>(path: P, content: &str) -> Result<()> {
+	fn write_file<P: AsRef<Path>, C: AsRef<str>>(path: P, content: C) -> Result<()> {
 		let mut file = fs::File::create(&path)
 			.map_err(|e| format!("Error creating file '{}': {}", display(&path), e))?;
+
 		file
-			.write_all(content.as_bytes())
+			.write_all(content.as_ref().as_bytes())
 			.map_err(|e| format!("Error writing to file '{}': {}", display(&path), e))
 	}
 }
