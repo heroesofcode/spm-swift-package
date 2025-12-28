@@ -6,38 +6,35 @@ pub struct SpmBuilder;
 
 impl SpmBuilder {
 	/// Builds the project structure, templates, and optional configuration files
-	pub async fn builder(
+	pub fn create(
 		project_name: &str,
-		selected_file: Vec<&str>,
-		platform: Vec<&str>,
+		selected_files: &[&str],
+		platforms: &[&str],
 	) -> Result<(), String> {
 		ProjectFile::create_project(project_name)?;
 		ProjectFile::create_test_folder(project_name)?;
 
-		if selected_file.contains(&"SwiftLint") {
-			PlatformValidator::generate_platform(project_name, platform, true);
+		let has_swiftlint = selected_files.contains(&"SwiftLint");
+		PlatformValidator::generate_platform(project_name, platforms.to_vec(), has_swiftlint);
+
+		if has_swiftlint {
 			ProjectFile::create_swiftlint(project_name)?;
-		} else {
-			PlatformValidator::generate_platform(project_name, platform, false);
 		}
 
-		Self::validate_selected_file(project_name, selected_file).await
+		Self::generate_optional_files(project_name, selected_files)
 	}
 
-	/// Validates which optional files must be generated based on user selection
-	async fn validate_selected_file(
-		project_name: &str,
-		selected_file: Vec<&str>,
-	) -> Result<(), String> {
-		if selected_file.contains(&"Changelog") {
+	/// Generates optional files based on user selection
+	fn generate_optional_files(project_name: &str, selected_files: &[&str]) -> Result<(), String> {
+		if selected_files.contains(&"Changelog") {
 			ProjectFile::create_changelog(project_name)?;
 		}
 
-		if selected_file.contains(&"Readme") {
+		if selected_files.contains(&"Readme") {
 			ProjectFile::create_readme(project_name)?;
 		}
 
-		if selected_file.contains(&"Swift Package Index") {
+		if selected_files.contains(&"Swift Package Index") {
 			ProjectFile::create_spi(project_name)?;
 		}
 
