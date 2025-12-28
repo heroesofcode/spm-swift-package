@@ -155,7 +155,7 @@ impl SpmView {
 				}
 
 				tokio::spawn(async move {
-					if (SpmBuilder::builder(&project_name, files, platforms).await).is_ok() {
+					if (SpmBuilder::create(&project_name, &files, platforms.as_slice())).is_ok() {
 						let command = format!("cd {} && open Package.swift", project_name);
 						let _ = std::process::Command::new("sh")
 							.arg("-c")

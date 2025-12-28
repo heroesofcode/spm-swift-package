@@ -15,7 +15,7 @@ impl CliController {
 		let platform_selected = Self::select_platform()?;
 
 		Self::loading().await?;
-		SpmBuilder::builder(&project_name, file_selected, vec![platform_selected]).await?;
+		SpmBuilder::create(&project_name, &file_selected, &[platform_selected])?;
 		Self::confirm_open_xcode(project_name)?;
 
 		Ok(())
