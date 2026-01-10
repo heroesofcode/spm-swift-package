@@ -1,5 +1,28 @@
 # CHANGELOG
 
+## Version 0.11.0
+**2026-01-10**
+
+- chore(deps): bump lru from 0.16.2 to 0.16.3 by @renovatebot (#219)
+- chore(deps): update SwiftLintPlugin version to 0.63.0 (was 0.62.2) by @renovatebot (#218)
+- chore(deps): update actions/checkout digest to 0c366fd by @renovatebot (#217)
+- chore(deps): update actions/checkout digest to 064fe7f by @renovatebot (#216)
+- chore(deps): update Rust crate insta to v1.46.0 by @renovatebot (#215)
+- chore(deps): update Rust crate tokio to v1.49.0 by @renovatebot (#214)
+- chore(deps): update Rust crate clap to v4.5.54 by @renovatebot (#213)
+- chore(deps): update Rust crate insta to v1.45.1 by @renovatebot (#212)
+- refactor: centralize optional file generation by @joaolfp (#211)
+- refactor: reduce allocations in project templates using Cow by @joaolfp (#210)
+- feat: open xcode is optional for terminal by @joaolfp (#209)
+- refactor: simplify error handling when opening Xcode by @joaolfp (#207)
+- chore(deps): update Rust crate demand to v1.8.1 @renovatebot (#206)
+- chore(deps): update Rust crate insta to v1.45.0 by @renovatebot (#205)
+- refactor: restrict module visibility and re-export public types by @joaolfp (#204)
+- chore(deps): update Swatinem/rust-cache digest to 5e4a767 by @renovatebot (#203)
+- refactor: organizing domain folder by @joaolfp (#202)
+- feat: add rust cache github actions by @joaolfp (#201)
+- chore(deps): update rust to v1.92.0 by @renovatebot (#200)
+
 ## Version 0.10.1
 **2025-12-10**
 
