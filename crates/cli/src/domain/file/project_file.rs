@@ -82,6 +82,10 @@ impl ProjectFile {
 	}
 
 	fn write<P: AsRef<Path>, C: AsRef<str>>(path: P, content: C) -> Result<()> {
+		if let Some(parent) = path.as_ref().parent() {
+			std::fs::create_dir_all(parent).map_err(|e| e.to_string())?;
+		}
+
 		file::write(path.as_ref(), content.as_ref().as_bytes()).map_err(|e| e.to_string())
 	}
 }
