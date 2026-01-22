@@ -15,6 +15,7 @@ clap.workspace = true
 colored.workspace = true
 tokio.workspace = true
 iced.workspace = true
+xx.workspace = true
 
 [dev-dependencies]
 insta.workspace = true

@@ -6,7 +6,7 @@ pub struct ProjectTemplates;
 impl ProjectTemplates {
 	const SWIFT_TOOLS_VERSION: &'static str = "6.2";
 	const SWIFTLINT_PLUGIN_URL: &'static str = "https://github.com/lukepistrol/SwiftLintPlugin";
-	const SWIFTLINT_PLUGIN_VERSION: &'static str = "0.63.0";
+	const SWIFTLINT_PLUGIN_VERSION: &'static str = "0.63.1";
 
 	/// Returns the default Swift source file template
 	/// Used to generate the main `{name}.swift` file inside Sources
