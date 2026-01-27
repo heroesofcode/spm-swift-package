@@ -1,10 +1,19 @@
 # CHANGELOG
 
+## Version 0.12.0
+**2026-01-10**
+
+- Replace create file code to xx library and update SwiftLintPlugin version by @joaolfp (#223)
+- Update rust to v1.93.0 to v1.93.0 by @renovatebot (#224)
+- Update Rust crate colored to v3.1.1 by @renovatebot (#222)
+- Update Rust crate insta to v1.46.1 by @renovatebot (#221)
+- Update Swatinem/rust-cache digest to 11da852 by @renovatebot (#220)
+
 ## Version 0.11.0
 **2026-01-10**
 
-- chore(deps): bump lru from 0.16.2 to 0.16.3 by @renovatebot (#219)
-- chore(deps): update SwiftLintPlugin version to 0.63.0 (was 0.62.2) by @renovatebot (#218)
+- chore(deps): bump lru from 0.16.2 to 0.16.3 by @dependabot (#219)
+- chore(deps): update SwiftLintPlugin version to 0.63.0 (was 0.62.2) by @joaolfp (#218)
 - chore(deps): update actions/checkout digest to 0c366fd by @renovatebot (#217)
 - chore(deps): update actions/checkout digest to 064fe7f by @renovatebot (#216)
 - chore(deps): update Rust crate insta to v1.46.0 by @renovatebot (#215)

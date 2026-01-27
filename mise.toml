@@ -45,3 +45,6 @@ run = "cargo publish"
 [tasks.releasor]
 description = "Generate .tar.gz release artifacts using releasor"
 run = "releasor -f spm-swift-package"
+
+[tasks.changelog]
+run = "git cliff -o CHANGELOG.md"
