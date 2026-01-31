@@ -2358,7 +2358,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7d8fae84b431384b68627d0f9b3b1245fcf9f46f6c0e3dc902e9dce64edd1967"
 dependencies = [
  "libc",
- "windows-sys 0.45.0",
+ "windows-sys 0.52.0",
 ]
 
 [[package]]
@@ -4487,9 +4487,9 @@ dependencies = [
 
 [[package]]
 name = "xx"
-version = "2.3.1"
+version = "2.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b2df0028c106b318c37108eaa6930ee85c73e0ad03e2d54dfe7fea44975c1259"
+checksum = "1a5326326ff6d7c746e455769f9736624870e366c5ddb28cefffe26263d60fe3"
 dependencies = [
  "duct",
  "filetime",
@@ -4498,6 +4498,7 @@ dependencies = [
  "miette",
  "rand",
  "regex",
+ "strsim",
  "thiserror 2.0.17",
 ]
 
