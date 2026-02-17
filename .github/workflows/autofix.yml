@@ -10,7 +10,7 @@ permissions:
   contents: write
 
 env:
-  rust_clippy: "1.65.0"
+  rust_clippy: "1.93.1"
 
 jobs:
   autofix:
