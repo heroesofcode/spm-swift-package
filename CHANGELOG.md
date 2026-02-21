@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## Version 0.13.0
+**2026-02-21**
+
+- feat: swift testing support by @joaolfp (#242)
+- chore(deps): update Rust crate anyhow to v1.0.102 by @renovatebot (#241)
+- chore(deps): update Rust crate clap to v4.5.60 by @renovatebot (#240)
+- chore(deps): update actions/checkout action to v6 by @renovatebot (#239)
+- feat: setup autofix ci by @joaolfp (#238)
+- chore(deps): update Rust crate xx to v2.5.2 by @renovatebot (#237)
+- chore(deps): bump bytes from 1.11.0 to 1.11.1 by @renovatebot (#235)
+- chore(deps): update rust to v1.93.1 by @renovatebot (#234)
+- chore(deps): update Rust crate insta to v1.46.3 by @renovatebot (#230)
+- chore(deps): update Rust crate demand to v1.8.2 by @renovatebot (#227)
+
 ## Version 0.12.0
 **2026-01-10**
 

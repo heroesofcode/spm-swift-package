@@ -3018,7 +3018,7 @@ dependencies = [
 
 [[package]]
 name = "spm-swift-package"
-version = "0.12.0"
+version = "0.13.0"
 dependencies = [
  "clap",
  "colored",
