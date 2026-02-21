@@ -16,7 +16,12 @@ impl CliController {
 		let test_framework = Self::select_test_framework()?;
 
 		Self::loading().await?;
-		SpmBuilder::create(&project_name, &file_selected, &[platform_selected], test_framework)?;
+		SpmBuilder::create(
+			&project_name,
+			&file_selected,
+			&[platform_selected],
+			test_framework,
+		)?;
 		Self::confirm_open_xcode(project_name)?;
 
 		Ok(())

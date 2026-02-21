@@ -188,7 +188,9 @@ impl SpmView {
 				}
 
 				tokio::spawn(async move {
-					if (SpmBuilder::create(&project_name, &files, platforms.as_slice(), test_framework)).is_ok() {
+					if (SpmBuilder::create(&project_name, &files, platforms.as_slice(), test_framework))
+						.is_ok()
+					{
 						let command = format!("cd {} && open Package.swift", project_name);
 						let _ = std::process::Command::new("sh")
 							.arg("-c")
@@ -382,7 +384,11 @@ impl SpmView {
 	fn view_test_framework_checkboxes(&self) -> Vec<AppElement<'_>> {
 		vec![
 			self.checkbox_row("XCTest", self.xctest, Message::XCTestToggled),
-			self.checkbox_row("Swift Testing", self.swift_testing, Message::SwiftTestingToggled),
+			self.checkbox_row(
+				"Swift Testing",
+				self.swift_testing,
+				Message::SwiftTestingToggled,
+			),
 		]
 	}
 
