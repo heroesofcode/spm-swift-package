@@ -17,8 +17,8 @@ impl ProjectFile {
 		Self::write(&file_path, content)
 	}
 
-	pub fn create_test_folder(project_name: &str) -> Result<()> {
-		let content = ProjectTemplates::test_content(project_name);
+	pub fn create_test_folder(project_name: &str, test_framework: &str) -> Result<()> {
+		let content = ProjectTemplates::test_content(project_name, test_framework);
 		let file_path = Self::tests_dir(project_name).join(format!("{project_name}Tests.swift"));
 		Self::write(&file_path, content)
 	}

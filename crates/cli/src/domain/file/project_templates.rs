@@ -18,11 +18,23 @@ impl ProjectTemplates {
 		)
 	}
 
-	/// Returns the default XCTest file template
-	/// Includes boilerplate test structure for `{project_name}Tests.swift`
-	pub fn test_content(project_name: &str) -> Cow<'static, str> {
-		Cow::Owned(format!(
-			r#"import XCTest
+	/// Returns the test file template based on the selected framework
+	/// Supports XCTest and Swift Testing
+	pub fn test_content(project_name: &str, test_framework: &str) -> Cow<'static, str> {
+		match test_framework {
+			"Swift Testing" => Cow::Owned(format!(
+				r#"import Testing
+@testable import {name}
+
+@Test func example() {{
+    // Swift Testing Documentation
+    // https://developer.apple.com/documentation/testing
+}}
+"#,
+				name = project_name
+			)),
+			_ => Cow::Owned(format!(
+				r#"import XCTest
 @testable import {name}
 
 final class {name}Tests: XCTestCase {{
@@ -35,8 +47,9 @@ final class {name}Tests: XCTestCase {{
     }}
 }}
 "#,
-			name = project_name
-		))
+				name = project_name
+			)),
+		}
 	}
 
 	/// Returns the Package.swift template
