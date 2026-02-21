@@ -13,9 +13,15 @@ impl CliController {
 		let project_name = Self::project_name_input()?;
 		let file_selected = Self::multiselect_files()?;
 		let platform_selected = Self::select_platform()?;
+		let test_framework = Self::select_test_framework()?;
 
 		Self::loading().await?;
-		SpmBuilder::create(&project_name, &file_selected, &[platform_selected])?;
+		SpmBuilder::create(
+			&project_name,
+			&file_selected,
+			&[platform_selected],
+			test_framework,
+		)?;
 		Self::confirm_open_xcode(project_name)?;
 
 		Ok(())
@@ -118,6 +124,25 @@ impl CliController {
 				"Operation interrupted by user".to_string()
 			} else {
 				format!("Error selecting platform: {}", e)
+			}
+		})
+	}
+
+	/// Displays a select input for test framework choice
+	fn select_test_framework() -> Result<&'static str, String> {
+		let mut select = Select::new("Choose test framework")
+			.description("Which test framework do you want to use?")
+			.filterable(true);
+
+		for option in ["XCTest", "Swift Testing"].iter() {
+			select = select.option(DemandOption::new(*option));
+		}
+
+		select.run().map_err(|e| {
+			if e.kind() == std::io::ErrorKind::Interrupted {
+				"Operation interrupted by user".to_string()
+			} else {
+				format!("Error selecting test framework: {}", e)
 			}
 		})
 	}

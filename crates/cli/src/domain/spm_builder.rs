@@ -10,9 +10,10 @@ impl SpmBuilder {
 		project_name: &str,
 		selected_files: &[&str],
 		platforms: &[&str],
+		test_framework: &str,
 	) -> Result<(), String> {
 		ProjectFile::create_project(project_name)?;
-		ProjectFile::create_test_folder(project_name)?;
+		ProjectFile::create_test_folder(project_name, test_framework)?;
 
 		let has_swiftlint = selected_files.contains(&"SwiftLint");
 		PlatformValidator::generate_platform(project_name, platforms.to_vec(), has_swiftlint);

@@ -16,6 +16,8 @@ pub enum Message {
 	TvOsToggled(bool),
 	WatchOsToggled(bool),
 	VisionOsToggled(bool),
+	XCTestToggled(bool),
+	SwiftTestingToggled(bool),
 	InputChanged(String),
 	GenerateSPM,
 }
@@ -31,8 +33,11 @@ pub struct SpmView {
 	tvos: bool,
 	watchos: bool,
 	visionos: bool,
+	xctest: bool,
+	swift_testing: bool,
 	input_content: String,
 	platform_error: bool,
+	test_framework_error: bool,
 }
 
 /// Entry point to launch the iced application for the SPM GUI
@@ -109,6 +114,24 @@ impl SpmView {
 					self.visionos = false;
 				}
 			}
+			Message::XCTestToggled(val) => {
+				if val {
+					self.xctest = true;
+					self.swift_testing = false;
+					self.test_framework_error = false;
+				} else {
+					self.xctest = false;
+				}
+			}
+			Message::SwiftTestingToggled(val) => {
+				if val {
+					self.xctest = false;
+					self.swift_testing = true;
+					self.test_framework_error = false;
+				} else {
+					self.swift_testing = false;
+				}
+			}
 			Message::InputChanged(s) => self.input_content = s,
 			Message::GenerateSPM => {
 				let mut platforms = Vec::new();
@@ -135,6 +158,16 @@ impl SpmView {
 					self.platform_error = false;
 				}
 
+				let test_framework = if self.xctest {
+					"XCTest"
+				} else if self.swift_testing {
+					"Swift Testing"
+				} else {
+					self.test_framework_error = true;
+					return;
+				};
+				self.test_framework_error = false;
+
 				let mut project_name = self.input_content.clone();
 				if project_name.trim().is_empty() {
 					project_name = "Library".to_string();
@@ -155,7 +188,9 @@ impl SpmView {
 				}
 
 				tokio::spawn(async move {
-					if (SpmBuilder::create(&project_name, &files, platforms.as_slice())).is_ok() {
+					if (SpmBuilder::create(&project_name, &files, platforms.as_slice(), test_framework))
+						.is_ok()
+					{
 						let command = format!("cd {} && open Package.swift", project_name);
 						let _ = std::process::Command::new("sh")
 							.arg("-c")
@@ -177,6 +212,9 @@ impl SpmView {
 			self.platforms_title_view(),
 			self.platforms_checkboxes_view(),
 			self.error_platform_view(),
+			self.test_framework_title_view(),
+			self.test_framework_checkboxes_view(),
+			self.error_test_framework_view(),
 			self.generate_button_view(),
 		]
 		.spacing(16)
@@ -235,6 +273,15 @@ impl SpmView {
 		iced::widget::Container::new(title).padding([0, 24]).into()
 	}
 
+	/// Returns the view for the test framework selection section's title
+	fn test_framework_title_view(&self) -> AppElement<'_> {
+		let title = text("Choose the test framework:")
+			.color(Color::WHITE)
+			.size(18);
+
+		iced::widget::Container::new(title).padding([0, 24]).into()
+	}
+
 	/// Returns the view containing all file checkboxes
 	fn files_checkboxes_view(&self) -> AppElement<'_> {
 		let mut col = column![];
@@ -257,6 +304,17 @@ impl SpmView {
 		col.spacing(8).into()
 	}
 
+	/// Returns the view containing all test framework checkboxes
+	fn test_framework_checkboxes_view(&self) -> AppElement<'_> {
+		let mut col = column![];
+
+		for checkbox in self.view_test_framework_checkboxes() {
+			col = col.push(checkbox);
+		}
+
+		col.spacing(8).into()
+	}
+
 	/// Returns the view for the 'Generate SPM' button
 	fn generate_button_view(&self) -> AppElement<'_> {
 		iced::widget::Container::new(
@@ -272,6 +330,21 @@ impl SpmView {
 		if self.platform_error {
 			iced::widget::Container::new(
 				text("Please select at least one platform.")
+					.color([1.0, 0.2, 0.2])
+					.size(16),
+			)
+			.padding([0, 24])
+			.into()
+		} else {
+			iced::widget::Container::new("").into()
+		}
+	}
+
+	/// Returns the view for the error message when no test framework is selected
+	fn error_test_framework_view(&self) -> AppElement<'_> {
+		if self.test_framework_error {
+			iced::widget::Container::new(
+				text("Please select a test framework.")
 					.color([1.0, 0.2, 0.2])
 					.size(16),
 			)
@@ -304,6 +377,18 @@ impl SpmView {
 			self.checkbox_row("tvOS", self.tvos, Message::TvOsToggled),
 			self.checkbox_row("watchOS", self.watchos, Message::WatchOsToggled),
 			self.checkbox_row("visionOS", self.visionos, Message::VisionOsToggled),
+		]
+	}
+
+	/// Builds a vector of checkbox rows for each test framework
+	fn view_test_framework_checkboxes(&self) -> Vec<AppElement<'_>> {
+		vec![
+			self.checkbox_row("XCTest", self.xctest, Message::XCTestToggled),
+			self.checkbox_row(
+				"Swift Testing",
+				self.swift_testing,
+				Message::SwiftTestingToggled,
+			),
 		]
 	}
 

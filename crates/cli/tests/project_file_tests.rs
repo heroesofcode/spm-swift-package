@@ -13,7 +13,7 @@ fn test_structure_create() {
 	);
 	assert!(Path::new(&swift_file).exists(), ".swift file not created");
 
-	ProjectFile::create_test_folder(project_name).unwrap();
+	ProjectFile::create_test_folder(project_name, "XCTest").unwrap();
 
 	let test_file = format!(
 		"{}/Tests/{}Tests/{}Tests.swift",
