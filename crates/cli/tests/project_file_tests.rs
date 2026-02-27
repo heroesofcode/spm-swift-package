@@ -29,3 +29,36 @@ fn test_structure_create() {
 
 	let _ = std::fs::remove_dir_all(project_name);
 }
+
+#[test]
+fn test_create_readme() {
+	let project_name = "test_readme_proj";
+	let _ = std::fs::remove_dir_all(project_name);
+
+	ProjectFile::create_readme(project_name).unwrap();
+	assert!(Path::new(&format!("{}/README.md", project_name)).exists());
+
+	let _ = std::fs::remove_dir_all(project_name);
+}
+
+#[test]
+fn test_create_spi() {
+	let project_name = "test_spi_proj";
+	let _ = std::fs::remove_dir_all(project_name);
+
+	ProjectFile::create_spi(project_name).unwrap();
+	assert!(Path::new(&format!("{}/.spi.yml", project_name)).exists());
+
+	let _ = std::fs::remove_dir_all(project_name);
+}
+
+#[test]
+fn test_create_swiftlint() {
+	let project_name = "test_swiftlint_proj";
+	let _ = std::fs::remove_dir_all(project_name);
+
+	ProjectFile::create_swiftlint(project_name).unwrap();
+	assert!(Path::new(&format!("{}/.swiftlint.yml", project_name)).exists());
+
+	let _ = std::fs::remove_dir_all(project_name);
+}
