@@ -10,7 +10,13 @@ fn test_create_basic_project() {
 	assert!(result.is_ok());
 
 	assert!(Path::new(&format!("{}/Package.swift", project_name)).exists());
-	assert!(Path::new(&format!("{}/Sources/{}/{}.swift", project_name, project_name, project_name)).exists());
+	assert!(
+		Path::new(&format!(
+			"{}/Sources/{}/{}.swift",
+			project_name, project_name, project_name
+		))
+		.exists()
+	);
 
 	let _ = std::fs::remove_dir_all(project_name);
 }
@@ -71,7 +77,10 @@ fn test_create_with_swift_testing() {
 	let result = SpmBuilder::create(project_name, &[], &["iOS"], "Swift Testing");
 	assert!(result.is_ok());
 
-	let test_file = format!("{}/Tests/{}Tests/{}Tests.swift", project_name, project_name, project_name);
+	let test_file = format!(
+		"{}/Tests/{}Tests/{}Tests.swift",
+		project_name, project_name, project_name
+	);
 	let content = std::fs::read_to_string(&test_file).unwrap();
 	assert!(content.contains("import Testing"));
 
