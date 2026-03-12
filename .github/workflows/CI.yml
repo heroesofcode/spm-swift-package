@@ -8,7 +8,7 @@ jobs:
     steps:
       - uses: actions/checkout@0c366fd6a839edf440554fa01a7085ccba70ac98
 
-      - uses: Swatinem/rust-cache@c676846f29d98ff6b0106d3608c7ffd4048af17b
+      - uses: Swatinem/rust-cache@d7ac6f694df60fb8ce48bab7b59ad5da1ac8d46e
 
       - name: Run build
         run: cargo run -p xtask -- build
