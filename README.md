@@ -55,7 +55,7 @@ brew install heroesofcode/taps/spm-swift-package
 spm-swift-package
 ```
 
-<img src="https://github.com/heroesofcode/spm-swift-package/blob/main/assets/example.gif?raw=true">
+<img src="https://raw.githubusercontent.com/heroesofcode/spm-swift-package/main/assets/example.gif">
 
 #### Run UI
 
@@ -63,7 +63,7 @@ spm-swift-package
 spm-swift-package ui
 ```
 
-<img src="https://github.com/heroesofcode/spm-swift-package/blob/main/assets/gui.png?raw=true">
+<img src="https://raw.githubusercontent.com/heroesofcode/spm-swift-package/main/assets/gui.png">
 
 <a href="https://github.com/iced-rs/iced">
   <img src="https://gist.githubusercontent.com/hecrj/ad7ecd38f6e47ff3688a38c79fd108f0/raw/74384875ecbad02ae2a926425e9bcafd0695bade/color.svg" width="130px">
@@ -74,7 +74,7 @@ spm-swift-package ui
 
 After generating the Package, it will automatically open in Xcode
 
-<img src="https://github.com/heroesofcode/spm-swift-package/blob/main/assets/xcode.png?raw=true">
+<img src="https://raw.githubusercontent.com/heroesofcode/spm-swift-package/main/assets/xcode.png">
 
 And from here you can continue working on your SPM project 🚀 🙂 👨‍💻 👩‍💻
 
