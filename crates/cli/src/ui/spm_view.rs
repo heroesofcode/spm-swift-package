@@ -1,9 +1,46 @@
 use crate::core::spm_builder::*;
 use crate::ui::theme_colors::*;
+use crate::utils::xcode;
 use iced::widget::{center_x, checkbox, column, text};
 use iced::{Color, Element};
 
 pub type AppElement<'a> = Element<'a, Message>;
+
+#[derive(Debug, Clone, PartialEq)]
+pub enum Platform {
+	Ios,
+	MacOs,
+	TvOs,
+	WatchOs,
+	VisionOs,
+}
+
+impl Platform {
+	fn as_str(&self) -> &'static str {
+		match self {
+			Platform::Ios => "iOS",
+			Platform::MacOs => "macOS",
+			Platform::TvOs => "tvOS",
+			Platform::WatchOs => "watchOS",
+			Platform::VisionOs => "visionOS",
+		}
+	}
+}
+
+#[derive(Debug, Clone, PartialEq)]
+pub enum TestFramework {
+	XCTest,
+	SwiftTesting,
+}
+
+impl TestFramework {
+	fn as_str(&self) -> &'static str {
+		match self {
+			TestFramework::XCTest => "XCTest",
+			TestFramework::SwiftTesting => "Swift Testing",
+		}
+	}
+}
 
 #[derive(Debug, Clone)]
 pub enum Message {
@@ -28,13 +65,8 @@ pub struct SpmView {
 	readme: bool,
 	swift_package_index: bool,
 	swiftlint: bool,
-	ios: bool,
-	macos: bool,
-	tvos: bool,
-	watchos: bool,
-	visionos: bool,
-	xctest: bool,
-	swift_testing: bool,
+	selected_platform: Option<Platform>,
+	selected_framework: Option<TestFramework>,
 	input_content: String,
 	platform_error: bool,
 	test_framework_error: bool,
@@ -54,152 +86,88 @@ impl SpmView {
 			Message::SwiftPackageIndexToggled(val) => self.swift_package_index = val,
 			Message::SwiftLintToggled(val) => self.swiftlint = val,
 
-			Message::IosToggled(val) => {
-				if val {
-					self.ios = true;
-					self.macos = false;
-					self.tvos = false;
-					self.watchos = false;
-					self.visionos = false;
-					self.platform_error = false;
-				} else {
-					self.ios = false;
-				}
-			}
-			Message::MacOsToggled(val) => {
-				if val {
-					self.ios = false;
-					self.macos = true;
-					self.tvos = false;
-					self.watchos = false;
-					self.visionos = false;
-					self.platform_error = false;
-				} else {
-					self.macos = false;
-				}
-			}
-			Message::TvOsToggled(val) => {
-				if val {
-					self.ios = false;
-					self.macos = false;
-					self.tvos = true;
-					self.watchos = false;
-					self.visionos = false;
-					self.platform_error = false;
-				} else {
-					self.tvos = false;
-				}
-			}
-			Message::WatchOsToggled(val) => {
-				if val {
-					self.ios = false;
-					self.macos = false;
-					self.tvos = false;
-					self.watchos = true;
-					self.visionos = false;
-					self.platform_error = false;
-				} else {
-					self.watchos = false;
-				}
-			}
-			Message::VisionOsToggled(val) => {
-				if val {
-					self.ios = false;
-					self.macos = false;
-					self.tvos = false;
-					self.watchos = false;
-					self.visionos = true;
-					self.platform_error = false;
-				} else {
-					self.visionos = false;
-				}
-			}
-			Message::XCTestToggled(val) => {
-				if val {
-					self.xctest = true;
-					self.swift_testing = false;
-					self.test_framework_error = false;
-				} else {
-					self.xctest = false;
-				}
-			}
-			Message::SwiftTestingToggled(val) => {
-				if val {
-					self.xctest = false;
-					self.swift_testing = true;
-					self.test_framework_error = false;
-				} else {
-					self.swift_testing = false;
-				}
-			}
+			Message::IosToggled(val) => self.select_platform(val, Platform::Ios),
+			Message::MacOsToggled(val) => self.select_platform(val, Platform::MacOs),
+			Message::TvOsToggled(val) => self.select_platform(val, Platform::TvOs),
+			Message::WatchOsToggled(val) => self.select_platform(val, Platform::WatchOs),
+			Message::VisionOsToggled(val) => self.select_platform(val, Platform::VisionOs),
+
+			Message::XCTestToggled(val) => self.select_framework(val, TestFramework::XCTest),
+			Message::SwiftTestingToggled(val) => self.select_framework(val, TestFramework::SwiftTesting),
+
 			Message::InputChanged(s) => self.input_content = s,
-			Message::GenerateSPM => {
-				let mut platforms = Vec::new();
-				if self.ios {
-					platforms.push("iOS");
-				}
-				if self.macos {
-					platforms.push("macOS");
-				}
-				if self.tvos {
-					platforms.push("tvOS");
-				}
-				if self.watchos {
-					platforms.push("watchOS");
-				}
-				if self.visionos {
-					platforms.push("visionOS");
-				}
-
-				if platforms.is_empty() {
-					self.platform_error = true;
-					return;
-				} else {
-					self.platform_error = false;
-				}
-
-				let test_framework = if self.xctest {
-					"XCTest"
-				} else if self.swift_testing {
-					"Swift Testing"
-				} else {
-					self.test_framework_error = true;
-					return;
-				};
-				self.test_framework_error = false;
-
-				let mut project_name = self.input_content.clone();
-				if project_name.trim().is_empty() {
-					project_name = "Library".to_string();
-				}
-
-				let mut files = Vec::new();
-				if self.changelog {
-					files.push("Changelog");
-				}
-				if self.readme {
-					files.push("Readme");
-				}
-				if self.swift_package_index {
-					files.push("Swift Package Index");
-				}
-				if self.swiftlint {
-					files.push("SwiftLint");
-				}
-
-				tokio::spawn(async move {
-					if (SpmBuilder::create(&project_name, &files, platforms.as_slice(), test_framework))
-						.is_ok()
-					{
-						let command = format!("cd {} && open Package.swift", project_name);
-						let _ = std::process::Command::new("sh")
-							.arg("-c")
-							.arg(&command)
-							.spawn();
-					}
-				});
-			}
+			Message::GenerateSPM => self.generate(),
 		}
+	}
+
+	/// Selects the given platform exclusively (radio-button behavior) or deselects if val is false
+	fn select_platform(&mut self, val: bool, platform: Platform) {
+		self.selected_platform = if val { Some(platform) } else { None };
+		if val {
+			self.platform_error = false;
+		}
+	}
+
+	/// Selects the given test framework exclusively (radio-button behavior) or deselects if val is false
+	fn select_framework(&mut self, val: bool, framework: TestFramework) {
+		self.selected_framework = if val { Some(framework) } else { None };
+		
+        if val {
+			self.test_framework_error = false;
+		}
+	}
+
+	/// Validates selections, builds the project, and opens it in Xcode
+	fn generate(&mut self) {
+		let platform = match &self.selected_platform {
+			Some(p) => p.as_str(),
+			None => {
+				self.platform_error = true;
+				return;
+			}
+		};
+
+		self.platform_error = false;
+
+		let test_framework = match &self.selected_framework {
+			Some(f) => f.as_str(),
+			None => {
+				self.test_framework_error = true;
+				return;
+			}
+		};
+
+		self.test_framework_error = false;
+
+		let mut project_name = self.input_content.clone();
+
+		if project_name.trim().is_empty() {
+			project_name = "Library".to_string();
+		}
+
+		let mut files = Vec::new();
+
+		if self.changelog {
+			files.push("Changelog");
+		}
+
+		if self.readme {
+			files.push("Readme");
+		}
+
+		if self.swift_package_index {
+			files.push("Swift Package Index");
+		}
+
+		if self.swiftlint {
+			files.push("SwiftLint");
+		}
+
+		tokio::spawn(async move {
+			if SpmBuilder::create(&project_name, &files, &[platform], test_framework).is_ok() {
+				let _ = xcode::open_xcode(&project_name);
+			}
+		});
 	}
 
 	/// Builds and returns the main application view layout
@@ -372,21 +340,45 @@ impl SpmView {
 	/// Builds a vector of checkbox rows for each selectable platform
 	fn view_platforms_checkboxes(&self) -> Vec<AppElement<'_>> {
 		vec![
-			self.checkbox_row("iOS", self.ios, Message::IosToggled),
-			self.checkbox_row("macOS", self.macos, Message::MacOsToggled),
-			self.checkbox_row("tvOS", self.tvos, Message::TvOsToggled),
-			self.checkbox_row("watchOS", self.watchos, Message::WatchOsToggled),
-			self.checkbox_row("visionOS", self.visionos, Message::VisionOsToggled),
+			self.checkbox_row(
+				"iOS",
+				self.selected_platform == Some(Platform::Ios),
+				Message::IosToggled,
+			),
+			self.checkbox_row(
+				"macOS",
+				self.selected_platform == Some(Platform::MacOs),
+				Message::MacOsToggled,
+			),
+			self.checkbox_row(
+				"tvOS",
+				self.selected_platform == Some(Platform::TvOs),
+				Message::TvOsToggled,
+			),
+			self.checkbox_row(
+				"watchOS",
+				self.selected_platform == Some(Platform::WatchOs),
+				Message::WatchOsToggled,
+			),
+			self.checkbox_row(
+				"visionOS",
+				self.selected_platform == Some(Platform::VisionOs),
+				Message::VisionOsToggled,
+			),
 		]
 	}
 
 	/// Builds a vector of checkbox rows for each test framework
 	fn view_test_framework_checkboxes(&self) -> Vec<AppElement<'_>> {
 		vec![
-			self.checkbox_row("XCTest", self.xctest, Message::XCTestToggled),
+			self.checkbox_row(
+				"XCTest",
+				self.selected_framework == Some(TestFramework::XCTest),
+				Message::XCTestToggled,
+			),
 			self.checkbox_row(
 				"Swift Testing",
-				self.swift_testing,
+				self.selected_framework == Some(TestFramework::SwiftTesting),
 				Message::SwiftTestingToggled,
 			),
 		]

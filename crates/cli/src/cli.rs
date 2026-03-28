@@ -1,8 +1,8 @@
 use colored::Colorize;
 use demand::{Confirm, DemandOption, Input, MultiSelect, Select, Spinner, SpinnerStyle};
-use std::process::Command;
 
 use crate::core::spm_builder::*;
+use crate::utils::xcode;
 
 /// Controls all CLI interactions and orchestrates the project creation flow
 pub struct Cli;
@@ -177,23 +177,8 @@ impl Cli {
 			})?;
 
 		if is_yes {
-			Self::open_xcode(&project_name)?;
+			xcode::open_xcode(&project_name)?;
 		}
-
-		Ok(())
-	}
-
-	/// Opens the generated Package.swift in Xcode using a shell command
-	/// Changes directory into the created project before launching Xcode
-	fn open_xcode(project_name: &str) -> Result<(), String> {
-		let command = format!("cd {} && open Package.swift", project_name);
-
-		Command::new("sh")
-			.arg("-c")
-			.arg(&command)
-			.spawn()
-			.and_then(|mut child| child.wait())
-			.map_err(|e| format!("Failed to launch Xcode: {e}"))?;
 
 		Ok(())
 	}
