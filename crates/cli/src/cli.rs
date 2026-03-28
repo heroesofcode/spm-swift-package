@@ -2,12 +2,12 @@ use colored::Colorize;
 use demand::{Confirm, DemandOption, Input, MultiSelect, Select, Spinner, SpinnerStyle};
 use std::process::Command;
 
-use crate::domain::spm_builder::*;
+use crate::core::spm_builder::*;
 
 /// Controls all CLI interactions and orchestrates the project creation flow
-pub struct CliController;
+pub struct Cli;
 
-impl CliController {
+impl Cli {
 	/// Executes the complete flow: prompts user input, builds the project, and opens it in Xcode
 	pub async fn execute_flow() -> Result<(), String> {
 		let project_name = Self::project_name_input()?;
@@ -16,12 +16,14 @@ impl CliController {
 		let test_framework = Self::select_test_framework()?;
 
 		Self::loading().await?;
+
 		SpmBuilder::create(
 			&project_name,
 			&file_selected,
 			&[platform_selected],
 			test_framework,
 		)?;
+
 		Self::confirm_open_xcode(project_name)?;
 
 		Ok(())
@@ -92,6 +94,7 @@ impl CliController {
 					"{}",
 					"You need to choose at least one option to continue".yellow()
 				);
+
 				continue;
 			}
 

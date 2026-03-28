@@ -1,4 +1,4 @@
-use crate::domain::file::project_file::*;
+use crate::core::file::project_file::*;
 use std::collections::HashMap;
 
 /// Validates and generates the appropriate platform configuration

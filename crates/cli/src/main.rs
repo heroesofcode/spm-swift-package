@@ -1,10 +1,11 @@
-mod domain;
-mod presentation;
+mod cli;
+mod core;
+mod header;
 mod ui;
-mod utils;
 
 use clap::{Parser, Subcommand};
-use presentation::{CliController, Header};
+use cli::Cli;
+use header::Header;
 
 /// Defines the CLI arguments accepted by the application
 /// Uses Clap to support a subcommand-based interface
@@ -37,6 +38,6 @@ async fn main() {
 		let header = Header::show();
 		println!("{header}");
 
-		let _ = CliController::execute_flow().await;
+		let _ = Cli::execute_flow().await;
 	}
 }

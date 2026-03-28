@@ -1,4 +1,4 @@
-use spm_swift_package::domain::platform_validator::PlatformValidator;
+use spm_swift_package::core::platform_validator::PlatformValidator;
 use std::path::Path;
 
 #[test]

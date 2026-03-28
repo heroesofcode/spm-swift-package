@@ -1,5 +1,5 @@
-use crate::domain::file::project_file::*;
-use crate::domain::platform_validator::*;
+use crate::core::file::project_file::*;
+use crate::core::platform_validator::*;
 
 /// Handles the creation of all project components based on selected options
 pub struct SpmBuilder;

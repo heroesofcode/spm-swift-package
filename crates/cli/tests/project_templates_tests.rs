@@ -1,4 +1,4 @@
-use spm_swift_package::domain::file::project_templates::ProjectTemplates;
+use spm_swift_package::core::file::project_templates::ProjectTemplates;
 
 #[test]
 fn test_project_swift_content() {
