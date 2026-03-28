@@ -111,8 +111,8 @@ impl SpmView {
 	/// Selects the given test framework exclusively (radio-button behavior) or deselects if val is false
 	fn select_framework(&mut self, val: bool, framework: TestFramework) {
 		self.selected_framework = if val { Some(framework) } else { None };
-		
-        if val {
+
+		if val {
 			self.test_framework_error = false;
 		}
 	}
