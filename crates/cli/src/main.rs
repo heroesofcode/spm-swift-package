@@ -2,6 +2,7 @@ mod cli;
 mod core;
 mod header;
 mod ui;
+mod utils;
 
 use clap::{Parser, Subcommand};
 use cli::Cli;
