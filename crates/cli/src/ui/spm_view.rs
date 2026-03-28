@@ -1,5 +1,5 @@
-use crate::domain::spm_builder::*;
-use crate::utils::theme_colors::*;
+use crate::core::spm_builder::*;
+use crate::ui::theme_colors::*;
 use iced::widget::{center_x, checkbox, column, text};
 use iced::{Color, Element};
 

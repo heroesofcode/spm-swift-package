@@ -4,7 +4,7 @@ use std::{
 };
 use xx::file;
 
-use crate::domain::file::project_templates::ProjectTemplates;
+use crate::core::file::project_templates::ProjectTemplates;
 
 type Result<T> = std::result::Result<T, String>;
 

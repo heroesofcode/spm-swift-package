@@ -1,4 +1,4 @@
-use spm_swift_package::domain::spm_builder::SpmBuilder;
+use spm_swift_package::core::spm_builder::SpmBuilder;
 use std::path::Path;
 
 #[test]

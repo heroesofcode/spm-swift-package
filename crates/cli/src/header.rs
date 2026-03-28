@@ -1,4 +1,4 @@
-use crate::utils::theme_colors::*;
+use crate::ui::theme_colors::*;
 use clap::Command;
 use colored::Colorize;
 
