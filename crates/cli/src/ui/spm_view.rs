@@ -102,18 +102,21 @@ impl SpmView {
 
 	/// Selects the given platform exclusively (radio-button behavior) or deselects if val is false
 	fn select_platform(&mut self, val: bool, platform: Platform) {
-		self.selected_platform = if val { Some(platform) } else { None };
 		if val {
+			self.selected_platform = Some(platform);
 			self.platform_error = false;
+		} else if self.selected_platform.as_ref() == Some(&platform) {
+			self.selected_platform = None;
 		}
 	}
 
 	/// Selects the given test framework exclusively (radio-button behavior) or deselects if val is false
 	fn select_framework(&mut self, val: bool, framework: TestFramework) {
-		self.selected_framework = if val { Some(framework) } else { None };
-
 		if val {
+			self.selected_framework = Some(framework);
 			self.test_framework_error = false;
+		} else if self.selected_framework.as_ref() == Some(&framework) {
+			self.selected_framework = None;
 		}
 	}
 
