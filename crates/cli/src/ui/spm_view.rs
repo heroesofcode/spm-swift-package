@@ -168,7 +168,10 @@ impl SpmView {
 
 		tokio::spawn(async move {
 			if SpmBuilder::create(&project_name, &files, &[platform], test_framework).is_ok() {
-				let _ = xcode::open_xcode(&project_name);
+				let name = project_name;
+				std::mem::drop(tokio::task::spawn_blocking(move || {
+					xcode::open_xcode(&name)
+				}));
 			}
 		});
 	}
