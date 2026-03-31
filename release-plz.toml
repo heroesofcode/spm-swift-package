@@ -1,4 +1,10 @@
 [workspace]
+changelog_config = "cliff.toml"
 changelog_update = true
 git_release_enable = true
 publish = true
+
+[[package]]
+name = "spm-swift-package"
+changelog_path = "CHANGELOG.md"
+semver_check = false

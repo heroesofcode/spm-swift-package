@@ -81,9 +81,6 @@ Integration tests live in `crates/cli/tests/`. They create real temporary direct
 - `spm_builder_tests.rs` — end-to-end project generation
 - `project_templates_tests.rs` — template content assertions
 - `platform_validator_tests.rs` — platform config
-- `header_snapshot_tests.rs` — `insta` snapshot tests for the ASCII banner
-
-When snapshot tests fail, run `cargo insta review` to update them.
 
 ## CI
 
