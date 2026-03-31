@@ -20,3 +20,4 @@ jobs:
       - uses: release-plz/action@165ba2da0eed8f1f994f509eccfc3f7c62788e37
         env:
           GITHUB_TOKEN: ${{ secrets.RELEASE_PLZ_TOKEN }}
+          CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
