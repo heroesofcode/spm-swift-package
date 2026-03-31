@@ -1,5 +1,23 @@
 # CHANGELOG
 
+## [0.13.1] - 2026-03-31
+
+### Bug Fixes
+
+- Remove insta and changelog path
+- Link example in Readme ([#255](https://github.com/heroesofcode/spm-swift-package/pull/255))
+
+### Features
+
+- Add more tests ([#244](https://github.com/heroesofcode/spm-swift-package/pull/244))
+
+### Refactor
+
+- Extract xcode util and simplify SpmView platform/framework state ([#266](https://github.com/heroesofcode/spm-swift-package/pull/266))
+- Update folders and file name ([#263](https://github.com/heroesofcode/spm-swift-package/pull/263))
+
+
+
 ## Version 0.13.0
 **2026-02-21**
 
