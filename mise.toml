@@ -48,3 +48,7 @@ run = "releasor -f spm-swift-package"
 
 [tasks.changelog]
 run = "git cliff -o CHANGELOG.md"
+
+[tasks.generate]
+description = "Generate a Swift Package non-interactively"
+run = "cargo run -- generate --name MyLib --platform ios --test-framework xctest --files changelog --files readme"
