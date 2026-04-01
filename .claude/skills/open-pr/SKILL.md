@@ -14,10 +14,14 @@ Generates a PR description from local changes and creates the pull request on Gi
    - Run `git log origin/main..HEAD --oneline` to see commits on the branch.
    - Run `git diff origin/main..HEAD` to understand what changed.
 
-2. **Infer the PR title**
+2. **Ensure changes are on a feature branch**
+   - If the current branch is `main` (or the default branch), stop and inform the user that all changes must be committed to a feature branch before opening a PR.
+   - If there are no commits ahead of `main`, inform the user and stop.
+
+3. **Infer the PR title**
    - Use the most recent commit message as the PR title (it is already in conventional commit format).
 
-3. **Infer type of change**
+4. **Infer type of change**
    From the diff and file list, choose one or more types that fit:
    - **Enhancement** – improvements to existing behavior
    - **Bug fix** – fixes to incorrect behavior
@@ -28,11 +32,11 @@ Generates a PR description from local changes and creates the pull request on Gi
    - **Documentation** – docs, comments, README only
    - **Refactor** – restructuring without changing behavior
 
-4. **Write the summary as topic bullets**
+5. **Write the summary as topic bullets**
    - Use only bullet points, one short line per change.
    - e.g. "add ...", "fix ...", "update ...", "remove ...".
 
-5. **Push and create the PR**
+6. **Push and create the PR**
    - Push the branch to the remote: `git push -u origin <branch>`.
    - Create the PR with `gh pr create` using `--title`, `--head`, `--base main`, and `--body` with the generated description.
    - Return the PR URL to the user.
@@ -63,6 +67,7 @@ Use this exact structure. Do NOT include a "Suggested Commit" section.
 ## Notes
 
 - Do NOT include a "Suggested Commit" section in the PR body.
+- Never push directly to `main`. If the current branch is `main`, stop and ask the user to create a feature branch first.
 - If there are no commits ahead of `main`, inform the user and stop.
 - If the branch is already up-to-date on the remote, skip the push step.
 - If a PR already exists for the branch, inform the user of the existing PR URL instead of creating a new one.
