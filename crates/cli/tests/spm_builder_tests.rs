@@ -6,7 +6,7 @@ fn test_create_basic_project() {
 	let project_name = "test_basic";
 	let _ = std::fs::remove_dir_all(project_name);
 
-	let result = SpmBuilder::create(project_name, &[], &["iOS"], "XCTest");
+	let result = SpmBuilder::create::<&str>(project_name, &[], &["iOS"], "XCTest");
 	assert!(result.is_ok());
 
 	assert!(Path::new(&format!("{}/Package.swift", project_name)).exists());
@@ -74,7 +74,7 @@ fn test_create_with_swift_testing() {
 	let project_name = "test_swift_testing";
 	let _ = std::fs::remove_dir_all(project_name);
 
-	let result = SpmBuilder::create(project_name, &[], &["iOS"], "Swift Testing");
+	let result = SpmBuilder::create::<&str>(project_name, &[], &["iOS"], "Swift Testing");
 	assert!(result.is_ok());
 
 	let test_file = format!(

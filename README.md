@@ -57,6 +57,34 @@ spm-swift-package
 
 <img src="https://raw.githubusercontent.com/heroesofcode/spm-swift-package/main/assets/example.gif">
 
+#### Generate (non-interactive)
+
+Generate a package without any prompts, useful for CI/automation:
+
+```sh
+spm-swift-package generate --name MyLib --platform ios
+```
+
+| Flag | Short | Description | Required |
+|------|-------|-------------|----------|
+| `--name` | `-n` | Package name | Yes |
+| `--platform` | `-p` | Target platform: `ios`, `macos`, `tvos`, `watchos`, `visionos` | Yes |
+| `--test-framework` | `-t` | Test framework: `xctest` (default), `swift-testing` | No |
+| `--files` | `-f` | Optional files (repeatable): `changelog`, `readme`, `spi`, `swiftlint` | No |
+| `--open-xcode` | | Open the package in Xcode after generation | No |
+
+Example with all options:
+
+```sh
+spm-swift-package generate \
+  --name MyLib \
+  --platform ios \
+  --test-framework swift-testing \
+  --files changelog \
+  --files readme \
+  --open-xcode
+```
+
 #### Run UI
 
 ```sh
