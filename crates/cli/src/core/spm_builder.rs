@@ -38,7 +38,10 @@ impl SpmBuilder {
 			ProjectFile::create_readme(project_name)?;
 		}
 
-		if selected_files.iter().any(|f| f.as_ref() == "Swift Package Index") {
+		if selected_files
+			.iter()
+			.any(|f| f.as_ref() == "Swift Package Index")
+		{
 			ProjectFile::create_spi(project_name)?;
 		}
 
