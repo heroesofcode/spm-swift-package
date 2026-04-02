@@ -1,5 +1,21 @@
 # CHANGELOG
 
+## [0.13.2] - 2026-04-02
+
+### Documentation
+
+- Update README badges to for-the-badge style and remove release badge ([#280](https://github.com/heroesofcode/spm-swift-package/pull/280))
+
+### Features
+
+- Add non-interactive generate subcommand ([#274](https://github.com/heroesofcode/spm-swift-package/pull/274))
+
+### Chore
+
+- Update CI to macos-26 and document new mise tasks ([#279](https://github.com/heroesofcode/spm-swift-package/pull/279))
+
+
+
 ## [0.13.1] - 2026-03-31
 
 ### Bug Fixes
