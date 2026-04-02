@@ -18,6 +18,7 @@ cargo build --release                # release build
 # Run
 cargo run                            # interactive CLI
 cargo run -- ui                      # GUI mode
+cargo run -- generate --name MyLib --platform ios   # non-interactive
 
 # Test
 cargo test                           # all tests
@@ -33,6 +34,27 @@ cargo fmt --all                             # apply formatting
 cargo run -p xtask -- build
 cargo run -p xtask -- test
 ```
+
+### mise tasks
+
+All tasks are also available via `mise run <task>`:
+
+| Task         | Command                          | Description                              |
+|--------------|----------------------------------|------------------------------------------|
+| `build`      | `cargo build`                    | Debug build                              |
+| `release`    | `cargo build --release`          | Release build                            |
+| `cli`        | `cargo run`                      | Run interactive CLI                      |
+| `ui`         | `cargo run -- ui`                | Run GUI mode                             |
+| `test`       | `cargo test`                     | Run all tests                            |
+| `lint`       | `cargo clippy --all-targets ...` | Lint                                     |
+| `fmt`        | `cargo fmt --all -- --check`     | Check formatting                         |
+| `check`      | `cargo check`                    | Check without building artifacts         |
+| `doc`        | `cargo doc --no-deps`            | Generate docs                            |
+| `spm`        | `cargo run -- generate ...`      | Generate a Swift Package non-interactively (used in CI) |
+| `swift`      | `cd MyLib && swift build`        | Build the generated Swift package (used in CI) |
+| `changelog`  | `git cliff -o CHANGELOG.md`      | Generate CHANGELOG                       |
+| `releasor`   | `releasor -f spm-swift-package`  | Generate `.tar.gz` release artifacts     |
+| `publish`    | `cargo publish`                  | Publish to crates.io                     |
 
 ## Formatting Rules (`.rustfmt.toml`)
 
@@ -68,12 +90,13 @@ The project is a Cargo workspace with two crates:
 
 ```
 main.rs (clap) → CliController (prompts) → SpmBuilder.build()
+               → generate subcommand      ↗ (non-interactive, bypasses prompts)
                                               ├── PlatformValidator → Package.swift
                                               ├── ProjectFile → file I/O
                                               └── ProjectTemplates → template strings
 ```
 
-The GUI (`SpmView`) drives `SpmBuilder` directly, bypassing `CliController`.
+The GUI (`SpmView`) and the `generate` subcommand both drive `SpmBuilder` directly, bypassing `CliController`.
 
 ### Tests
 
@@ -84,4 +107,12 @@ Integration tests live in `crates/cli/tests/`. They create real temporary direct
 
 ## CI
 
-GitHub Actions (`.github/workflows/CI.yml`) runs on PRs against macOS, executing `xtask build` then `xtask test`. Releases are triggered by commits to main whose message contains `"Prepare version to"`.
+GitHub Actions (`.github/workflows/CI.yml`) runs on PRs on `macos-26`, executing:
+1. `xtask build` — compiles the project
+2. `xtask test` — runs all tests
+3. `mise spm` — generates a Swift Package non-interactively to validate end-to-end output
+4. `mise swift` — runs `swift build` on the generated package to confirm it compiles
+
+The Xcode version is controlled by `.xcode-version` at the repo root and applied in CI via the `maxim-lobanov/setup-xcode` action.
+
+Releases are triggered by commits to main whose message contains `"Prepare version to"`.

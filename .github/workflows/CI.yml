@@ -7,11 +7,32 @@ jobs:
 
     steps:
       - uses: actions/checkout@0c366fd6a839edf440554fa01a7085ccba70ac98
+       
+      - name: Mise install
+        uses: jdx/mise-action@ae166750613ce3bf3eec2bae6ef528bdeff09308
+        with:
+          cache: true
+          experimental: true
 
       - uses: Swatinem/rust-cache@f51f967e158417aafa338a1e46ab22095f07aa01
+
+      - name: Read Xcode version
+        id: xcode_version
+        run: echo "XCODE_VERSION=$(cat .xcode-version)" >> $GITHUB_ENV
+
+      - name: Setup Xcode using .xcode-version
+        uses: maxim-lobanov/setup-xcode@ed7a3b1fda3918c0306d1b724322adc0b8cc0a90
+        with:
+          xcode-version: ${{ env.XCODE_VERSION }}
 
       - name: Run build
         run: cargo run -p xtask -- build
 
       - name: Run all tests
         run: cargo run -p xtask -- test
+
+      - name: Generate SPM
+        run: mise spm
+
+      - name: Swift build
+        run: mise swift

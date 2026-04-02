@@ -68,7 +68,7 @@ spm-swift-package generate --name MyLib --platform ios
 | Flag | Short | Description | Required |
 |------|-------|-------------|----------|
 | `--name` | `-n` | Package name | Yes |
-| `--platform` | `-p` | Target platform: `ios`, `macos`, `tvos`, `watchos`, `visionos` | Yes |
+| `--platform` | `-p` | Target platform: `iOS`, `macOS`, `tvOS`, `watchOS`, `visionOS` | Yes |
 | `--test-framework` | `-t` | Test framework: `xctest` (default), `swift-testing` | No |
 | `--files` | `-f` | Optional files (repeatable): `changelog`, `readme`, `spi`, `swiftlint` | No |
 | `--open-xcode` | | Open the package in Xcode after generation | No |
