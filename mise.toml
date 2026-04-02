@@ -47,8 +47,13 @@ description = "Generate .tar.gz release artifacts using releasor"
 run = "releasor -f spm-swift-package"
 
 [tasks.changelog]
+description = "Generate changelog"
 run = "git cliff -o CHANGELOG.md"
 
-[tasks.generate]
+[tasks.spm]
 description = "Generate a Swift Package non-interactively"
 run = "cargo run -- generate --name MyLib --platform ios --test-framework xctest --files changelog --files readme"
+
+[tasks.swift]
+description = "Run Swift build"
+run = "cd MyLib && swift build"
