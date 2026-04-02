@@ -1,21 +1,15 @@
 <p align="center">
   <img src="https://raw.githubusercontent.com/heroesofcode/spm-swift-package/refs/heads/main/assets/icon.webp" width="300" />
   <br>
-
-  <a href="https://github.com/heroesofcode/spm-swift-package/releases">
-    <img src="https://img.shields.io/github/v/release/heroesofcode/spm-swift-package?style=flat&labelColor=1C2C2E&color=C96329&logo=GitHub&logoColor=white" /></a>
-    
+ 
   <a href="https://crates.io/crates/spm-swift-package">
-    <img src="https://img.shields.io/crates/v/spm-swift-package?style=flat&labelColor=1C2C2E&color=C96329&logo=Rust&logoColor=white" /></a>
+    <img src="https://img.shields.io/crates/v/spm-swift-package?style=for-the-badge&labelColor=1C2C2E&color=C96329&logo=Rust&logoColor=white" /></a>
     
   <a href="https://github.com/heroesofcode/spm-swift-package/actions/workflows/CI.yml">
-    <img src="https://img.shields.io/github/actions/workflow/status/heroesofcode/spm-swift-package/CI.yml?style=flat&labelColor=1C2C2E&label=CI&color=BEC5C9&logo=GitHub%20Actions&logoColor=BEC5C9" /></a>
-    
-  <a href="https://github.com/heroesofcode/spm-swift-package/actions/workflows/Release.yml">
-    <img src="https://img.shields.io/github/actions/workflow/status/heroesofcode/spm-swift-package/Release.yml?style=flat&labelColor=1C2C2E&color=BEC5C9&label=deploy&logo=GitHub%20Actions&logoColor=BEC5C9" /></a>
-    
+    <img src="https://img.shields.io/github/actions/workflow/status/heroesofcode/spm-swift-package/CI.yml?style=for-the-badge&labelColor=1C2C2E&label=CI&color=BEC5C9&logo=GitHub%20Actions&logoColor=BEC5C9" /></a>
+        
   <a href="https://github.com/heroesofcode/spm-swift-package/blob/main/LICENSE">
-    <img src="https://img.shields.io/badge/license-MIT-BEC5C9?style=flat&labelColor=1C2C2E&logoColor=BEC5C9" /></a>
+    <img src="https://img.shields.io/badge/license-MIT-BEC5C9?style=for-the-badge&labelColor=1C2C2E&logoColor=BEC5C9" /></a>
 </p>
 
 <p align="center">
