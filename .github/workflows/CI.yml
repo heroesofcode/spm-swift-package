@@ -16,6 +16,9 @@ jobs:
 
       - uses: Swatinem/rust-cache@f51f967e158417aafa338a1e46ab22095f07aa01
 
+      - name: Lint Markdown files
+        uses: rvben/rumdl@6540b53fa24e83f9693e36889e0f9c765aa90349
+
       - name: Read Xcode version
         id: xcode_version
         run: echo "XCODE_VERSION=$(cat .xcode-version)" >> $GITHUB_ENV
