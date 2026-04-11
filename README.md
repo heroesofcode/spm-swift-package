@@ -1,13 +1,13 @@
 <p align="center">
   <img src="https://raw.githubusercontent.com/heroesofcode/spm-swift-package/refs/heads/main/assets/icon.webp" width="300" />
   <br>
- 
+
   <a href="https://crates.io/crates/spm-swift-package">
     <img src="https://img.shields.io/crates/v/spm-swift-package?style=for-the-badge&labelColor=1C2C2E&color=C96329&logo=Rust&logoColor=white" /></a>
-    
+
   <a href="https://github.com/heroesofcode/spm-swift-package/actions/workflows/CI.yml">
     <img src="https://img.shields.io/github/actions/workflow/status/heroesofcode/spm-swift-package/CI.yml?style=for-the-badge&labelColor=1C2C2E&label=CI&color=BEC5C9&logo=GitHub%20Actions&logoColor=BEC5C9" /></a>
-        
+
   <a href="https://github.com/heroesofcode/spm-swift-package/blob/main/LICENSE">
     <img src="https://img.shields.io/badge/license-MIT-BEC5C9?style=for-the-badge&labelColor=1C2C2E&logoColor=BEC5C9" /></a>
 </p>
@@ -17,23 +17,26 @@
 </p>
 
 ## Features
+
 - 🚀 **Multi-platform:** iOS • macOS • tvOS • watchOS • visionOS  
 - 🛠️ **Auto-generated files:** Changelog • Readme • Swift Package Index • SwiftLint  
 - ✅ **SwiftLint integration:** Generates `.swiftlint.yml` using the [SwiftLintPlugin](https://github.com/lukepistrol/SwiftLintPlugin)  
 - 🧰 **Modern toolchain:** Compatible with Xcode 26.0  
 - ⚠️ **No legacy support:** Does not work with older Xcode versions  
-- 🖥️ **GUI support:** Optional graphical interface built with [Iced](https://github.com/iced-rs/iced), launched via `spm-swift-package ui`
+- 🖥️ **GUI support:** Optional graphical interface via [Iced](https://github.com/iced-rs/iced)
 
 ## Installing
 
-#### Cargo 🦀
+### Cargo 🦀
+
 Installing from [crates.io](https://crates.io/) (requires Rust/Cargo):
 
 ```shell
 cargo install spm-swift-package
 ```
 
-#### Homebrew 🍻
+### Homebrew 🍻
+
 You can install with [Homebrew](https://brew.sh/):
 
 ```shell
@@ -43,7 +46,7 @@ brew install heroesofcode/taps/spm-swift-package
 
 ## Usage
 
-#### Run CLI
+### Run CLI
 
 ```sh
 spm-swift-package
@@ -102,7 +105,8 @@ And from here you can continue working on your SPM project 🚀 🙂 👨‍💻
 
 ## Contributing
 
-To contribute, just fork this project and then open a pull request, feel free to contribute, bring ideas and raise any problem in the issue tab.
+To contribute, fork this project and open a pull request. Feel free to bring ideas and raise any
+problem in the issue tab.
 
 ## License
 

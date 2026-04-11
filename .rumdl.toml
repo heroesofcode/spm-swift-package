@@ -1,6 +1,6 @@
 [global]
-disable = ["MD024"]
+disable = ["MD024", "MD033", "MD041"]
+exclude = ["CHANGELOG.md", ".claude", "CLAUDE.md"]
 
 [MD013]
-code-block-line-length = 120
 line-length = 100
