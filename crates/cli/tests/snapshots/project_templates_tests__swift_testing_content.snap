@@ -1,0 +1,11 @@
+---
+source: crates/cli/tests/project_templates_tests.rs
+expression: "ProjectTemplates::test_content(\"MyLib\", \"Swift Testing\")"
+---
+import Testing
+@testable import MyLib
+
+@Test func example() {
+    // Swift Testing Documentation
+    // https://developer.apple.com/documentation/testing
+}

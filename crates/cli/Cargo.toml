@@ -17,3 +17,6 @@ tokio.workspace = true
 iced.workspace = true
 xx.workspace = true
 
+[dev-dependencies]
+insta.workspace = true
+

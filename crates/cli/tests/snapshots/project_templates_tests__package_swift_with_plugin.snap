@@ -1,0 +1,39 @@
+---
+source: crates/cli/tests/project_templates_tests.rs
+expression: "ProjectTemplates::package_swift_content(\"TestPkg\", \"macOS\", \"26\", true)"
+---
+// swift-tools-version: 6.2
+// The swift-tools-version declares the minimum version of Swift required to build this package.
+
+import PackageDescription
+
+let package = Package(
+    name: "TestPkg",
+    platforms: [
+        .macOS(.v26)
+    ],
+    products: [
+        // Products define the executables and libraries a package produces, making them visible to other packages.
+        .library(
+            name: "TestPkg",
+            targets: ["TestPkg"]
+        ),
+    ],
+    dependencies: [
+        .package(url: "https://github.com/lukepistrol/SwiftLintPlugin", exact: "0.63.1")
+    ],
+    targets: [
+        // Targets are the basic building blocks of a package, defining a module or a test suite.
+        // Targets can depend on other targets in this package and products from dependencies.
+        .target(
+            name: "TestPkg",
+            plugins: [
+                .plugin(name: "SwiftLint", package: "SwiftLintPlugin")
+            ]
+        ),
+        .testTarget(
+            name: "TestPkgTests",
+            dependencies: ["TestPkg"]
+        ),
+    ]
+)

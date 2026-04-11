@@ -1,0 +1,6 @@
+---
+source: crates/cli/tests/project_templates_tests.rs
+expression: "ProjectTemplates::project_swift_content()"
+---
+// The Swift Programming Language
+// https://docs.swift.org/swift-book/

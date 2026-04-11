@@ -1,0 +1,10 @@
+---
+source: crates/cli/tests/project_templates_tests.rs
+expression: "ProjectTemplates::changelog_content()"
+---
+# CHANGELOG
+
+## Version 1.0.0
+**2024-01-18**
+
+- First release
