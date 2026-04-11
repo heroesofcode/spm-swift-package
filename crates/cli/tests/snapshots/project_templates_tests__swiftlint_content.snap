@@ -1,0 +1,18 @@
+---
+source: crates/cli/tests/project_templates_tests.rs
+expression: "ProjectTemplates::swiftlint_content()"
+---
+disabled_rules:
+  - trailing_whitespace
+
+vertical_whitespace:
+    severity: error
+
+opt_in_rules:
+  - empty_count
+  - comma
+
+excluded:
+  - Pods
+  - Carthage
+  - Fastlane

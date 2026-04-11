@@ -1,0 +1,9 @@
+---
+source: crates/cli/tests/project_templates_tests.rs
+expression: "ProjectTemplates::spi_content(\"MyLib\")"
+---
+version: 1
+builder:
+  configs:
+    - documentation_targets: [MyLib]
+      scheme: MyLib

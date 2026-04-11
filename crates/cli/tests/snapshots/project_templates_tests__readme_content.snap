@@ -1,0 +1,5 @@
+---
+source: crates/cli/tests/project_templates_tests.rs
+expression: "ProjectTemplates::readme_content(\"MyProject\")"
+---
+# MyProject
