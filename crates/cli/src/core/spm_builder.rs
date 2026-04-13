@@ -15,7 +15,7 @@ pub struct SpmBuilder<F = ProjectFileWriter, P = PlatformValidator> {
 	selected_files: Vec<String>,
 }
 
-/// Constructor using the concrete default implementations (DIP: callers get defaults for free)
+/// Constructor using the concrete default implementations
 impl SpmBuilder {
 	pub fn new(project_name: impl Into<String>) -> Self {
 		Self {
@@ -69,7 +69,7 @@ impl<F: FileCreator, P: PlatformGenerator> SpmBuilder<F, P> {
 		self.generate_optional_files(name)
 	}
 
-	/// Dispatches optional file creation via a data-driven table (OCP: add entries here only)
+	/// Dispatches optional file creation via a data-driven table
 	fn generate_optional_files(&self, name: &str) -> Result<(), SpmError> {
 		let handlers: &[(&str, &FileHandler<'_>)] = &[
 			("Changelog", &|n| self.file_creator.create_changelog(n)),
@@ -82,6 +82,7 @@ impl<F: FileCreator, P: PlatformGenerator> SpmBuilder<F, P> {
 				handler(name)?;
 			}
 		}
+
 		Ok(())
 	}
 }

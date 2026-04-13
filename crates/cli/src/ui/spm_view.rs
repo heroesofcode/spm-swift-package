@@ -72,7 +72,7 @@ pub struct SpmView {
 	test_framework_error: bool,
 }
 
-/// Holds validated user inputs ready for project generation (SRP helper)
+/// Holds validated user inputs ready for project generation
 struct GenerateInputs {
 	platform: &'static str,
 	test_framework: &'static str,
@@ -128,7 +128,7 @@ impl SpmView {
 		}
 	}
 
-	/// Validates UI selections and collects them into a single value (SRP)
+	/// Validates UI selections and collects them into a single value
 	/// Returns `None` and sets the appropriate error flags if validation fails
 	fn validate_inputs(&mut self) -> Option<GenerateInputs> {
 		let platform = match &self.selected_platform {
@@ -166,9 +166,11 @@ impl SpmView {
 		if self.readme {
 			files.push("Readme");
 		}
+
 		if self.swift_package_index {
 			files.push("Swift Package Index");
 		}
+
 		if self.swiftlint {
 			files.push("SwiftLint");
 		}
@@ -181,7 +183,7 @@ impl SpmView {
 		})
 	}
 
-	/// Orchestrates project generation after successful input validation (SRP)
+	/// Orchestrates project generation after successful input validation
 	fn generate(&mut self) {
 		let Some(inputs) = self.validate_inputs() else {
 			return;

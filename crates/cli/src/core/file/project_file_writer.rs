@@ -5,16 +5,18 @@ use std::{
 use xx::file;
 
 use crate::core::error::SpmError;
-use crate::core::file::file_creator::FileCreator;
+use crate::core::file::file_creator::{
+	FileCreator, OptionalFileCreator, PackageCreator, ProjectCreator,
+};
 use crate::core::file::project_templates::ProjectTemplates;
 
 type Result<T> = std::result::Result<T, SpmError>;
 
 pub struct ProjectFileWriter;
 
-impl ProjectFileWriter {
-	/// Called directly by `PlatformValidator` — not part of the `FileCreator` trait.
-	pub fn create_package(
+impl PackageCreator for ProjectFileWriter {
+	fn create_package(
+		&self,
 		project_name: &str,
 		platform: &str,
 		version: &str,
@@ -26,24 +28,22 @@ impl ProjectFileWriter {
 	}
 }
 
-impl FileCreator for ProjectFileWriter {
-	fn create_project(&self, project_name: &str) -> std::result::Result<(), SpmError> {
+impl ProjectCreator for ProjectFileWriter {
+	fn create_project(&self, project_name: &str) -> Result<()> {
 		let content = ProjectTemplates::project_swift_content();
 		let file_path = module_dir(project_name).join(format!("{project_name}.swift"));
 		write(&file_path, content)
 	}
 
-	fn create_test_folder(
-		&self,
-		project_name: &str,
-		test_framework: &str,
-	) -> std::result::Result<(), SpmError> {
+	fn create_test_folder(&self, project_name: &str, test_framework: &str) -> Result<()> {
 		let content = ProjectTemplates::test_content(project_name, test_framework);
 		let file_path = tests_dir(project_name).join(format!("{project_name}Tests.swift"));
 		write(&file_path, content)
 	}
+}
 
-	fn create_changelog(&self, project_name: &str) -> std::result::Result<(), SpmError> {
+impl OptionalFileCreator for ProjectFileWriter {
+	fn create_changelog(&self, project_name: &str) -> Result<()> {
 		root_write(
 			project_name,
 			"CHANGELOG.md",
@@ -51,7 +51,7 @@ impl FileCreator for ProjectFileWriter {
 		)
 	}
 
-	fn create_readme(&self, project_name: &str) -> std::result::Result<(), SpmError> {
+	fn create_readme(&self, project_name: &str) -> Result<()> {
 		root_write(
 			project_name,
 			"README.md",
@@ -59,7 +59,7 @@ impl FileCreator for ProjectFileWriter {
 		)
 	}
 
-	fn create_spi(&self, project_name: &str) -> std::result::Result<(), SpmError> {
+	fn create_spi(&self, project_name: &str) -> Result<()> {
 		root_write(
 			project_name,
 			".spi.yml",
@@ -67,7 +67,7 @@ impl FileCreator for ProjectFileWriter {
 		)
 	}
 
-	fn create_swiftlint(&self, project_name: &str) -> std::result::Result<(), SpmError> {
+	fn create_swiftlint(&self, project_name: &str) -> Result<()> {
 		root_write(
 			project_name,
 			".swiftlint.yml",
@@ -75,6 +75,8 @@ impl FileCreator for ProjectFileWriter {
 		)
 	}
 }
+
+impl FileCreator for ProjectFileWriter {}
 
 fn module_dir(project_name: &str) -> PathBuf {
 	Path::new(project_name).join("Sources").join(project_name)

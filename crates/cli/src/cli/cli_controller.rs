@@ -5,6 +5,15 @@ use crate::core::error::SpmError;
 use crate::core::spm_builder::SpmBuilder;
 use crate::utils::xcode;
 
+/// Supported platforms
+const PLATFORMS: &[&str] = &["iOS", "macOS", "tvOS", "watchOS", "visionOS"];
+
+/// Supported test frameworks
+const TEST_FRAMEWORKS: &[&str] = &["XCTest", "Swift Testing"];
+
+/// Optional files available for inclusion
+const OPTIONAL_FILES: &[&str] = &["Changelog", "Swift Package Index", "Readme", "SwiftLint"];
+
 /// Controls all CLI interactions and orchestrates the project creation flow
 pub struct Cli;
 
@@ -107,7 +116,7 @@ impl Cli {
 		Self::multiselect_options(
 			"Add files",
 			"Do you want to add some of these files?",
-			&["Changelog", "Swift Package Index", "Readme", "SwiftLint"],
+			OPTIONAL_FILES,
 		)
 	}
 
@@ -118,7 +127,7 @@ impl Cli {
 			.description("Which platform do you want to choose?")
 			.filterable(true);
 
-		for option in ["iOS", "macOS", "tvOS", "watchOS", "visionOS"].iter() {
+		for option in PLATFORMS.iter() {
 			select = select.option(DemandOption::new(*option));
 		}
 
@@ -137,7 +146,7 @@ impl Cli {
 			.description("Which test framework do you want to use?")
 			.filterable(true);
 
-		for option in ["XCTest", "Swift Testing"].iter() {
+		for option in TEST_FRAMEWORKS.iter() {
 			select = select.option(DemandOption::new(*option));
 		}
 

@@ -1,4 +1,6 @@
-use spm_swift_package::core::file::file_creator::FileCreator;
+use spm_swift_package::core::file::file_creator::{
+	OptionalFileCreator, PackageCreator, ProjectCreator,
+};
 use spm_swift_package::core::file::project_file_writer::ProjectFileWriter;
 use std::path::Path;
 
@@ -26,7 +28,9 @@ fn test_structure_create() {
 
 	assert!(Path::new(&test_file).exists(), "Test file not created");
 
-	ProjectFileWriter::create_package(project_name, "macOS", "15", false).unwrap();
+	ProjectFileWriter
+		.create_package(project_name, "macOS", "15", false)
+		.unwrap();
 	assert!(Path::new(&format!("{}/Package.swift", project_name)).exists());
 
 	pf.create_changelog(project_name).unwrap();
