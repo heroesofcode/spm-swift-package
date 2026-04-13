@@ -72,6 +72,14 @@ pub struct SpmView {
 	test_framework_error: bool,
 }
 
+/// Holds validated user inputs ready for project generation (SRP helper)
+struct GenerateInputs {
+	platform: &'static str,
+	test_framework: &'static str,
+	project_name: String,
+	files: Vec<&'static str>,
+}
+
 /// Entry point to launch the iced application for the SPM GUI
 pub fn run() -> iced::Result {
 	iced::application(SpmView::default, SpmView::update, SpmView::view).run()
@@ -120,13 +128,14 @@ impl SpmView {
 		}
 	}
 
-	/// Validates selections, builds the project, and opens it in Xcode
-	fn generate(&mut self) {
+	/// Validates UI selections and collects them into a single value (SRP)
+	/// Returns `None` and sets the appropriate error flags if validation fails
+	fn validate_inputs(&mut self) -> Option<GenerateInputs> {
 		let platform = match &self.selected_platform {
 			Some(p) => p.as_str(),
 			None => {
 				self.platform_error = true;
-				return;
+				return None;
 			}
 		};
 
@@ -136,19 +145,19 @@ impl SpmView {
 			Some(f) => f.as_str(),
 			None => {
 				self.test_framework_error = true;
-				return;
+				return None;
 			}
 		};
 
 		self.test_framework_error = false;
 
-		let mut project_name = self.input_content.clone();
+		let project_name = if self.input_content.trim().is_empty() {
+			"Library".to_string()
+		} else {
+			self.input_content.clone()
+		};
 
-		if project_name.trim().is_empty() {
-			project_name = "Library".to_string();
-		}
-
-		let mut files = Vec::new();
+		let mut files: Vec<&'static str> = Vec::new();
 
 		if self.changelog {
 			files.push("Changelog");
@@ -157,18 +166,36 @@ impl SpmView {
 		if self.readme {
 			files.push("Readme");
 		}
-
 		if self.swift_package_index {
 			files.push("Swift Package Index");
 		}
-
 		if self.swiftlint {
 			files.push("SwiftLint");
 		}
 
+		Some(GenerateInputs {
+			platform,
+			test_framework,
+			project_name,
+			files,
+		})
+	}
+
+	/// Orchestrates project generation after successful input validation (SRP)
+	fn generate(&mut self) {
+		let Some(inputs) = self.validate_inputs() else {
+			return;
+		};
+
 		tokio::spawn(async move {
-			if SpmBuilder::create(&project_name, &files, &[platform], test_framework).is_ok() {
-				let name = project_name;
+			let result = SpmBuilder::new(&inputs.project_name)
+				.platform(inputs.platform)
+				.test_framework(inputs.test_framework)
+				.files(inputs.files.iter().copied())
+				.build();
+
+			if result.is_ok() {
+				let name = inputs.project_name;
 				std::mem::drop(tokio::task::spawn_blocking(move || {
 					xcode::open_xcode(&name)
 				}));

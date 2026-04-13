@@ -1,50 +1,87 @@
-use crate::core::file::project_file::*;
-use crate::core::platform_validator::*;
+use crate::core::error::SpmError;
+use crate::core::file::file_creator::FileCreator;
+use crate::core::file::project_file_writer::ProjectFileWriter;
+use crate::core::platform_validator::{PlatformGenerator, PlatformValidator};
 
-/// Handles the creation of all project components based on selected options
-pub struct SpmBuilder;
+type FileHandler<'a> = dyn Fn(&str) -> Result<(), SpmError> + 'a;
 
+/// Builds a Swift Package Manager project using a fluent builder API
+pub struct SpmBuilder<F = ProjectFileWriter, P = PlatformValidator> {
+	file_creator: F,
+	platform_gen: P,
+	project_name: String,
+	platforms: Vec<String>,
+	test_framework: String,
+	selected_files: Vec<String>,
+}
+
+/// Constructor using the concrete default implementations (DIP: callers get defaults for free)
 impl SpmBuilder {
-	/// Builds the project structure, templates, and optional configuration files
-	pub fn create<T: AsRef<str>>(
-		project_name: &str,
-		selected_files: &[T],
-		platforms: &[&str],
-		test_framework: &str,
-	) -> Result<(), String> {
-		ProjectFile::create_project(project_name)?;
-		ProjectFile::create_test_folder(project_name, test_framework)?;
-
-		let has_swiftlint = selected_files.iter().any(|f| f.as_ref() == "SwiftLint");
-		PlatformValidator::generate_platform(project_name, platforms.to_vec(), has_swiftlint);
-
-		if has_swiftlint {
-			ProjectFile::create_swiftlint(project_name)?;
+	pub fn new(project_name: impl Into<String>) -> Self {
+		Self {
+			file_creator: ProjectFileWriter,
+			platform_gen: PlatformValidator,
+			project_name: project_name.into(),
+			platforms: Vec::new(),
+			test_framework: "XCTest".to_string(),
+			selected_files: Vec::new(),
 		}
+	}
+}
 
-		Self::generate_optional_files(project_name, selected_files)
+impl<F: FileCreator, P: PlatformGenerator> SpmBuilder<F, P> {
+	/// Adds a target platform (e.g. "iOS", "macOS")
+	pub fn platform(mut self, platform: impl Into<String>) -> Self {
+		self.platforms.push(platform.into());
+		self
 	}
 
-	/// Generates optional files based on user selection
-	fn generate_optional_files<T: AsRef<str>>(
-		project_name: &str,
-		selected_files: &[T],
-	) -> Result<(), String> {
-		if selected_files.iter().any(|f| f.as_ref() == "Changelog") {
-			ProjectFile::create_changelog(project_name)?;
+	/// Sets the test framework ("XCTest" or "Swift Testing")
+	pub fn test_framework(mut self, framework: impl Into<String>) -> Self {
+		self.test_framework = framework.into();
+		self
+	}
+
+	/// Adds optional files to include (e.g. "Changelog", "Readme", "SwiftLint")
+	pub fn files(mut self, files: impl IntoIterator<Item = impl Into<String>>) -> Self {
+		self
+			.selected_files
+			.extend(files.into_iter().map(Into::into));
+		self
+	}
+
+	/// Generates the project structure on disk
+	pub fn build(self) -> Result<(), SpmError> {
+		let name = &self.project_name;
+		let has_swiftlint = self.selected_files.iter().any(|f| f == "SwiftLint");
+		let platforms: Vec<&str> = self.platforms.iter().map(|s| s.as_str()).collect();
+
+		self.file_creator.create_project(name)?;
+		self
+			.file_creator
+			.create_test_folder(name, &self.test_framework)?;
+		self.platform_gen.generate(name, platforms, has_swiftlint)?;
+
+		if has_swiftlint {
+			self.file_creator.create_swiftlint(name)?;
 		}
 
-		if selected_files.iter().any(|f| f.as_ref() == "Readme") {
-			ProjectFile::create_readme(project_name)?;
-		}
+		self.generate_optional_files(name)
+	}
 
-		if selected_files
-			.iter()
-			.any(|f| f.as_ref() == "Swift Package Index")
-		{
-			ProjectFile::create_spi(project_name)?;
-		}
+	/// Dispatches optional file creation via a data-driven table (OCP: add entries here only)
+	fn generate_optional_files(&self, name: &str) -> Result<(), SpmError> {
+		let handlers: &[(&str, &FileHandler<'_>)] = &[
+			("Changelog", &|n| self.file_creator.create_changelog(n)),
+			("Readme", &|n| self.file_creator.create_readme(n)),
+			("Swift Package Index", &|n| self.file_creator.create_spi(n)),
+		];
 
+		for file in &self.selected_files {
+			if let Some((_, handler)) = handlers.iter().find(|(key, _)| *key == file.as_str()) {
+				handler(name)?;
+			}
+		}
 		Ok(())
 	}
 }

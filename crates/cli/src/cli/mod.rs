@@ -1,6 +1,7 @@
 pub mod cli_controller;
 pub use cli_controller::Cli;
 
+use crate::core::error::SpmError;
 use clap::{Parser, Subcommand, ValueEnum};
 
 /// Defines :the CLI arguments accepted by the application
@@ -39,7 +40,7 @@ pub enum Command {
 }
 
 /// Dispatches CLI arguments to the appropriate execution path
-pub async fn run(args: Args) -> Result<(), String> {
+pub async fn run(args: Args) -> Result<(), SpmError> {
 	match args.command {
 		Some(Command::UI) => {
 			let _ = crate::ui::spm_view::run();
@@ -52,12 +53,11 @@ pub async fn run(args: Args) -> Result<(), String> {
 			files,
 			open_xcode,
 		}) => {
-			crate::core::spm_builder::SpmBuilder::create(
-				&name,
-				&files,
-				&[platform.as_str()],
-				test_framework.as_str(),
-			)?;
+			crate::core::spm_builder::SpmBuilder::new(&name)
+				.platform(platform.as_str())
+				.test_framework(test_framework.as_str())
+				.files(files.iter().map(|f| f.as_str()))
+				.build()?;
 
 			println!("Package '{}' generated.", name);
 

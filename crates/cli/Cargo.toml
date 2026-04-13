@@ -16,6 +16,7 @@ colored.workspace = true
 tokio.workspace = true
 iced.workspace = true
 xx.workspace = true
+thiserror.workspace = true
 
 [dev-dependencies]
 insta.workspace = true
