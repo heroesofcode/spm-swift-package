@@ -41,7 +41,6 @@ impl Cli {
 	// Internal functions
 
 	/// Prompts the user to input the library or module name
-	/// Validates that the name is not empty
 	fn project_name_input() -> Result<String, SpmError> {
 		let validation_empty = |s: &str| {
 			if s.is_empty() {
@@ -66,7 +65,6 @@ impl Cli {
 	}
 
 	/// Creates a generic multiselect component with a prompt, description, and list of options
-	/// Ensures at least one option is selected before continuing
 	fn multiselect_options(
 		prompt: &str,
 		description: &str,
@@ -121,7 +119,6 @@ impl Cli {
 	}
 
 	/// Displays a select input for platform choice
-	/// The result is always a single selected platform
 	fn select_platform() -> Result<&'static str, SpmError> {
 		let mut select = Select::new("Choose platform")
 			.description("Which platform do you want to choose?")
@@ -160,7 +157,6 @@ impl Cli {
 	}
 
 	/// Shows a loading spinner while running a simulated build step
-	/// Uses a 5 second delay for effect
 	async fn loading() -> Result<(), SpmError> {
 		Spinner::new("Building the Package...")
 			.style(&SpinnerStyle::line())
@@ -171,7 +167,6 @@ impl Cli {
 	}
 
 	/// Asks the user whether to open the generated package in Xcode
-	/// Opens Xcode if confirmed, otherwise returns without opening Xcode
 	fn confirm_open_xcode(project_name: String) -> Result<(), SpmError> {
 		let is_yes = Confirm::new("Do you want to open the package in Xcode?")
 			.affirmative("Yes")

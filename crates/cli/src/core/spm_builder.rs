@@ -3,8 +3,6 @@ use crate::core::file::file_creator::FileCreator;
 use crate::core::file::project_file_writer::ProjectFileWriter;
 use crate::core::platform_validator::{PlatformGenerator, PlatformValidator};
 
-type FileHandler<'a> = dyn Fn(&str) -> Result<(), SpmError> + 'a;
-
 /// Builds a Swift Package Manager project using a fluent builder API
 pub struct SpmBuilder<F = ProjectFileWriter, P = PlatformValidator> {
 	file_creator: F,
@@ -71,17 +69,14 @@ impl<F: FileCreator, P: PlatformGenerator> SpmBuilder<F, P> {
 		self.generate_optional_files(name)
 	}
 
-	/// Dispatches optional file creation via a data-driven table
+	/// Creates each optional file that was selected
 	fn generate_optional_files(&self, name: &str) -> Result<(), SpmError> {
-		let handlers: &[(&str, &FileHandler<'_>)] = &[
-			("Changelog", &|n| self.file_creator.create_changelog(n)),
-			("Readme", &|n| self.file_creator.create_readme(n)),
-			("Swift Package Index", &|n| self.file_creator.create_spi(n)),
-		];
-
 		for file in &self.selected_files {
-			if let Some((_, handler)) = handlers.iter().find(|(key, _)| *key == file.as_str()) {
-				handler(name)?;
+			match file.as_str() {
+				"Changelog" => self.file_creator.create_changelog(name)?,
+				"Readme" => self.file_creator.create_readme(name)?,
+				"Swift Package Index" => self.file_creator.create_spi(name)?,
+				_ => {}
 			}
 		}
 
