@@ -1,15 +1,25 @@
 use colored::Colorize;
 use demand::{Confirm, DemandOption, Input, MultiSelect, Select, Spinner, SpinnerStyle};
 
-use crate::core::spm_builder::*;
+use crate::core::error::SpmError;
+use crate::core::spm_builder::SpmBuilder;
 use crate::utils::xcode;
+
+/// Supported platforms
+const PLATFORMS: &[&str] = &["iOS", "macOS", "tvOS", "watchOS", "visionOS"];
+
+/// Supported test frameworks
+const TEST_FRAMEWORKS: &[&str] = &["XCTest", "Swift Testing"];
+
+/// Optional files available for inclusion
+const OPTIONAL_FILES: &[&str] = &["Changelog", "Swift Package Index", "Readme", "SwiftLint"];
 
 /// Controls all CLI interactions and orchestrates the project creation flow
 pub struct Cli;
 
 impl Cli {
 	/// Executes the complete flow: prompts user input, builds the project, and opens it in Xcode
-	pub async fn execute_flow() -> Result<(), String> {
+	pub async fn execute_flow() -> Result<(), SpmError> {
 		let project_name = Self::project_name_input()?;
 		let file_selected = Self::multiselect_files()?;
 		let platform_selected = Self::select_platform()?;
@@ -17,12 +27,11 @@ impl Cli {
 
 		Self::loading().await?;
 
-		SpmBuilder::create(
-			&project_name,
-			&file_selected,
-			&[platform_selected],
-			test_framework,
-		)?;
+		SpmBuilder::new(&project_name)
+			.platform(platform_selected)
+			.test_framework(test_framework)
+			.files(file_selected.iter().copied())
+			.build()?;
 
 		Self::confirm_open_xcode(project_name)?;
 
@@ -33,7 +42,7 @@ impl Cli {
 
 	/// Prompts the user to input the library or module name
 	/// Validates that the name is not empty
-	fn project_name_input() -> Result<String, String> {
+	fn project_name_input() -> Result<String, SpmError> {
 		let validation_empty = |s: &str| {
 			if s.is_empty() {
 				Err("Library name cannot be empty")
@@ -49,9 +58,9 @@ impl Cli {
 
 		input.run().map_err(|e| {
 			if e.kind() == std::io::ErrorKind::Interrupted {
-				"Operation interrupted by user".to_string()
+				SpmError::Interrupted
 			} else {
-				format!("Error getting library name: {}", e)
+				SpmError::Io(e)
 			}
 		})
 	}
@@ -62,7 +71,7 @@ impl Cli {
 		prompt: &str,
 		description: &str,
 		options: &[&'static str],
-	) -> Result<Vec<&'static str>, String> {
+	) -> Result<Vec<&'static str>, SpmError> {
 		loop {
 			let mut multiselect = MultiSelect::new(prompt)
 				.description(description)
@@ -76,9 +85,9 @@ impl Cli {
 				Ok(selection) => selection,
 				Err(e) => {
 					if e.kind() == std::io::ErrorKind::Interrupted {
-						return Err("Operation interrupted by user".to_string());
+						return Err(SpmError::Interrupted);
 					} else {
-						return Err(format!("Error selecting options: {}", e));
+						return Err(SpmError::Io(e));
 					}
 				}
 			};
@@ -103,76 +112,76 @@ impl Cli {
 	}
 
 	/// Defines the file options available for selection (Changelog, SPI, README, SwiftLint)
-	fn multiselect_files() -> Result<Vec<&'static str>, String> {
+	fn multiselect_files() -> Result<Vec<&'static str>, SpmError> {
 		Self::multiselect_options(
 			"Add files",
 			"Do you want to add some of these files?",
-			&["Changelog", "Swift Package Index", "Readme", "SwiftLint"],
+			OPTIONAL_FILES,
 		)
 	}
 
 	/// Displays a select input for platform choice
 	/// The result is always a single selected platform
-	fn select_platform() -> Result<&'static str, String> {
+	fn select_platform() -> Result<&'static str, SpmError> {
 		let mut select = Select::new("Choose platform")
 			.description("Which platform do you want to choose?")
 			.filterable(true);
 
-		for option in ["iOS", "macOS", "tvOS", "watchOS", "visionOS"].iter() {
+		for option in PLATFORMS.iter() {
 			select = select.option(DemandOption::new(*option));
 		}
 
 		select.run().map_err(|e| {
 			if e.kind() == std::io::ErrorKind::Interrupted {
-				"Operation interrupted by user".to_string()
+				SpmError::Interrupted
 			} else {
-				format!("Error selecting platform: {}", e)
+				SpmError::Io(e)
 			}
 		})
 	}
 
 	/// Displays a select input for test framework choice
-	fn select_test_framework() -> Result<&'static str, String> {
+	fn select_test_framework() -> Result<&'static str, SpmError> {
 		let mut select = Select::new("Choose test framework")
 			.description("Which test framework do you want to use?")
 			.filterable(true);
 
-		for option in ["XCTest", "Swift Testing"].iter() {
+		for option in TEST_FRAMEWORKS.iter() {
 			select = select.option(DemandOption::new(*option));
 		}
 
 		select.run().map_err(|e| {
 			if e.kind() == std::io::ErrorKind::Interrupted {
-				"Operation interrupted by user".to_string()
+				SpmError::Interrupted
 			} else {
-				format!("Error selecting test framework: {}", e)
+				SpmError::Io(e)
 			}
 		})
 	}
 
 	/// Shows a loading spinner while running a simulated build step
 	/// Uses a 5 second delay for effect
-	async fn loading() -> Result<(), String> {
+	async fn loading() -> Result<(), SpmError> {
 		Spinner::new("Building the Package...")
 			.style(&SpinnerStyle::line())
 			.run(|_| {
 				std::thread::sleep(std::time::Duration::from_secs(5));
 			})
-			.map_err(|_| "Error running spinner".to_string())
+			.map_err(SpmError::Io)
 	}
 
 	/// Asks the user whether to open the generated package in Xcode
 	/// Opens Xcode if confirmed, otherwise returns without opening Xcode
-	fn confirm_open_xcode(project_name: String) -> Result<(), String> {
+	fn confirm_open_xcode(project_name: String) -> Result<(), SpmError> {
 		let is_yes = Confirm::new("Do you want to open the package in Xcode?")
 			.affirmative("Yes")
 			.negative("No")
 			.run()
 			.map_err(|e| {
 				if e.kind() == std::io::ErrorKind::Interrupted {
-					"Operation interrupted by user".to_string()
+					SpmError::Interrupted
 				} else {
-					"Error running confirm".to_string()
+					SpmError::Io(e)
 				}
 			})?;
 
