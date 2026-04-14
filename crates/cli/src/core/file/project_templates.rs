@@ -9,7 +9,6 @@ impl ProjectTemplates {
 	const SWIFTLINT_PLUGIN_VERSION: &'static str = "0.63.1";
 
 	/// Returns the default Swift source file template
-	/// Used to generate the main `{name}.swift` file inside Sources
 	pub fn project_swift_content() -> Cow<'static, str> {
 		Cow::Borrowed(
 			r#"// The Swift Programming Language
@@ -19,7 +18,6 @@ impl ProjectTemplates {
 	}
 
 	/// Returns the test file template based on the selected framework
-	/// Supports XCTest and Swift Testing
 	pub fn test_content(project_name: &str, test_framework: &str) -> Cow<'static, str> {
 		match test_framework {
 			"Swift Testing" => Cow::Owned(format!(
@@ -53,12 +51,6 @@ final class {name}Tests: XCTestCase {{
 	}
 
 	/// Returns the Package.swift template
-	/// Supports two variants: plugin-enabled or standard package
-	///
-	/// * `project_name` - name of the Swift package
-	/// * `platform` - selected platform such as iOS or macOS
-	/// * `version` - minimum deployment version
-	/// * `is_plugin` - adds SwiftLint plugin configuration when true
 	pub fn package_swift_content(
 		project_name: &str,
 		platform: &str,
@@ -130,7 +122,6 @@ let package = Package(
 	}
 
 	/// Returns the default CHANGELOG.md template
-	/// Used when the Changelog option is selected
 	pub fn changelog_content() -> Cow<'static, str> {
 		Cow::Borrowed(
 			r#"# CHANGELOG
@@ -144,13 +135,11 @@ let package = Package(
 	}
 
 	/// Returns the README.md template
-	/// Includes only the project title by default
 	pub fn readme_content(project_name: &str) -> Cow<'static, str> {
 		Cow::Owned(format!("# {name}\n", name = project_name))
 	}
 
 	/// Returns the .spi.yml template for Swift Package Index configuration
-	/// Defines documentation targets and scheme attributes
 	pub fn spi_content(project_name: &str) -> Cow<'static, str> {
 		Cow::Owned(format!(
 			r#"version: 1
@@ -164,7 +153,6 @@ builder:
 	}
 
 	/// Returns a default SwiftLint configuration template
-	/// Includes baseline rules, opt-in rules, and excluded directories
 	pub fn swiftlint_content() -> Cow<'static, str> {
 		Cow::Borrowed(
 			r#"disabled_rules:

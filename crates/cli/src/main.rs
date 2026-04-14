@@ -8,7 +8,6 @@ use clap::Parser;
 use cli::Args;
 
 /// Entry point of the application
-/// Uses Tokio runtime to support async operations in the CLI flow
 #[tokio::main]
 async fn main() {
 	let args = Args::parse();

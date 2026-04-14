@@ -21,8 +21,7 @@ pub trait PlatformGenerator {
 	) -> Result<(), SpmError>;
 }
 
-/// Validates and generates the appropriate platform configuration using the injected
-/// [`PackageCreator`] implementation (the same object as `SpmBuilder`'s file creator).
+/// Validates and generates the appropriate platform configuration
 pub struct PlatformValidator;
 
 impl PlatformGenerator for PlatformValidator {

@@ -4,8 +4,7 @@ pub use cli_controller::Cli;
 use crate::core::error::SpmError;
 use clap::{Parser, Subcommand, ValueEnum};
 
-/// Defines :the CLI arguments accepted by the application
-/// Uses Clap to support a subcommand-based interface
+/// Defines the CLI arguments accepted by the application
 #[derive(Parser)]
 pub struct Args {
 	/// Optional subcommand that defines an alternative execution flow
@@ -14,7 +13,6 @@ pub struct Args {
 }
 
 /// Represents the available CLI subcommands
-/// UI triggers the graphical mode instead of the terminal flow
 #[derive(Subcommand)]
 pub enum Command {
 	/// Runs the UI mode using the iced-based interface
