@@ -25,5 +25,5 @@ pub trait PackageCreator {
 	) -> Result<(), SpmError>;
 }
 
-/// Supertrait combining core and optional file creation
-pub trait FileCreator: ProjectCreator + OptionalFileCreator {}
+/// Supertrait combining manifest, core, and optional file creation
+pub trait FileCreator: ProjectCreator + OptionalFileCreator + PackageCreator {}

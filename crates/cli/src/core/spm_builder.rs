@@ -60,7 +60,9 @@ impl<F: FileCreator, P: PlatformGenerator> SpmBuilder<F, P> {
 		self
 			.file_creator
 			.create_test_folder(name, &self.test_framework)?;
-		self.platform_gen.generate(name, platforms, has_swiftlint)?;
+		self
+			.platform_gen
+			.generate(&self.file_creator, name, platforms, has_swiftlint)?;
 
 		if has_swiftlint {
 			self.file_creator.create_swiftlint(name)?;
