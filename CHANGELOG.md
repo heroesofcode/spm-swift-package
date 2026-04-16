@@ -1,5 +1,22 @@
 # CHANGELOG
 
+## [0.13.3] - 2026-04-16
+
+### Refactor
+
+- Simplify doc comments and optional file dispatch ([#301](https://github.com/heroesofcode/spm-swift-package/pull/301))
+- Setup SpmError type and improving code ([#299](https://github.com/heroesofcode/spm-swift-package/pull/299))
+
+### Testing
+
+- Migrate project_templates_tests to insta snapshot testing ([#297](https://github.com/heroesofcode/spm-swift-package/pull/297))
+
+### Ci
+
+- Add Markdown linting step to CI workflow ([#296](https://github.com/heroesofcode/spm-swift-package/pull/296))
+
+
+
 ## [0.13.2] - 2026-04-02
 
 ### Documentation
