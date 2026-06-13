@@ -2402,7 +2402,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7d8fae84b431384b68627d0f9b3b1245fcf9f46f6c0e3dc902e9dce64edd1967"
 dependencies = [
  "libc",
- "windows-sys 0.52.0",
+ "windows-sys 0.45.0",
 ]
 
 [[package]]
@@ -4683,9 +4683,9 @@ dependencies = [
 
 [[package]]
 name = "xx"
-version = "2.6.0"
+version = "2.6.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0f87a0bd775afa76eb9e103d9bd3b9c71560fd6c02b685b3c730d27b613514a3"
+checksum = "f8aff208388ac09afbb2bd20c3db8f7d253c9fbed7076e3618d598bb3deef2c5"
 dependencies = [
  "duct",
  "filetime",
