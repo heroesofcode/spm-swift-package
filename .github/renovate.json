@@ -25,6 +25,18 @@
       "matchStrings": [
         "channel\\s*=\\s*\"(?<currentValue>\\d+\\.\\d+(\\.\\d+)?)\""
       ]
+    },
+    {
+      "customType": "regex",
+      "depNameTemplate": "lukepistrol/SwiftLintPlugin",
+      "packageNameTemplate": "lukepistrol/SwiftLintPlugin",
+      "datasourceTemplate": "github-releases",
+      "managerFilePatterns": [
+        "/(^|/)crates/cli/src/core/file/project_templates\\.rs$/"
+      ],
+      "matchStrings": [
+        "SWIFTLINT_PLUGIN_VERSION:\\s*&'static str = \"(?<currentValue>[^\"]+)\""
+      ]
     }
   ]
 }
