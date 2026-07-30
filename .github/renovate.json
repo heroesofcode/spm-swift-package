@@ -12,7 +12,7 @@
   ],
   "commitMessagePrefix": "chore(deps):",
   "commitMessageAction": "update",
-  "commitMessageTopic": "{{depName}} to v{{newVersion}}",
+  "commitMessageTopic": "{{depName}}",
   "customManagers": [
     {
       "customType": "regex",
