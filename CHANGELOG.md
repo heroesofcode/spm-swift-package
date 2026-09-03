@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## [0.13.4] - 2026-09-03
+
+### Dependency Updates
+
+- Update lukepistrol/SwiftLintPlugin to v0.65.0 ([#331](https://github.com/heroesofcode/spm-swift-package/pull/331))
+
+
+
 ## [0.13.3] - 2026-06-25
 
 ### Refactor
